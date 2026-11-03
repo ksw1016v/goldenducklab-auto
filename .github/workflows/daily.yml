@@ -1,0 +1,56 @@
+name: daily-post
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # 매일 09:00 KST (00:00 UTC)
+  workflow_dispatch:       # 수동 실행 버튼
+
+permissions:
+  contents: write
+
+concurrency: daily-post
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 다음 편 확인
+        id: pick
+        run: echo "no=$(python3 publish.py next)" >> "$GITHUB_OUTPUT"
+
+      - name: 대기열 비어 있음
+        if: steps.pick.outputs.no == ''
+        run: echo "::warning::게시할 편이 없어요. episodes 폴더에 새 편을 추가해 주세요."
+
+      - name: 한글 폰트와 브라우저 설치
+        if: steps.pick.outputs.no != ''
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk
+          pip install -q playwright==1.48.0
+          python -m playwright install --with-deps chromium
+
+      - name: 카드뉴스 렌더링 후 저장소에 올리기
+        if: steps.pick.outputs.no != ''
+        run: |
+          NO=$(printf "%02d" ${{ steps.pick.outputs.no }})
+          python3 render.py episodes/$NO.json
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add out/$NO
+          git commit -m "render episode $NO" || true
+          git push
+          echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: 인스타그램 게시
+        if: steps.pick.outputs.no != ''
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 20
+          python3 publish.py post ${{ steps.pick.outputs.no }}
+          git add state.json
+          git commit -m "published episode ${{ steps.pick.outputs.no }}"
+          git push

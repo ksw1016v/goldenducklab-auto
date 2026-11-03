@@ -1,0 +1,20 @@
+name: refresh-token
+
+# 인스타 장기 토큰은 60일 뒤 만료돼요. 매달 1일 연장 요청을 보내서 살려 둡니다.
+on:
+  schedule:
+    - cron: "0 1 1 * *"
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 토큰 연장
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          code=$(curl -s -o /tmp/r.json -w "%{http_code}" \
+            "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${IG_TOKEN}")
+          python3 -c "import json;d=json.load(open('/tmp/r.json'));print('만료까지(초):',d.get('expires_in'), d.get('error',''))"
+          test "$code" = "200"
