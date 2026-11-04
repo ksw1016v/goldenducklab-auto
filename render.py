@@ -33,10 +33,21 @@ h2{font-size:64px;line-height:1.3;font-weight:900;letter-spacing:-1px;margin-bot
 .check{display:flex;gap:22px;align-items:center;font-size:38px;font-weight:700;padding:22px 0;border-bottom:2px solid #F5DFA8}
 .box{flex:none;width:52px;height:52px;border:5px solid #C98A3D;border-radius:12px;background:#fff}
 .cover-duck{position:absolute;right:56px;bottom:130px;width:300px}
+.sub{max-width:600px}
 .end{align-items:center;text-align:center}
 .end img{width:430px;margin-bottom:30px}
 .cta{background:#5C2E0E;color:#FFF6E0;font-size:40px;font-weight:900;padding:30px 50px;border-radius:999px;margin-top:40px;display:inline-block}
 .next{font-size:32px;margin-top:34px;color:#C98A3D;font-weight:700}
+.ticker{font-size:150px;font-weight:900;letter-spacing:-3px;line-height:1;color:#5C2E0E}
+.ename{font-size:34px;color:#7a4a28;margin-top:14px;font-weight:500}
+.chip{display:inline-block;align-self:flex-start;background:#F5B800;font-size:30px;font-weight:700;padding:10px 26px;border-radius:999px;margin-top:22px}
+.kv{display:flex;justify-content:space-between;gap:30px;font-size:34px;padding:20px 0;border-bottom:2px solid #F5DFA8}
+.kv span{color:#C98A3D;font-weight:700;flex:none}.kv b{text-align:right}
+.drow{display:flex;align-items:center;gap:28px;background:#fff;border:3px solid #F5DFA8;border-radius:28px;padding:30px 36px;margin-bottom:22px}
+.dy{flex:none;width:120px;height:120px;border-radius:50%;background:#F5B800;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900}
+.dv{flex:1}.dpr{font-size:30px;color:#7a4a28}.dval{font-size:56px;font-weight:900;letter-spacing:-1px}
+.dret{font-size:40px;font-weight:900;color:#4E7D22}.dret.neg{color:#D9534F}
+.disc{font-size:24px;color:#9a7a5a;margin-top:18px;line-height:1.5}
 """
 
 def esc(s):  # 허용 태그(mark, span.pink, br)만 살리고 나머지 이스케이프
@@ -62,6 +73,14 @@ def slide(ep, s, i, n):
         items = "".join(f'<div class="check"><div class="box"></div>{esc(t)}</div>' for t in s["items"])
         tip = f'<div class="tip" style="margin-top:34px">{esc(s["tip"])}</div>' if s.get("tip") else ""
         body = f'<div class="main"><h2>{esc(s["title"])}</h2>{items}{tip}</div>'
+    elif k == "etf_info":
+        rows = "".join(f'<div class="kv"><span>{esc(a)}</span><b>{esc(b)}</b></div>' for a, b in s["rows"])
+        body = f"""<div class="main"><div class="ticker">{esc(s['ticker'])}</div><div class="ename">{esc(s['name'])}</div>
+<div class="chip">{esc(s['category'])}</div><div class="lead" style="margin-top:28px">{esc(s['desc'])}</div>{rows}</div>"""
+    elif k == "dca":
+        rows = "".join(f"""<div class="drow"><div class="dy">{esc(y)}</div><div class="dv"><div class="dpr">{"원금 " + esc(p) if p != "-" else "이 시점엔 아직 상장 전"}</div>
+<div class="dval">{esc(v)}</div></div><div class="dret {'neg' if r.startswith('-') else ''}">{esc(r)}</div></div>""" for y, p, v, r in s["rows"])
+        body = f"""<div class="main"><h2>{esc(s['title'])}</h2>{rows}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
     elif k == "end":
         body = f"""<div class="main end"><img src="{uri('logo.png')}"><h2 style="margin-bottom:10px">{esc(s['title'])}</h2>
 <div class="lead" style="margin:0">{esc(s['sub'])}</div><div><span class="cta">{esc(s['cta'])}</span></div>
