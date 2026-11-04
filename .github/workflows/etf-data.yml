@@ -1,0 +1,29 @@
+name: etf-data
+
+# ETF 100개 적립식 투자 시뮬레이션 데이터 갱신 (수동 실행 + 매달 1일)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 1 * *"
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q yfinance pandas
+      - run: python etf/backtest.py
+      - name: 결과 저장
+        run: |
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add etf/results.csv etf/results.json
+          git commit -m "update ETF backtest data" || exit 0
+          git pull --rebase
+          git push

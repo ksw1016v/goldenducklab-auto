@@ -1,0 +1,101 @@
+symbol,ticker,name,market,category,invests,desc
+SPY,SPY,SPDR S&P 500 ETF Trust,US,미국 대표지수,미국 대형주 500개(S&P 500),1993년 상장한 세계 최초·최대급 ETF로 미국 대표 기업 500곳에 한 번에 투자
+VOO,VOO,Vanguard S&P 500 ETF,US,미국 대표지수,미국 대형주 500개(S&P 500),SPY와 같은 지수를 더 낮은 보수로 추종하는 뱅가드의 S&P 500 ETF
+IVV,IVV,iShares Core S&P 500 ETF,US,미국 대표지수,미국 대형주 500개(S&P 500),블랙록이 운용하는 저보수 S&P 500 ETF
+VTI,VTI,Vanguard Total Stock Market ETF,US,미국 대표지수,미국 상장 주식 전체(약 3500종목 이상),대형주부터 소형주까지 미국 주식시장 전체에 투자
+QQQ,QQQ,Invesco QQQ Trust,US,미국 대표지수,나스닥 비금융 대형주 100개(나스닥100),애플·마이크로소프트·엔비디아 등 기술주 비중이 높은 나스닥100 추종
+QQQM,QQQM,Invesco NASDAQ 100 ETF,US,미국 대표지수,나스닥 비금융 대형주 100개(나스닥100),QQQ와 같은 지수를 더 낮은 보수로 추종하는 장기투자용 버전
+DIA,DIA,SPDR Dow Jones Industrial Average ETF,US,미국 대표지수,미국 우량주 30개(다우존스30),미국을 대표하는 우량 대기업 30곳으로 구성된 다우지수 추종
+IWM,IWM,iShares Russell 2000 ETF,US,미국 대표지수,미국 소형주 2000개(러셀2000),미국 중소형 기업 2000곳에 분산투자
+RSP,RSP,Invesco S&P 500 Equal Weight ETF,US,미국 대표지수,S&P 500 종목을 같은 비중으로,500개 기업을 시가총액과 관계없이 똑같은 비중으로 담는 동일가중 ETF
+VT,VT,Vanguard Total World Stock ETF,US,글로벌,전 세계 상장 주식(약 9000종목 이상),미국·유럽·아시아·신흥국까지 전 세계 주식시장 전체에 투자
+VEA,VEA,Vanguard FTSE Developed Markets ETF,US,글로벌,미국 제외 선진국 주식,유럽·일본·캐나다 등 미국 외 선진국 기업에 분산투자
+VWO,VWO,Vanguard FTSE Emerging Markets ETF,US,글로벌,신흥국 주식,중국·인도·대만·브라질 등 신흥국 기업에 분산투자
+EFA,EFA,iShares MSCI EAFE ETF,US,글로벌,유럽·호주·아시아 선진국 주식,미국과 캐나다를 제외한 선진국 대표 기업에 투자
+EEM,EEM,iShares MSCI Emerging Markets ETF,US,글로벌,신흥국 주식,오래된 대표 신흥국 ETF로 중국·대만·인도·한국 비중이 높음
+ACWI,ACWI,iShares MSCI ACWI ETF,US,글로벌,선진국+신흥국 대형·중형주,전 세계 선진국과 신흥국 주요 기업에 한 번에 투자
+SCHD,SCHD,Schwab US Dividend Equity ETF,US,배당,미국 배당성장 우량주 약 100개,10년 이상 배당을 이어온 재무가 탄탄한 미국 기업에 투자
+VIG,VIG,Vanguard Dividend Appreciation ETF,US,배당,미국 배당성장주,10년 이상 배당을 늘려온 미국 기업에 투자
+VYM,VYM,Vanguard High Dividend Yield ETF,US,배당,미국 고배당주,배당수익률이 평균보다 높은 미국 대형주 중심
+DGRO,DGRO,iShares Core Dividend Growth ETF,US,배당,미국 배당성장주,꾸준히 배당을 늘리면서 배당 여력도 있는 기업에 투자
+HDV,HDV,iShares Core High Dividend ETF,US,배당,미국 고배당 우량주 약 75개,재무 건전성을 걸러낸 고배당 미국 기업에 투자
+NOBL,NOBL,ProShares S&P 500 Dividend Aristocrats ETF,US,배당,25년 이상 배당 증가 S&P 500 기업,'배당 귀족'이라 불리는 25년 연속 배당 증가 기업에 동일 비중 투자
+SPYD,SPYD,SPDR Portfolio S&P 500 High Dividend ETF,US,배당,S&P 500 중 고배당 80개,S&P 500 안에서 배당수익률이 높은 80개 기업에 투자
+JEPI,JEPI,JPMorgan Equity Premium Income ETF,US,배당·커버드콜,미국 대형주+옵션 프리미엄,미국 주식에 투자하면서 옵션을 팔아 매달 높은 분배금을 지향
+JEPQ,JEPQ,JPMorgan Nasdaq Equity Premium Income ETF,US,배당·커버드콜,나스닥100 주식+옵션 프리미엄,JEPI의 나스닥 버전으로 기술주와 옵션 수익을 함께 추구
+DIVO,DIVO,Amplify CWP Enhanced Dividend Income ETF,US,배당·커버드콜,미국 배당주+일부 콜옵션 매도,배당주에 투자하고 일부 종목에 콜옵션을 팔아 추가 수입을 추구
+QYLD,QYLD,Global X NASDAQ 100 Covered Call ETF,US,배당·커버드콜,나스닥100+커버드콜,나스닥100을 보유하며 콜옵션을 매달 팔아 높은 분배금을 지향
+XYLD,XYLD,Global X S&P 500 Covered Call ETF,US,배당·커버드콜,S&P 500+커버드콜,S&P 500을 보유하며 콜옵션을 팔아 매달 분배금을 지급
+VGT,VGT,Vanguard Information Technology ETF,US,기술·성장,미국 IT 기업,소프트웨어·반도체·하드웨어 등 미국 정보기술 기업에 집중
+XLK,XLK,Technology Select Sector SPDR Fund,US,기술·성장,S&P 500 기술 업종,S&P 500 안의 기술 업종 기업만 모은 섹터 ETF
+SMH,SMH,VanEck Semiconductor ETF,US,기술·성장,글로벌 반도체 기업 약 25개,엔비디아·TSMC 등 세계 대표 반도체 기업에 집중투자
+SOXX,SOXX,iShares Semiconductor ETF,US,기술·성장,미국 상장 반도체 기업 약 30개,반도체 설계·장비·제조 기업에 분산투자
+ARKK,ARKK,ARK Innovation ETF,US,기술·성장,혁신기술 기업(액티브),캐시 우드가 운용하는 파괴적 혁신 기업 액티브 ETF로 변동성이 큼
+VUG,VUG,Vanguard Growth ETF,US,기술·성장,미국 대형 성장주,매출과 이익 성장성이 높은 미국 대형 기업에 투자
+SCHG,SCHG,Schwab US Large-Cap Growth ETF,US,기술·성장,미국 대형 성장주,저보수로 미국 대형 성장주에 투자
+MGK,MGK,Vanguard Mega Cap Growth ETF,US,기술·성장,미국 초대형 성장주,시가총액이 가장 큰 미국 성장 기업 위주로 투자
+XLF,XLF,Financial Select Sector SPDR Fund,US,섹터,S&P 500 금융 업종,은행·보험·카드사 등 미국 대형 금융회사에 투자
+XLV,XLV,Health Care Select Sector SPDR Fund,US,섹터,S&P 500 헬스케어 업종,제약·의료기기·건강보험 등 미국 헬스케어 기업에 투자
+XLE,XLE,Energy Select Sector SPDR Fund,US,섹터,S&P 500 에너지 업종,석유·가스 등 미국 에너지 기업에 투자
+XLY,XLY,Consumer Discretionary Select Sector SPDR Fund,US,섹터,S&P 500 경기소비재 업종,유통·자동차·여행 등 경기에 민감한 소비 기업에 투자
+XLP,XLP,Consumer Staples Select Sector SPDR Fund,US,섹터,S&P 500 필수소비재 업종,식품·생활용품 등 경기와 관계없이 꾸준히 팔리는 기업에 투자
+XLI,XLI,Industrial Select Sector SPDR Fund,US,섹터,S&P 500 산업재 업종,항공·기계·운송 등 미국 산업재 기업에 투자
+XLU,XLU,Utilities Select Sector SPDR Fund,US,섹터,S&P 500 유틸리티 업종,전력·가스 등 공공요금 성격 기업에 투자
+VNQ,VNQ,Vanguard Real Estate ETF,US,섹터,미국 리츠(부동산투자회사),오피스·물류·주거 등 미국 부동산에 투자하는 리츠에 분산투자
+XLC,XLC,Communication Services Select Sector SPDR Fund,US,섹터,S&P 500 커뮤니케이션 업종,구글·메타·넷플릭스 등 통신·미디어 기업에 투자
+TLT,TLT,iShares 20+ Year Treasury Bond ETF,US,채권,미국 장기국채(20년 이상),금리에 민감한 미국 장기 국채에 투자
+IEF,IEF,iShares 7-10 Year Treasury Bond ETF,US,채권,미국 중기국채(7~10년),만기 7~10년 미국 국채에 투자
+SHY,SHY,iShares 1-3 Year Treasury Bond ETF,US,채권,미국 단기국채(1~3년),가격 변동이 작은 미국 단기 국채에 투자
+BND,BND,Vanguard Total Bond Market ETF,US,채권,미국 투자등급 채권 전체,국채·회사채 등 미국 투자등급 채권시장 전체에 투자
+AGG,AGG,iShares Core US Aggregate Bond ETF,US,채권,미국 투자등급 채권 전체,미국 종합채권지수를 추종하는 대표 채권 ETF
+LQD,LQD,iShares iBoxx $ Investment Grade Corporate Bond ETF,US,채권,미국 투자등급 회사채,신용등급이 높은 미국 기업이 발행한 회사채에 투자
+HYG,HYG,iShares iBoxx $ High Yield Corporate Bond ETF,US,채권,미국 하이일드(고수익) 회사채,신용등급은 낮지만 이자가 높은 회사채에 투자
+TIP,TIP,iShares TIPS Bond ETF,US,채권,미국 물가연동국채,물가가 오르면 원금이 함께 늘어나는 국채에 투자
+BIL,BIL,SPDR Bloomberg 1-3 Month T-Bill ETF,US,채권,미국 초단기국채(1~3개월),현금처럼 쓰이는 초단기 미국 국채에 투자
+GLD,GLD,SPDR Gold Shares,US,원자재,금 실물,실제 금을 보관하며 금 가격을 따라가는 대표 금 ETF
+IAU,IAU,iShares Gold Trust,US,원자재,금 실물,GLD보다 낮은 보수로 금 가격을 추종
+SLV,SLV,iShares Silver Trust,US,원자재,은 실물,실제 은을 보관하며 은 가격을 추종
+USO,USO,United States Oil Fund,US,원자재,원유 선물,WTI 원유 선물에 투자해 국제유가를 추종(선물 교체 비용이 있음)
+DBC,DBC,Invesco DB Commodity Index Tracking Fund,US,원자재,원유·금속·농산물 선물,에너지·금속·농산물 등 여러 원자재에 분산투자
+TQQQ,TQQQ,ProShares UltraPro QQQ,US,레버리지,나스닥100 일간 수익률의 3배,하루 수익률의 3배를 추구하는 초고위험 레버리지 ETF
+SOXL,SOXL,Direxion Daily Semiconductor Bull 3X Shares,US,레버리지,반도체지수 일간 수익률의 3배,반도체지수 하루 수익률의 3배를 추구하는 초고위험 상품
+UPRO,UPRO,ProShares UltraPro S&P500,US,레버리지,S&P 500 일간 수익률의 3배,S&P 500 하루 수익률의 3배를 추구하는 레버리지 ETF
+QLD,QLD,ProShares Ultra QQQ,US,레버리지,나스닥100 일간 수익률의 2배,나스닥100 하루 수익률의 2배를 추구하는 레버리지 ETF
+LIT,LIT,Global X Lithium & Battery Tech ETF,US,테마,리튬 채굴·배터리 기업,전기차 배터리 공급망 기업에 투자
+ICLN,ICLN,iShares Global Clean Energy ETF,US,테마,글로벌 친환경 에너지 기업,태양광·풍력 등 청정에너지 기업에 투자
+URA,URA,Global X Uranium ETF,US,테마,우라늄 채굴·원자력 기업,원자력 발전 연료인 우라늄 관련 기업에 투자
+BOTZ,BOTZ,Global X Robotics & Artificial Intelligence ETF,US,테마,로봇·인공지능 기업,산업용 로봇과 AI 관련 기업에 투자
+EWJ,EWJ,iShares MSCI Japan ETF,US,국가,일본 대형·중형주,일본 대표 기업에 투자
+EWY,EWY,iShares MSCI South Korea ETF,US,국가,한국 대형·중형주,삼성전자·SK하이닉스 등 한국 대표 기업에 달러로 투자
+MCHI,MCHI,iShares MSCI China ETF,US,국가,중국 대형·중형주,텐센트·알리바바 등 중국 대표 기업에 투자
+INDA,INDA,iShares MSCI India ETF,US,국가,인도 대형·중형주,인도 대표 기업에 투자
+069500.KS,069500,KODEX 200,KR,국내 대표지수,코스피200,국내 첫 ETF 중 하나로 코스피 대표 200종목에 투자
+102110.KS,102110,TIGER 200,KR,국내 대표지수,코스피200,코스피200 지수를 추종하는 대표 ETF
+122630.KS,122630,KODEX 레버리지,KR,레버리지,코스피200 일간 수익률의 2배,코스피200 하루 수익률의 2배를 추구하는 고위험 ETF
+114800.KS,114800,KODEX 인버스,KR,인버스,코스피200 일간 수익률의 반대(-1배),코스피200이 하락할 때 수익을 내도록 설계된 ETF
+252670.KS,252670,KODEX 200선물인버스2X,KR,인버스,코스피200 선물 일간 수익률의 -2배,지수 하락 시 2배 수익을 추구하는 초고위험 ETF
+229200.KS,229200,KODEX 코스닥150,KR,국내 대표지수,코스닥150,코스닥 대표 150종목에 투자
+233740.KS,233740,KODEX 코스닥150레버리지,KR,레버리지,코스닥150 일간 수익률의 2배,코스닥150 하루 수익률의 2배를 추구하는 고위험 ETF
+360750.KS,360750,TIGER 미국S&P500,KR,해외지수(국내상장),S&P 500(원화·환노출),국내 계좌에서 원화로 S&P 500에 투자
+133690.KS,133690,TIGER 미국나스닥100,KR,해외지수(국내상장),나스닥100(원화·환노출),국내 계좌에서 원화로 나스닥100에 투자
+379800.KS,379800,KODEX 미국S&P500TR,KR,해외지수(국내상장),S&P 500(배당 자동 재투자),분배금을 자동으로 재투자하는 S&P 500 ETF
+379810.KS,379810,KODEX 미국나스닥100TR,KR,해외지수(국내상장),나스닥100(배당 자동 재투자),분배금을 자동으로 재투자하는 나스닥100 ETF
+381170.KS,381170,TIGER 미국테크TOP10 INDXX,KR,해외지수(국내상장),미국 대형 기술주 10개,미국 시가총액 상위 기술기업 10곳에 집중투자
+381180.KS,381180,TIGER 미국필라델피아반도체나스닥,KR,해외지수(국내상장),필라델피아 반도체지수,미국 반도체 대표지수를 원화로 추종
+458730.KS,458730,TIGER 미국배당다우존스,KR,해외지수(국내상장),미국 배당성장 우량주(SCHD와 같은 지수),SCHD와 같은 지수를 국내 상장 ETF로 추종하며 매달 분배
+446720.KS,446720,SOL 미국배당다우존스,KR,해외지수(국내상장),미국 배당성장 우량주(SCHD와 같은 지수),SCHD와 같은 지수를 추종하는 국내 상장 월배당 ETF
+161510.KS,161510,PLUS 고배당주,KR,배당,국내 고배당주,배당수익률이 높은 국내 기업에 투자
+091160.KS,091160,KODEX 반도체,KR,섹터,국내 반도체 기업,삼성전자·SK하이닉스 등 국내 반도체 관련주에 투자
+091170.KS,091170,KODEX 은행,KR,섹터,국내 은행·금융지주,국내 주요 은행과 금융지주에 투자
+305720.KS,305720,KODEX 2차전지산업,KR,테마,국내 2차전지 기업,배터리 셀·소재 등 국내 2차전지 관련주에 투자
+305540.KS,305540,TIGER 2차전지테마,KR,테마,국내 2차전지 기업,국내 2차전지 밸류체인 기업에 투자
+132030.KS,132030,KODEX 골드선물(H),KR,원자재,금 선물(환헤지),환율 영향을 줄이고 금 가격을 원화로 추종
+148070.KS,148070,KOSEF 국고채10년,KR,채권,한국 10년 국고채,만기 10년 한국 국고채에 투자
+153130.KS,153130,KODEX 단기채권,KR,채권,국내 단기 채권,변동성이 작은 국내 단기채권에 투자
+357870.KS,357870,TIGER CD금리투자KIS(합성),KR,채권,CD 91일물 금리,매일 CD금리만큼 이자가 쌓이는 파킹형 ETF
+423160.KS,423160,KODEX KOFR금리액티브(합성),KR,채권,한국무위험지표금리(KOFR),하루짜리 무위험 금리를 따라가는 파킹형 ETF
+261240.KS,261240,KODEX 미국달러선물,KR,통화,미국 달러 선물,원달러 환율이 오르면 수익이 나는 ETF
+304940.KS,304940,KODEX 미국나스닥100선물(H),KR,해외지수(국내상장),나스닥100 선물(환헤지),환율 영향을 줄이고 나스닥100을 추종
+368590.KS,368590,RISE 미국나스닥100,KR,해외지수(국내상장),나스닥100(원화·환노출),국내 계좌에서 원화로 나스닥100에 투자
+453810.KS,453810,KODEX 인도Nifty50,KR,해외지수(국내상장),인도 대표지수 Nifty50,인도 대표 기업 50곳에 원화로 투자
+371460.KS,371460,TIGER 차이나전기차SOLACTIVE,KR,테마,중국 전기차 밸류체인,중국 전기차·배터리 관련 기업에 투자
