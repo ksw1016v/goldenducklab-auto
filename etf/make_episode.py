@@ -89,7 +89,7 @@ def build(t, no, nxt):
            "💛 저장해두고 하나씩 따라 해보세요\n🐥 더 많은 황금알은 프로필 링크 오픈채팅에서\n\n"
            f"다음 편 예고 ▶ {nxt or '다음 ETF'}\n\n"
            f"#ETF #ETF투자 #{e['ticker'] if us else e['name'].replace(' ', '').replace('(', '').replace(')', '')} #적립식투자 #재테크 #돈공부 #골든덕랩")
-    ep = {"series": "ETF 황금알", "no": no, "slug": f"etf-{no:02d}", "ticker": e["ticker"], "slides": slides, "caption": cap}
+    ep = {"series": "ETF 황금알", "theme": "etf", "no": no, "slug": f"etf-{no:02d}", "ticker": e["ticker"], "slides": slides, "caption": cap}
     d = ROOT / "etf" / "episodes"
     d.mkdir(exist_ok=True)
     path = d / f"{no:02d}.json"

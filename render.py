@@ -50,6 +50,30 @@ h2{font-size:64px;line-height:1.3;font-weight:900;letter-spacing:-1px;margin-bot
 .disc{font-size:24px;color:#9a7a5a;margin-top:18px;line-height:1.5}
 """
 
+THEMES = {
+    # ETF 황금알: 네이비·블루 바탕 + 황금색 강조 (기초편 크림·골드와 구분)
+    "etf": """
+body{background:#EEF3F9;color:#1B2A41}
+.frame{border-color:#1E3A5F}
+.tag{background:#1E3A5F;color:#FFFFFF}
+.page,.kicker,.next,.foot span:last-child,.kv span{color:#4A6A8F}
+.foot{border-top-color:#9DB3CC}
+h1,h2,.ticker,.dval,.it,.check{color:#1B2A41}
+.item,.drow{border-color:#C9D7E6;background:#FFFFFF}
+.id,.dpr,.ename,.lead,.sub{color:#3E5674}
+.dy{background:#1E3A5F;color:#FFFFFF}
+.kv{border-bottom-color:#C9D7E6}
+.check{border-bottom-color:#C9D7E6}
+.box{border-color:#4A6A8F}
+.tip{background:#E3EEF9;border-color:#4A7FB5}
+.tip b{color:#1E3A5F}
+.cta{background:#1E3A5F}
+.disc{color:#6B7F96}
+.cover-duck,.end img{filter:drop-shadow(0 0 0 #1E3A5F)}
+""",
+}
+
+
 def esc(s):  # 허용 태그(mark, span.pink, br)만 살리고 나머지 이스케이프
     t = html.escape(s)
     for a, b in [("&lt;mark&gt;", "<mark>"), ("&lt;/mark&gt;", "</mark>"), ("&lt;br&gt;", "<br>"),
@@ -90,7 +114,8 @@ def slide(ep, s, i, n):
 <div class="lead" style="margin:0">{esc(s['sub'])}</div><div><span class="cta">{esc(s['cta'])}</span></div>
 {f'<div class="next">{esc(s["next"])}</div>' if s.get('next') else ''}</div>"""
     foot_r = "넘겨보기 →" if i < n else "저장하고 다시 보기"
-    return f"""<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="frame">
+    theme = THEMES.get(ep.get("theme", ""), "")
+    return f"""<html><head><meta charset="utf-8"><style>{CSS}{theme}</style></head><body><div class="frame">
 <div class="top"><span class="tag">{esc(tag)}</span><span class="page">{i} / {n}</span></div>{body}
 <div class="foot"><span>@golden_duck_lab</span><span>{foot_r}</span></div></div></body></html>"""
 
