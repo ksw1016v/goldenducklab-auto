@@ -61,7 +61,11 @@ def slide(ep, s, i, n):
     tag = f"{ep['series']} #{ep['no']:02d}"
     k = s["type"]
     if k == "cover":
-        body = f"""<div class="main"><div class="kicker">{esc(s['kicker'])}</div><h1>{esc(s['title'])}</h1>
+        import re
+        lines = re.sub(r"<(?!br)[^>]+>", "", s["title"]).split("<br>")
+        longest = max(len(l) for l in lines)
+        fs = 92 if longest <= 9 else max(54, int(92 * 9.5 / longest))
+        body = f"""<div class="main"><div class="kicker">{esc(s['kicker'])}</div><h1 style="font-size:{fs}px">{esc(s['title'])}</h1>
 <div class="sub">{esc(s['sub'])}</div></div><img class="cover-duck" src="{uri('duck.png')}">"""
     elif k == "list":
         items = "".join(f"""<div class="item"><div class="num">{j+1}</div><div><div class="it">{esc(t)}</div>{f'<div class="id">{esc(d)}</div>' if d else ''}</div></div>"""
@@ -92,7 +96,8 @@ def slide(ep, s, i, n):
 
 def render(path):
     ep = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
-    out = ROOT / "out" / f"{ep['no']:02d}"
+    slug = ep.get("slug") or f"{ep['no']:02d}"
+    out = ROOT / "out" / slug
     out.mkdir(parents=True, exist_ok=True)
     n = len(ep["slides"])
     with sync_playwright() as p:
@@ -105,7 +110,7 @@ def render(path):
             pg.wait_for_timeout(150)
             over = pg.evaluate("(()=>{const m=document.querySelector('.frame');return m.scrollHeight>m.clientHeight+2})()")
             if over: print(f"!! overflow ep{ep['no']} slide{i}")
-            pg.screenshot(path=str(out / f"golden_duck_lab_{ep['no']:02d}_{i:02d}.jpg"), type="jpeg", quality=92)
+            pg.screenshot(path=str(out / f"golden_duck_lab_{slug}_{i:02d}.jpg"), type="jpeg", quality=92)
         b.close()
     if ep.get("caption"):
         (out / "caption.txt").write_text(ep["caption"], encoding="utf-8")

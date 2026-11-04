@@ -61,11 +61,13 @@ def wait_ready(cid, tries=30):
     raise SystemExit(f"컨테이너 {cid} 준비 시간 초과")
 
 
-def post(no):
-    ep = json.loads((ROOT / "episodes" / f"{no:02d}.json").read_text(encoding="utf-8"))
+def post(path, state_key="published", state_val=None):
+    ep = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    no = ep["no"]
+    slug = ep.get("slug") or f"{no:02d}"
     n = len(ep["slides"])
     base = os.environ["IMAGE_BASE"].rstrip("/")
-    urls = [f"{base}/out/{no:02d}/golden_duck_lab_{no:02d}_{i:02d}.jpg" for i in range(1, n + 1)]
+    urls = [f"{base}/out/{slug}/golden_duck_lab_{slug}_{i:02d}.jpg" for i in range(1, n + 1)]
     caption = ep["caption"]
     if os.environ.get("DRY_RUN"):
         print("DRY RUN", no, *urls, caption[:80], sep="\n")
@@ -83,8 +85,8 @@ def post(no):
     res = call("POST", f"{uid}/media_publish", creation_id=car)
     print("게시 완료 media id:", res["id"])
     st = load_state()
-    st["published"].append(no)
-    st.setdefault("log", []).append({"no": no, "media_id": res["id"], "at": time.strftime("%Y-%m-%d %H:%M:%S")})
+    st.setdefault(state_key, []).append(state_val if state_val is not None else no)
+    st.setdefault("log", []).append({"no": no, "slug": slug, "media_id": res["id"], "at": time.strftime("%Y-%m-%d %H:%M:%S")})
     STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
 
 
@@ -94,4 +96,9 @@ if __name__ == "__main__":
         n = next_episode()
         print("" if n is None else n)
     elif cmd == "post":
-        post(int(sys.argv[2]))
+        # post <편번호>  또는  post <원고경로> <state키> <기록값>
+        a = sys.argv[2]
+        if a.isdigit():
+            post(ROOT / "episodes" / f"{int(a):02d}.json")
+        else:
+            post(a, sys.argv[3], sys.argv[4])

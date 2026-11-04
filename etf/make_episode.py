@@ -1,5 +1,6 @@
 """results.json의 ETF 하나로 카드뉴스 원고(episodes/NN.json)를 만든다.
-사용법: python etf/make_episode.py <티커> <편번호> [다음편제목]
+사용법: python etf/make_episode.py next   (대기열 다음 ETF)
+       python etf/make_episode.py <티커> <편번호> [다음편제목]
 """
 import json, sys, pathlib
 
@@ -50,14 +51,15 @@ def build(t, no, nxt):
         return out
 
     longest = next((y for y in (20, 10, 5) if e.get(f"v{y}y_10") not in ("", None)), None)
-    title_name = e["name"] if not us else e["ticker"]
-    hook = f"월 10만원씩 {longest}년 모았다면?" if longest else "이제 막 상장한 ETF"
+    title_name = e["ticker"] if us else e["name"]
+    cover_name = e["ticker"] if us else e["name"].replace(" ", "<br>", 1)
+    hook = f"월 10만원씩<br>{longest}년 모았다면?" if longest else "이제 막 상장한 ETF"
     notes = NOTES.get(e["category"], DEFAULT)[:]
     if us:
         notes = notes[:2] + [US_NOTE]
 
     slides = [
-        {"type": "cover", "kicker": f"ETF 황금알 · {e['category']}", "title": f"<mark>{title_name}</mark><br>{hook}", "sub": f"{e['invests']}에 투자하는 ETF<br>{asof[:4]}.{asof[5:7]} 기준 숫자로 알아봐요"},
+        {"type": "cover", "kicker": f"ETF 황금알 · {e['category']}", "title": f"<mark>{cover_name}</mark><br>{hook}", "sub": f"{e['invests']}에 투자하는 ETF<br>{asof[:4]}.{asof[5:7]} 기준 숫자로 알아봐요"},
         {"type": "etf_info", "ticker": e["ticker"], "name": e["name"], "category": e["category"], "desc": e["desc"], "rows": rows},
     ]
     for amt in (10, 30, 50):
@@ -86,11 +88,43 @@ def build(t, no, nxt):
            "🦆 골든덕랩은 매일 황금알 하나씩,\n기초부터 차근차근 돈 공부를 함께해요.\n\n"
            "💛 저장해두고 하나씩 따라 해보세요\n🐥 더 많은 황금알은 프로필 링크 오픈채팅에서\n\n"
            f"다음 편 예고 ▶ {nxt or '다음 ETF'}\n\n"
-           f"#ETF #ETF투자 #{e['ticker']} #적립식투자 #재테크 #돈공부 #골든덕랩")
-    ep = {"series": "ETF 황금알", "no": no, "slides": slides, "caption": cap}
-    (ROOT / "episodes" / f"{no:02d}.json").write_text(json.dumps(ep, ensure_ascii=False, indent=1), encoding="utf-8")
-    return ep
+           f"#ETF #ETF투자 #{e['ticker'] if us else e['name'].replace(' ', '').replace('(', '').replace(')', '')} #적립식투자 #재테크 #돈공부 #골든덕랩")
+    ep = {"series": "ETF 황금알", "no": no, "slug": f"etf-{no:02d}", "ticker": e["ticker"], "slides": slides, "caption": cap}
+    d = ROOT / "etf" / "episodes"
+    d.mkdir(exist_ok=True)
+    path = d / f"{no:02d}.json"
+    path.write_text(json.dumps(ep, ensure_ascii=False, indent=1), encoding="utf-8")
+    return path
+
+
+def label(e):
+    return e["ticker"] if e["market"] == "US" else e["name"]
+
+
+def hook_title(t):
+    data = json.loads((ROOT / "etf" / "results.json").read_text(encoding="utf-8"))
+    e = next(x for x in data["etfs"] if x["ticker"].upper() == t.upper())
+    y = next((y for y in (20, 10, 5) if e.get(f"v{y}y_10") not in ("", None)), None)
+    return f"{label(e)} 월 10만원씩 {y}년 모았다면?"
+
+
+def next_in_queue():
+    """대기열에서 다음 ETF로 원고를 만들고 '경로 티커'를 출력. 없으면 빈 줄."""
+    st = json.loads((ROOT / "state.json").read_text()) if (ROOT / "state.json").exists() else {}
+    done = st.get("etf_published", [])
+    queue = [l.split("#")[0].strip() for l in (ROOT / "etf" / "queue.txt").read_text(encoding="utf-8").splitlines()]
+    queue = [q for q in queue if q]
+    todo = [q for q in queue if q not in done]
+    if not todo:
+        print("")
+        return
+    nxt = hook_title(todo[1]) if len(todo) > 1 else ""
+    path = build(todo[0], len(done) + 1, nxt)
+    print(path.relative_to(ROOT), todo[0])
 
 
 if __name__ == "__main__":
-    build(sys.argv[1], int(sys.argv[2]), sys.argv[3] if len(sys.argv) > 3 else "")
+    if sys.argv[1] == "next":
+        next_in_queue()
+    else:
+        print(build(sys.argv[1], int(sys.argv[2]), sys.argv[3] if len(sys.argv) > 3 else ""))
