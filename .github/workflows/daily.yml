@@ -13,6 +13,7 @@ concurrency: instagram-post
 jobs:
   post:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -32,9 +33,9 @@ jobs:
       - name: 한글 폰트와 브라우저 설치
         if: steps.pick.outputs.no != ''
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk
+          mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
           pip install -q playwright==1.48.0
-          python -m playwright install --with-deps chromium
+          if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
 
       - name: 카드뉴스 렌더링 후 저장소에 올리기
         if: steps.pick.outputs.no != ''
