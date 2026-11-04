@@ -13,7 +13,13 @@ import json, os, sys, time, pathlib, urllib.request, urllib.parse
 
 ROOT = pathlib.Path(__file__).parent
 STATE = ROOT / "state.json"
-API = "https://graph.instagram.com/v23.0"
+IG_USER_ID = os.environ.get("IG_USER_ID", "17841465585453824")  # golden_duck_lab
+
+
+def api_base():
+    # IGAA... 토큰은 Instagram 로그인, EAA... 토큰은 Facebook(통합) 로그인
+    tok = os.environ.get("IG_TOKEN", "")
+    return "https://graph.instagram.com/v23.0" if tok.startswith("IG") else "https://graph.facebook.com/v23.0"
 
 
 def load_state():
@@ -32,7 +38,7 @@ def next_episode():
 def call(method, path, **params):
     params["access_token"] = os.environ["IG_TOKEN"]
     data = urllib.parse.urlencode(params).encode()
-    url = f"{API}/{path}"
+    url = f"{api_base()}/{path}"
     if method == "GET":
         req = urllib.request.Request(url + "?" + data.decode())
     else:
@@ -64,9 +70,8 @@ def post(no):
     if os.environ.get("DRY_RUN"):
         print("DRY RUN", no, *urls, caption[:80], sep="\n")
         return
-    me = call("GET", "me", fields="user_id,username")
-    uid = me["user_id"]
-    print("계정:", me.get("username"))
+    uid = IG_USER_ID
+    print("계정:", call("GET", uid, fields="username").get("username"))
     children = []
     for u in urls:
         c = call("POST", f"{uid}/media", image_url=u, is_carousel_item="true")["id"]
