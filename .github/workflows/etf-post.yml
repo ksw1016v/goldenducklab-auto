@@ -16,7 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: 오늘 이미 올렸는지 확인
+        id: guard
+        run: python3 guard.py etf >> "$GITHUB_OUTPUT"
+
       - name: 다음 ETF 원고 만들기
+        if: steps.guard.outputs.skip != '1'
         id: pick
         run: |
           OUT=$(python3 etf/make_episode.py next)
@@ -25,7 +30,7 @@ jobs:
           echo "다음 ETF: $OUT"
 
       - name: 대기열 비어 있음
-        if: steps.pick.outputs.path == ''
+        if: steps.guard.outputs.skip != '1' && steps.pick.outputs.path == ''
         run: echo "::warning::ETF 대기열이 비었어요. etf/queue.txt에 티커를 추가해 주세요."
 
       - name: 한글 폰트와 브라우저 설치

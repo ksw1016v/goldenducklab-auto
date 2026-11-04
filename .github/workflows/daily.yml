@@ -16,12 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: 오늘 이미 올렸는지 확인
+        id: guard
+        run: python3 guard.py basic >> "$GITHUB_OUTPUT"
+
       - name: 다음 편 확인
+        if: steps.guard.outputs.skip != '1'
         id: pick
         run: echo "no=$(python3 publish.py next)" >> "$GITHUB_OUTPUT"
 
       - name: 대기열 비어 있음
-        if: steps.pick.outputs.no == ''
+        if: steps.guard.outputs.skip != '1' && steps.pick.outputs.no == ''
         run: echo "::warning::게시할 편이 없어요. episodes 폴더에 새 편을 추가해 주세요."
 
       - name: 한글 폰트와 브라우저 설치
