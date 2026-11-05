@@ -1,6 +1,6 @@
 """ETF 카드뉴스 원고(etf/episodes/NN.json)로 릴스 영상(1080x1920, 약 35초)을 만든다.
 
-장면을 한 장씩 렌더링해서(글자·금액이 하나씩 쌓이는 연출) 페이드로 잇고,
+장면마다 숫자 카운트업·순서대로 나타나기·황금알 떨어지기 같은 움직임을 1초 30장으로 찍어 잇고,
 직접 합성한 배경음을 깐다(외부 음원 없음 → 저작권 걱정 없음).
 결과: out/<slug>/reel.mp4
 사용법: python reel.py etf/episodes/02.json
@@ -9,10 +9,10 @@ import json, sys, os, pathlib, subprocess, tempfile, wave
 import numpy as np
 from playwright.sync_api import sync_playwright
 from render import CSS, THEMES, esc, uri
+from reel_anim import ANIM_JS, scenes
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
-FADE = 0.35
 
 try:
     import imageio_ffmpeg
@@ -46,6 +46,8 @@ body{width:1080px;height:1920px}
 .end2{align-items:center;text-align:center;justify-content:center;padding-top:0}
 .end2 img{width:520px;margin-bottom:40px}
 .cta{font-size:46px}
+span[data-in]{display:inline-block}
+.duck,.end2 img,.egg{transform-origin:center}
 """
 ETF_REEL = """
 .kick{color:#4A6A8F}
@@ -56,76 +58,13 @@ ETF_REEL = """
 """
 
 
-def page(ep, inner):
+def page(ep, inner, dur):
     theme = THEMES.get(ep.get("theme", ""), "")
     extra = ETF_REEL if ep.get("theme") == "etf" else ""
     tag = f"{ep['series']} #{ep['no']:02d}"
-    return f"""<html><head><meta charset="utf-8"><style>{CSS}{theme}{REEL_CSS}{extra}</style></head><body>
+    return f"""<html><head><meta charset="utf-8"><style>{CSS}{theme}{REEL_CSS}{extra}</style>{ANIM_JS}</head><body data-dur="{dur}">
 <div class="frame"><div class="top"><span class="tag">{esc(tag)}</span><span class="page"></span></div>{inner}
 <div class="foot"><span>@golden_duck_lab</span><span>저장하고 다시 보기</span></div></div></body></html>"""
-
-
-def scenes(ep):
-    s = ep["slides"]
-    info = next(x for x in s if x["type"] == "etf_info")
-    dcas = [x for x in s if x["type"] == "dca"]
-    notes = next(x for x in s if x["type"] == "list" and "알아둘" in x["title"])
-    end = s[-1]
-    t = info["ticker"]
-    label = t if not t.isdigit() else info["name"]
-    big_size = "230px" if len(label) <= 5 else ("150px" if len(label) <= 8 else "104px")
-    rows10 = [r for r in dcas[0]["rows"] if r[1] != "-"]
-    longest = rows10[0][0] if rows10 else "5년"
-    duck = f'<img class="duck" src="{uri("duck.png")}">'
-    out = []
-
-    head = f'<div class="kick">{esc(info["category"])}</div><div class="big" style="font-size:{big_size}">{esc(label)}</div>'
-    out.append((f'<div class="main">{head}<div class="h1">월 10만원씩</div></div>{duck}', 1.6))
-    out.append((f'<div class="main">{head}<div class="h1">월 10만원씩<br><mark>{esc(longest)}</mark> 모았다면?</div>'
-                f'<div class="subt">{esc(info["rows"][0][1])}에<br>투자하는 ETF</div></div>{duck}', 2.6))
-
-    kv = "".join(f'<div class="kv"><span>{esc(a)}</span><b>{esc(b)}</b></div>' for a, b in info["rows"])
-    out.append((f'<div class="main"><div class="big" style="font-size:{min(int(big_size[:-2]), 150)}px">{esc(label)}</div>'
-                f'<div class="ename">{esc(info["name"])}</div><div class="chip">{esc(info["category"])}</div>'
-                f'<div class="lead" style="margin-top:40px;font-size:46px">{esc(info["desc"])}</div><div style="font-size:40px">{kv}</div></div>', 4.2))
-
-    order = list(reversed(rows10))  # 짧은 기간부터 하나씩 쌓기 (5년 → 10년 → 20년)
-    title = '<div class="h2"><mark>매달 10만원씩</mark><br>모았다면 지금은?</div>'
-    note = f'<div class="disc">{esc(dcas[0].get("note", ""))}</div>'
-
-    def drows(k, hi_last=False):
-        h = ""
-        for j, (y, p, v, r) in enumerate(order[:k]):
-            hi = " hi" if hi_last and j == len(order) - 1 else ""
-            h += (f'<div class="drow{hi}"><div class="dy">{esc(y)}</div><div class="dv"><div class="dpr">원금 {esc(p)}</div>'
-                  f'<div class="dval">{esc(v)}</div></div><div class="dret">{esc(r)}</div></div>')
-        return h
-
-    out.append((f'<div class="main">{title}</div>', 1.2))
-    for k in range(1, len(order) + 1):
-        last = k == len(order)
-        out.append((f'<div class="main">{title}{drows(k, last)}</div>', 2.6 if last else 1.6))
-    eggs = '<div class="eggs">' + '<div class="egg"></div>' * 3 + '</div>'
-    out.append((f'<div class="main">{title}{drows(len(order), True)}{eggs}{note}</div>', 2.2))
-
-    def mrow(amt, d):
-        row = next(r for r in d["rows"] if r[0] == longest)
-        return (f'<div class="mrow"><div class="ml">월 {amt}만원 × {esc(longest)}</div><div class="mp">원금 {esc(row[1])}</div>'
-                f'<div class="mv">{esc(row[2])}</div></div>'), row[3]
-    m30, _ = mrow(30, dcas[1])
-    m50, ret = mrow(50, dcas[2])
-    t2 = '<div class="h2"><mark>금액을 늘리면?</mark></div>'
-    out.append((f'<div class="main">{t2}{m30}</div>', 2.0))
-    out.append((f'<div class="main">{t2}{m30}{m50}<div class="say">같은 {esc(ret)}라도 금액이 클수록 황금알이 커져요</div>{note}</div>', 3.2))
-
-    items = "".join(f'<div class="item"><div class="num">{j+1}</div><div><div class="it">{esc(a)}</div><div class="id">{esc(b)}</div></div></div>'
-                    for j, (a, b) in enumerate(notes["items"]))
-    out.append((f'<div class="main"><div class="h2">{esc(notes["title"])}</div>{items}</div>', 4.2))
-
-    out.append((f'<div class="main end2"><img src="{uri("logo.png")}"><div class="h2" style="margin-bottom:16px">{esc(end["title"])}</div>'
-                f'<div class="lead" style="margin:0;font-size:40px">{esc(end["sub"])}</div><div style="margin-top:44px"><span class="cta">{esc(end["cta"])}</span></div>'
-                f'<div class="next" style="font-size:36px">{esc(end.get("next", ""))}</div></div>', 3.6))
-    return out
 
 
 def music(path, seconds, sr=48000):
@@ -187,40 +126,35 @@ def build(path):
     out_dir = ROOT / "out" / slug
     out_dir.mkdir(parents=True, exist_ok=True)
     sc = scenes(ep)
+    total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
+        music(td / "bgm.wav", total + 0.2)
+        enc = subprocess.Popen([FFMPEG, "-y", "-v", "error", "-f", "image2pipe", "-c:v", "mjpeg", "-framerate", str(FPS), "-i", "-",
+                                "-i", str(td / "bgm.wav"), "-map", "0:v", "-map", "1:a",
+                                "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
+                                "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-shortest", "-movflags", "+faststart",
+                                str(out_dir / "reel.mp4")], stdin=subprocess.PIPE)
+        frames = 0
         with sync_playwright() as p:
             exe = os.environ.get("CHROME_PATH")
             b = p.chromium.launch(executable_path=exe) if exe else p.chromium.launch()
             pg = b.new_page(viewport={"width": W, "height": H})
-            for i, (inner, _) in enumerate(sc):
-                pg.set_content(page(ep, inner), wait_until="load")
-                pg.wait_for_timeout(120)
-                over = pg.evaluate("(()=>{const m=document.querySelector('.frame');return m.scrollHeight>m.clientHeight+2})()")
-                if over:
-                    print(f"!! overflow reel scene {i+1}")
-                pg.screenshot(path=str(td / f"s{i:02d}.png"))
+            for i, (inner, dur) in enumerate(sc):
+                pg.set_content(page(ep, inner, dur), wait_until="load")
+                pg.evaluate("document.fonts.ready")
+                pg.evaluate(f"setT({dur - 0.31})")
+                if pg.evaluate("(()=>{const m=document.querySelector('.frame');return m.scrollHeight>m.clientHeight+2})()"):
+                    print(f"!! overflow reel scene {i + 1}")
+                for k in range(int(round(dur * FPS))):
+                    pg.evaluate(f"setT({k / FPS:.4f})")
+                    enc.stdin.write(pg.screenshot(type="jpeg", quality=90))
+                    frames += 1
             b.close()
-        durs = [d for _, d in sc]
-        total = sum(durs) - FADE * (len(durs) - 1)
-        music(td / "bgm.wav", total + 0.1)
-        args = [FFMPEG, "-y", "-v", "error"]
-        for i, d in enumerate(durs):
-            args += ["-loop", "1", "-framerate", str(FPS), "-t", f"{d:.3f}", "-i", str(td / f"s{i:02d}.png")]
-        args += ["-i", str(td / "bgm.wav")]
-        fl, prev, off = [], "0:v", 0.0
-        for i in range(1, len(durs)):
-            off += durs[i - 1] - FADE
-            lab = f"v{i}"
-            fl.append(f"[{prev}][{i}:v]xfade=transition=fade:duration={FADE}:offset={off:.3f}[{lab}]")
-            prev = lab
-        fl.append(f"[{prev}]format=yuv420p[vout]")
-        args += ["-filter_complex", ";".join(fl), "-map", "[vout]", "-map", f"{len(durs)}:a",
-                 "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-r", str(FPS), "-pix_fmt", "yuv420p",
-                 "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-shortest", "-movflags", "+faststart",
-                 str(out_dir / "reel.mp4")]
-        subprocess.run(args, check=True)
-    print("reel", out_dir / "reel.mp4", f"{total:.1f}s")
+        enc.stdin.close()
+        if enc.wait() != 0:
+            raise SystemExit("영상 인코딩 실패")
+    print("reel", out_dir / "reel.mp4", f"{total:.1f}s", frames, "frames")
     return out_dir / "reel.mp4"
 
 
