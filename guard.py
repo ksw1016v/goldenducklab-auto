@@ -6,7 +6,8 @@ import json, sys, pathlib, datetime
 kind = sys.argv[1]
 st = pathlib.Path(__file__).parent / "state.json"
 log = json.loads(st.read_text()).get("log", []) if st.exists() else []
-KST = datetime.timedelta(hours=9)
+# 저녁 시리즈(etf)는 한국 시간 낮 12시를 하루의 경계로 봐요: 늦게 밀려 새벽에 올라간 편은 전날 저녁 몫
+KST = datetime.timedelta(hours=9) - (datetime.timedelta(hours=12) if kind == "etf" else datetime.timedelta(0))
 today = (datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) + KST).date()
 skip = 0
 for e in log:
