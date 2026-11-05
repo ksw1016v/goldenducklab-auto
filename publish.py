@@ -90,8 +90,32 @@ def post(path, state_key="published", state_val=None):
     STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
 
 
+def post_reel(path, state_val):
+    """out/<slug>/reel.mp4 를 릴스로 게시 (피드에도 함께 노출)."""
+    ep = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    slug = ep.get("slug") or f"{ep['no']:02d}"
+    base = os.environ["IMAGE_BASE"].rstrip("/")
+    video = f"{base}/out/{slug}/reel.mp4"
+    if os.environ.get("DRY_RUN"):
+        print("DRY RUN reel", video)
+        return
+    uid = IG_USER_ID
+    cid = call("POST", f"{uid}/media", media_type="REELS", video_url=video, caption=ep["caption"], share_to_feed="true")["id"]
+    wait_ready(cid, tries=72)
+    res = call("POST", f"{uid}/media_publish", creation_id=cid)
+    print("릴스 게시 완료 media id:", res["id"])
+    st = load_state()
+    st.setdefault("etf_reels", []).append(state_val)
+    st.setdefault("log", []).append({"no": ep["no"], "slug": slug, "type": "reel", "media_id": res["id"], "at": time.strftime("%Y-%m-%d %H:%M:%S")})
+    STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "next"
+    if cmd == "reel":
+        # reel <원고경로> <기록값>
+        post_reel(sys.argv[2], sys.argv[3])
+        sys.exit(0)
     if cmd == "next":
         n = next_episode()
         print("" if n is None else n)

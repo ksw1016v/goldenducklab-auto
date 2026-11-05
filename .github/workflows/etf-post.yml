@@ -38,13 +38,14 @@ jobs:
         if: steps.pick.outputs.path != ''
         run: |
           mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
-          pip install -q playwright==1.48.0
+          pip install -q playwright==1.48.0 numpy imageio-ffmpeg
           if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
 
       - name: 카드뉴스 렌더링 후 저장소에 올리기
         if: steps.pick.outputs.path != ''
         run: |
           python3 render.py ${{ steps.pick.outputs.path }}
+          python3 reel.py ${{ steps.pick.outputs.path }} || echo "::warning::릴스 영상 생성 실패 (카드뉴스는 그대로 게시)"
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
           git add etf/episodes out/
@@ -63,5 +64,20 @@ jobs:
           python3 publish.py post ${{ steps.pick.outputs.path }} etf_published ${{ steps.pick.outputs.ticker }}
           git add state.json
           git commit -m "published ETF ${{ steps.pick.outputs.ticker }}"
+          git pull --rebase
+          git push
+
+      - name: 릴스 게시
+        if: steps.pick.outputs.path != ''
+        continue-on-error: true
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          SLUG=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" ${{ steps.pick.outputs.path }})
+          if [ ! -f "out/$SLUG/reel.mp4" ]; then echo "::warning::릴스 영상이 없어 건너뜀"; exit 0; fi
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.ticker }}
+          git add state.json
+          git commit -m "published ETF reel ${{ steps.pick.outputs.ticker }}"
           git pull --rebase
           git push
