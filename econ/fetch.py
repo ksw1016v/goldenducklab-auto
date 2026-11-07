@@ -1,5 +1,5 @@
 """매일 아침 경제 브리핑용 데이터 수집 (GitHub Actions에서 실행).
-시장: yfinance / 미국 경제지표: FRED 공개 CSV / 한국 기준금리: econ/manual.json(수동)
+시장: yfinance / 미국 경제지표: 미국 노동통계국(BLS) 공개 API / 한·미 기준금리: econ/manual.json(수동, 결정 후 갱신)
 결과: econ/data.json
 """
 import json, io, time, datetime, pathlib, urllib.request
@@ -17,7 +17,6 @@ MARKETS = [
     ("usdkrw", "KRW=X", "원/달러", "fx", "원", 1, 10),
     ("jpykrw", "JPYKRW=X", "원/엔(100엔)", "fx", "원", 2, 10),
     ("eurkrw", "EURKRW=X", "원/유로", "fx", "원", 1, 10),
-    ("cnykrw", "CNYKRW=X", "원/위안", "fx", "원", 2, 5),
     ("dxy", "DX-Y.NYB", "달러인덱스", "fx", "", 2, 1),
     ("us10y", "^TNX", "미국 10년 국채금리", "rate", "%", 3, 0.25),
     ("wti", "CL=F", "WTI 유가", "cmd", "$", 2, 10),
@@ -25,13 +24,11 @@ MARKETS = [
     ("btc", "BTC-USD", "비트코인", "cmd", "$", 0, 10000),
     ("vix", "^VIX", "VIX 공포지수", "cmd", "", 2, 5),
 ]
-FRED = [  # id, 이름, 변환
-    ("CPIAUCSL", "미국 소비자물가(CPI)", "yoy"),
-    ("CPILFESL", "미국 근원 CPI", "yoy"),
-    ("UNRATE", "미국 실업률", "level"),
-    ("PAYEMS", "미국 비농업 고용", "diff"),
-    ("DFEDTARU", "미국 기준금리(상단)", "level"),
-    ("T10Y2Y", "미국 장단기 금리차(10년-2년)", "level"),
+BLS = [  # 미국 노동통계국 공개 API(키 없이 하루 25회) · id, 이름, 변환
+    ("CUUR0000SA0", "미국 소비자물가(CPI)", "yoy"),
+    ("CUUR0000SA0L1E", "미국 근원 CPI", "yoy"),
+    ("LNS14000000", "미국 실업률", "level"),
+    ("CES0000000001", "미국 비농업 고용", "diff"),
 ]
 
 
@@ -75,23 +72,33 @@ def market(key, sym, name, group, unit, dec, step):
             "chg_ytd_pct": round((last / float(c[c.index < pd.Timestamp(c.index[-1].year, 1, 1)].iloc[-1]) - 1) * 100, 2)}
 
 
-def fred(fid, name, how):
-    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={fid}"
-    raw = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=60).read().decode()
-    df = pd.read_csv(io.StringIO(raw))
-    df.columns = ["date", "v"]
-    df = df[pd.to_numeric(df["v"], errors="coerce").notna()]
-    df["v"] = df["v"].astype(float)
-    df["date"] = pd.to_datetime(df["date"])
-    s = df.set_index("date")["v"]
-    if how == "yoy":
-        s = (s / s.shift(12) - 1) * 100
-    elif how == "diff":
-        s = s.diff()
-    s = s.dropna()
-    return {"id": fid, "name": name, "how": how, "date": s.index[-1].strftime("%Y-%m-%d"),
-            "value": round(float(s.iloc[-1]), 3), "prev": round(float(s.iloc[-2]), 3),
-            "prev_date": s.index[-2].strftime("%Y-%m-%d")}
+def bls_all():
+    y = datetime.date.today().year
+    body = json.dumps({"seriesid": [b[0] for b in BLS], "startyear": str(y - 2), "endyear": str(y)}).encode()
+    req = urllib.request.Request("https://api.bls.gov/publicAPI/v1/timeseries/data/", data=body,
+                                 headers={"Content-Type": "application/json", "User-Agent": "goldenducklab-brief"})
+    res = json.loads(urllib.request.urlopen(req, timeout=90).read())
+    out = {}
+    for ser in res["Results"]["series"]:
+        sid = ser["seriesID"]
+        name, how = next((b[1], b[2]) for b in BLS if b[0] == sid)
+        rows = [r for r in ser["data"] if r["period"].startswith("M") and r["period"] != "M13" and r["value"] not in ("-", "")]
+        pts = sorted((f"{r['year']}-{r['period'][1:]}", float(r["value"])) for r in rows)
+        d = dict(pts)
+        keys = [k for k, _ in pts]
+        def val(k):
+            if how == "yoy":
+                y0, m0 = k.split("-")
+                b = d.get(f"{int(y0) - 1}-{m0}")
+                return (d[k] / b - 1) * 100 if b else None
+            if how == "diff":
+                i = keys.index(k)
+                return d[k] - d[keys[i - 1]] if i > 0 else None
+            return d[k]
+        last, prev = keys[-1], keys[-2]
+        out[sid] = {"id": sid, "name": name, "how": how, "date": last, "value": round(val(last), 2),
+                    "prev": round(val(prev), 2) if val(prev) is not None else None, "prev_date": prev}
+    return out
 
 
 def main():
@@ -104,13 +111,16 @@ def main():
             out["errors"].append(f"{m[0]}: {ex}")
             print("ERR", m[0], ex)
         time.sleep(0.5)
-    for f in FRED:
+    for i in range(3):
         try:
-            out["macro"][f[0]] = fred(*f)
-            print(f[0], out["macro"][f[0]])
+            out["macro"] = bls_all()
+            print(out["macro"])
+            break
         except Exception as ex:
-            out["errors"].append(f"{f[0]}: {ex}")
-            print("ERR", f[0], ex)
+            print("ERR bls", ex)
+            if i == 2:
+                out["errors"].append(f"bls: {ex}")
+            time.sleep(10)
     man = ROOT / "manual.json"
     if man.exists():
         out["manual"] = json.loads(man.read_text(encoding="utf-8"))
