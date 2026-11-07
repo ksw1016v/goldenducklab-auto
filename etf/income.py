@@ -70,17 +70,23 @@ def main():
             months = sorted({d.month for d in one.index})
             annual = div.groupby(div.index.year).sum()
             last_full = last.year - 1
+            # 연속 배당 연수: 배당 기준일이 바뀌어 한 해가 비고 다음 해에 몰린 경우(국내 2023~ 제도 변경)는 끊긴 걸로 보지 않음
             yrs = 0
-            for yr in range(last_full, close.index[0].year - 1, -1):
+            first = close.index[0].year
+            yr = last_full
+            while yr >= first:
                 if annual.get(yr, 0) > 0:
+                    yrs += 1
+                elif annual.get(yr + 1, 0) > 0 and annual.get(yr - 1, 0) > 0 and annual.get(yr + 1, 0) >= 1.5 * annual.get(yr - 1, 0):
                     yrs += 1
                 else:
                     break
-            cut = False
-            for yr in range(last_full - 4, last_full + 1):
-                a, b = annual.get(yr, 0), annual.get(yr - 1, 0)
-                if b > 0 and a < b * 0.9:
-                    cut = True
+                yr -= 1
+            # 배당 삭감: 지급 시점이 옮겨 다녀도 흔들리지 않게 최근 2년 합계를 그 전 2년 합계와 비교(최근 6년 = 2년씩 3구간)
+            def win(a, b):
+                return float(div[(div.index > last - pd.DateOffset(years=a)) & (div.index <= last - pd.DateOffset(years=b))].sum())
+            blocks = [win(6, 4), win(4, 2), win(2, 0)]
+            cut = any(blocks[i] > 0 and blocks[i + 1] < blocks[i] * 0.9 for i in range(2))
             five = last - pd.DateOffset(years=5)
             past = float(div[(div.index > five - pd.Timedelta(days=365)) & (div.index <= five)].sum())
             growth = round((ttm / past - 1) * 100, 1) if past > 0 else None
@@ -111,7 +117,7 @@ def main():
                     fee = fee * 100 if isinstance(fee, (int, float)) else None
                 fee = round(float(fee), 2) if isinstance(fee, (int, float)) and fee > 0 else None
                 chk("연속 분배", f"{yrs}년", yrs >= RULES["etf_min_years"], f"{RULES['etf_min_years']}년 이상")
-                chk("최근 5년 분배 삭감", "없음" if not cut else "있음", not cut, "없어야 통과",
+                chk("분배 삭감(최근 6년)", "없음" if not cut else "있음", not cut, "없어야 통과",
                     skip=r["category"] == "배당·커버드콜")
                 aok = aum is not None and aum >= (RULES["etf_min_aum_usd"] if us else RULES["etf_min_aum_krw"])
                 av = (f"${aum / 1e9:,.1f}B" if us else f"{aum / 1e8:,.0f}억원") if aum else "정보 없음"
@@ -120,7 +126,7 @@ def main():
                     f"{RULES['etf_max_fee']}% 이하", skip=fee is None)
             else:
                 chk("연속 배당", f"{yrs}년", yrs >= RULES["min_years"], f"{RULES['min_years']}년 이상")
-                chk("최근 5년 배당 삭감", "없음" if not cut else "있음", not cut, "없어야 통과")
+                chk("배당 삭감(최근 6년)", "없음" if not cut else "있음", not cut, "없어야 통과")
                 chk("배당성향", f"{payout:.0f}%" if payout else "정보 없음", (payout or 0) <= RULES["max_payout"], f"{RULES['max_payout']}% 이하",
                     skip=(r["category"] in NO_PAYOUT or payout is None))
                 chk("부채비율", f"{de:.0f}%" if de else "정보 없음", (de or 0) <= RULES["max_de"], f"{RULES['max_de']}% 이하",
