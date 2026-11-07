@@ -1,0 +1,150 @@
+{
+ "fetched_at": "2026-11-07 05:23:39 UTC",
+ "account": {
+  "id": "17841465585453824",
+  "followers_count": 51,
+  "follows_count": 64,
+  "media_count": 12,
+  "username": "golden_duck_lab"
+ },
+ "account_daily": {
+  "error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"A4Q1_lgw_C-QD0KdDTUAB_f\"}}"
+ },
+ "account_totals_today": {
+  "error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AYt-0A_I3aMfqOAt855xTWc\"}}"
+ },
+ "media": [
+  {
+   "id": "18132207886876092",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-07T04:20:16+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfbTxclDv0C/",
+   "title": "같은 돈인데 왜 누구는 2배, 누구는 그대로일까요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AZGxgF56OrzV0uFjJ5AwSgp\"}}"
+  },
+  {
+   "id": "18120831200471919",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "timestamp": "2026-11-07T00:48:26+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/reel/Dfa7fGcGRtR/",
+   "title": "SCHD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Aqbev1rIYjk09tDHTtfKMQj\"}}"
+  },
+  {
+   "id": "17873765601645383",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-06T17:18:03+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfaH_TVkilp/",
+   "title": "SCHD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AeVlENi1XXbDz4QG3Ppeo17\"}}"
+  },
+  {
+   "id": "18060771512559422",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-06T04:51:20+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfYyhQNDw4k/",
+   "title": "연 4% 적금, 이자가 생각보다 적어서 놀라신 적 있나요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AMCoo7yFHG5dcEElxZ8QnL8\"}}"
+  },
+  {
+   "id": "17977310595149352",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "timestamp": "2026-11-05T17:57:30+0000",
+   "like_count": 4,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/reel/DfXnqdAFBRN/",
+   "title": "QQQ, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Ak_6aD_l-omTNFRddhLf2C6\"}}"
+  },
+  {
+   "id": "17915188911500189",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-05T17:56:05+0000",
+   "like_count": 0,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfXniVBE7HG/",
+   "title": "QQQ, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AGYvR2HI3bIm0S5ufectAFj\"}}"
+  },
+  {
+   "id": "17965540731218487",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-05T00:53:15+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfVye0cDIrv/",
+   "title": "내 신용점수, 몇 점인지 알고 계세요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AkXC2bvfR1fyRofCPCj78tU\"}}"
+  },
+  {
+   "id": "18425717158154987",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-04T21:07:15+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfVYnmejSKj/",
+   "title": "SPY, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AI13KVZTZDRUBXh9p9uuqY2\"}}"
+  },
+  {
+   "id": "17909833536665264",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-04T04:36:49+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfTnSO6l3XK/",
+   "title": "매달 자동으로 빠져나가는 돈, 얼마인지 아세요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AbFRDgrPhornCn682yIMUW9\"}}"
+  },
+  {
+   "id": "18025123280714191",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-04T00:10:06+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfTIv8ol3LI/",
+   "title": "갑자기 큰돈이 필요하면 어떻게 하시나요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Awy3d7wIvJTRnTSacmzvFVY\"}}"
+  },
+  {
+   "id": "18647933578049829",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-03T22:36:03+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DfS-AUXkv4W/",
+   "title": "월급날 다음 주면 잔고가 바닥나시나요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"A4KdNfJ4ZkA_V1aLoLVUfGf\"}}"
+  },
+  {
+   "id": "18014374895979224",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-03T06:58:17+0000",
+   "like_count": 1,
+   "comments_count": 1,
+   "permalink": "https://www.instagram.com/p/DfRSr9Jn655/",
+   "title": "월급은 들어오는데, 왜 통장엔 안 남을까요? 🥚",
+   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AU5AMPLE9XrAHn_lo3U8JBX\"}}"
+  }
+ ]
+}
