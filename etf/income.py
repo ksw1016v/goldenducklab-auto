@@ -27,6 +27,7 @@ RULES = {
     "min_cap_usd": 30e9, "min_cap_krw": 3e12,
     # ETF 기준
     "etf_min_years": 5,       # 연속 분배 연수
+    "cc_min_years": 3, "cc_yield_hi": 12.0,   # 커버드콜 ETF 완화 기준
     "etf_min_aum_usd": 1e9, "etf_min_aum_krw": 1e11,
     "etf_max_fee": 0.6,       # 총보수(%) 상한
 }
@@ -107,6 +108,7 @@ def main():
             def chk(name, val, ok, rule, skip=False):
                 checks.append({"name": name, "value": val, "ok": (None if skip else bool(ok)), "rule": rule})
             is_etf = r["type"] == "ETF"
+            cc = r["category"] == "배당·커버드콜"
             aum = fee = None
             if is_etf:
                 aum = info.get("totalAssets")
@@ -116,7 +118,8 @@ def main():
                     fee = info.get("annualReportExpenseRatio")
                     fee = fee * 100 if isinstance(fee, (int, float)) else None
                 fee = round(float(fee), 2) if isinstance(fee, (int, float)) and fee > 0 else None
-                chk("연속 분배", f"{yrs}년", yrs >= RULES["etf_min_years"], f"{RULES['etf_min_years']}년 이상")
+                my = RULES["cc_min_years"] if cc else RULES["etf_min_years"]
+                chk("연속 분배", f"{yrs}년", yrs >= my, f"{my}년 이상")
                 chk("분배 삭감", "없음" if not cut else "있음", not cut, "최근 6년간 없어야 통과",
                     skip=r["category"] == "배당·커버드콜")
                 aok = aum is not None and aum >= (RULES["etf_min_aum_usd"] if us else RULES["etf_min_aum_krw"])
@@ -136,7 +139,8 @@ def main():
                 chk("시가총액", capv, capok, "미국 300억달러·국내 3조원 이상", skip=cap is None)
             chk("변동성(3년)", f"연 {vol:.0f}%", vol <= RULES["max_vol"], f"{RULES['max_vol']}% 이하")
             chk("최대 낙폭(5년)", f"{mdd:.0f}%", mdd >= RULES["min_mdd"], f"{RULES['min_mdd']}%보다 작게")
-            chk("배당수익률", f"{y:.1f}%", RULES["yield_lo"] <= y <= RULES["yield_hi"], f"{RULES['yield_lo']}~{RULES['yield_hi']}%")
+            yh = RULES["cc_yield_hi"] if cc else RULES["yield_hi"]
+            chk("배당수익률", f"{y:.1f}%", RULES["yield_lo"] <= y <= yh, f"{RULES['yield_lo']}~{yh}%")
             risk = "낮음" if (vol < 22 and mdd > -30) else ("보통" if vol < 32 else "높음")
             passed = all(c["ok"] is not False for c in checks) and risk != "높음" and ttm > 0
 
