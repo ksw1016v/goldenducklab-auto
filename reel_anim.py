@@ -33,7 +33,12 @@ window.setT = (t) => {
   document.querySelectorAll('[data-count]').forEach(el => {
     const [s, d] = el.dataset.count.split(',').map(Number);
     const p = clamp((t - s) / d), v = +el.dataset.from + (+el.dataset.to - +el.dataset.from) * ease(p);
+    if (el.dataset.fmt === 'num') { const dc = +(el.dataset.dec || 0);
+      el.textContent = (el.dataset.pre || '') + v.toLocaleString('en-US', {minimumFractionDigits: dc, maximumFractionDigits: dc}) + (el.dataset.suf || ''); return; }
     el.textContent = el.dataset.fmt === 'year' ? `${Math.round(v)}년` : won(v); });
+  document.querySelectorAll('[data-draw]').forEach(el => {
+    const p = clamp((t - +el.dataset.draw) / 1.1);
+    el.style.strokeDashoffset = 1 - ease(p); el.style.opacity = out; });
   document.querySelectorAll('[data-zoom]').forEach(el => {
     const p = clamp((t - +el.dataset.zoom) / 0.6);
     el.style.opacity = clamp(p * 2) * out; el.style.transform = `scale(${0.6 + 0.4 * ease(p)})`; });

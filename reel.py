@@ -10,6 +10,7 @@ import numpy as np
 from playwright.sync_api import sync_playwright
 from render import CSS, THEMES, esc, uri
 from reel_anim import ANIM_JS, scenes, cover, scenes_income, cover_income
+from econ.brief import scenes_brief, cover_brief, BRIEF_REEL, kday
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
@@ -81,8 +82,8 @@ INCOME_REEL = """
 
 def page(ep, inner, dur):
     theme = THEMES.get(ep.get("theme", ""), "")
-    extra = {"etf": ETF_REEL, "income": INCOME_REEL}.get(ep.get("theme"), "")
-    tag = f"{ep['series']} #{ep['no']:02d}"
+    extra = {"etf": ETF_REEL, "income": INCOME_REEL, "brief": BRIEF_REEL}.get(ep.get("theme"), "")
+    tag = f"{ep['series']} · {kday(ep['date_us'])}" if ep.get("kind") == "brief" else f"{ep['series']} #{ep['no']:02d}"
     return f"""<html><head><meta charset="utf-8"><style>{CSS}{theme}{REEL_CSS}{extra}</style>{ANIM_JS}</head><body data-dur="{dur}">
 <div class="frame"><div class="top"><span class="tag">{esc(tag)}</span><span class="page"></span></div>{inner}
 <div class="foot"><span>@golden_duck_lab</span><span>저장하고 다시 보기</span></div></div></body></html>"""
@@ -146,8 +147,10 @@ def build(path):
     slug = ep.get("slug") or f"{ep['no']:02d}"
     out_dir = ROOT / "out" / slug
     out_dir.mkdir(parents=True, exist_ok=True)
-    income = ep.get("kind") == "income"
-    sc = scenes_income(ep) if income else scenes(ep)
+    kind = ep.get("kind")
+    income = kind == "income"
+    sc = {"income": scenes_income, "brief": scenes_brief}.get(kind, scenes)(ep)
+    cov = {"income": cover_income, "brief": cover_brief}.get(kind, cover)
     total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
@@ -162,7 +165,7 @@ def build(path):
             exe = os.environ.get("CHROME_PATH")
             b = p.chromium.launch(executable_path=exe) if exe else p.chromium.launch()
             pg = b.new_page(viewport={"width": W, "height": H})
-            pg.set_content(page(ep, (cover_income if income else cover)(ep), 999), wait_until="load")
+            pg.set_content(page(ep, cov(ep), 999), wait_until="load")
             pg.evaluate("document.fonts.ready")
             pg.screenshot(path=str(out_dir / "cover.jpg"), type="jpeg", quality=92)
             for i, (inner, dur) in enumerate(sc):
