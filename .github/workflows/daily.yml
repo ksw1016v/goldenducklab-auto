@@ -2,7 +2,14 @@ name: daily-post
 
 on:
   schedule:
-    - cron: "0 0 * * *"   # 매일 09:00 KST (00:00 UTC)
+    # 목표 07:30 KST · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
+    - cron: "17 22 * * *"
+    - cron: "23 22 * * *"
+    - cron: "37 22 * * *"
+    - cron: "53 22 * * *"
+    - cron: "17 23 * * *"
+    - cron: "47 23 * * *"
+    - cron: "23 0 * * *"
   workflow_dispatch:       # 수동 실행 버튼
 
 permissions:
@@ -19,7 +26,9 @@ jobs:
 
       - name: 오늘 이미 올렸는지 확인
         id: guard
-        run: python3 guard.py basic >> "$GITHUB_OUTPUT"
+        run: |
+          git pull -q origin main
+          python3 guard.py basic >> "$GITHUB_OUTPUT"
 
       - name: 다음 편 확인
         if: steps.guard.outputs.skip != '1'

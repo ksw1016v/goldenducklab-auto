@@ -1,14 +1,19 @@
-"""같은 시리즈를 오늘(한국 날짜) 이미 올렸으면 건너뛴다 (GitHub 예약 실행이 늦거나 겹칠 때 중복 게시 방지).
-사용법: python guard.py basic|etf  -> 'skip=1' 또는 'skip=0' 출력
+"""게시 여부 판단: 같은 시리즈를 오늘 이미 올렸거나, 아직 게시 시간이 안 됐으면 건너뛴다.
+GitHub 예약 실행은 늦거나 겹칠 수 있어 목표 시간 앞뒤로 여러 번 실행하고, 가장 먼저 조건을 만족한 실행만 올린다.
+사용법: python guard.py basic|income|etf  -> 'skip=1' 또는 'skip=0' 출력
 """
-import json, sys, pathlib, datetime
+import json, os, sys, pathlib, datetime
+
+TARGET = {"basic": (7, 30), "income": (12, 10), "etf": (21, 0)}   # 한국 시간 게시 목표
+EARLY = datetime.timedelta(minutes=15)                             # 목표보다 이만큼까지만 먼저 올려도 됨
 
 kind = sys.argv[1]
 st = pathlib.Path(__file__).parent / "state.json"
 log = json.loads(st.read_text()).get("log", []) if st.exists() else []
-# 저녁 시리즈(etf)는 한국 시간 낮 12시를 하루의 경계로 봐요: 늦게 밀려 새벽에 올라간 편은 전날 저녁 몫
-KST = datetime.timedelta(hours=9) - (datetime.timedelta(hours=12) if kind == "etf" else datetime.timedelta(0))
-today = (datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) + KST).date()
+now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) + datetime.timedelta(hours=9)  # KST
+# 저녁 시리즈(etf)는 낮 12시를 하루의 경계로 봐요: 늦게 밀려 새벽에 올라간 편은 전날 저녁 몫
+shift = datetime.timedelta(hours=12) if kind == "etf" else datetime.timedelta(0)
+today = (now - shift).date()
 skip = 0
 for e in log:
     if e.get("type") == "reel" or e.get("repost"):
@@ -17,7 +22,13 @@ for e in log:
     k = "etf" if slug.startswith("etf-") else ("income" if slug.startswith("inc-") else "basic")
     if k != kind:
         continue
-    at = datetime.datetime.strptime(e["at"], "%Y-%m-%d %H:%M:%S")
-    if (at + KST).date() == today:
+    at = datetime.datetime.strptime(e["at"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=9)
+    if (at - shift).date() == today:
+        skip = 1
+# 아직 게시 시간이 안 됐으면 건너뜀 (수동 실행은 예외)
+if os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch":
+    h, m = TARGET[kind]
+    start = datetime.datetime.combine(today, datetime.time(h, m)) - EARLY
+    if now < start:
         skip = 1
 print(f"skip={skip}")

@@ -2,7 +2,14 @@ name: etf-post
 
 on:
   schedule:
-    - cron: "0 10 * * *"   # 매일 19:00 KST (10:00 UTC)
+    # 목표 21:00 KST · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
+    - cron: "47 11 * * *"
+    - cron: "53 11 * * *"
+    - cron: "7 12 * * *"
+    - cron: "23 12 * * *"
+    - cron: "47 12 * * *"
+    - cron: "17 13 * * *"
+    - cron: "47 13 * * *"
   workflow_dispatch:
 
 permissions:
@@ -19,7 +26,9 @@ jobs:
 
       - name: 오늘 이미 올렸는지 확인
         id: guard
-        run: python3 guard.py etf >> "$GITHUB_OUTPUT"
+        run: |
+          git pull -q origin main
+          python3 guard.py etf >> "$GITHUB_OUTPUT"
 
       - name: 다음 ETF 원고 만들기
         if: steps.guard.outputs.skip != '1'
