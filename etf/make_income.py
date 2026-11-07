@@ -104,7 +104,8 @@ def build(t, no, nxt):
     if growth is not None and -90 < growth < 300:
         rows.append(["5년 배당 변화", f"{growth:+.0f}%"])
 
-    hrows = [[c["name"], c["value"], c["ok"] is True, c["rule"] if c["ok"] is not None else "참고 · 이 종류엔 기준을 두지 않아요"]
+    short = {"미국 300억달러·국내 3조원 이상": "300억달러 이상", "미국 10억달러·국내 1,000억원 이상": "10억달러 이상"}
+    hrows = [[c["name"], c["value"], c["ok"] is True, short.get(c["rule"], c["rule"]) if c["ok"] is not None else "참고 · 이 종류엔 기준을 두지 않아요"]
              for c in e["checks"]]
     need_rows = [[f"월{a}만", f"매달 {a}만원 받으려면", won(e[f"need_{a}"]), ""] for a in (50, 100, 300)]
     notes = NOTES.get(e["category"], DEFAULT_ETF if etf else DEFAULT_STOCK)[:] + [TAX_US if us else TAX_KR]
