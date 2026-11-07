@@ -1,0 +1,28 @@
+name: insights
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 15 * * *"   # 매일 00:23 KST 성과 수집 (읽기 전용)
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: 성과 읽기
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python3 insights.py
+      - name: 저장
+        run: |
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add insights.json
+          git commit -m "insights $(date -u +%F)" || true
+          git pull --rebase
+          git push
