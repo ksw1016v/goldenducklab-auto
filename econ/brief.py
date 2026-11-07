@@ -219,41 +219,53 @@ def caption(ep, M):
 
 # ---------- 릴스 ----------
 BRIEF_REEL = """
-body{background:#11151D;color:#F3F1EA}
-.frame{border-color:#F5B800;background:#11151D}
-.tag{background:#F5B800;color:#11151D}
-.foot{border-top-color:#3A4458;color:#C9CED8}.foot span:last-child{color:#F5B800}
-.kick{color:#F5B800}
-mark{background:linear-gradient(transparent 55%,rgba(245,184,0,.55) 55%);color:#fff}
-.up{color:#FF5B5B}.down{color:#4E8FFF}.flat{color:#9AA4B5}
-.hookname{font-size:104px;font-weight:900;letter-spacing:-3px;line-height:1.1;color:#fff}
+body{background:#FFF4EA;color:#2B2118}
+.frame{border-color:#F08A3E;background:#FFF4EA}
+.tag{background:#F08A3E;color:#FFFFFF}
+.foot{border-top-color:#F3C9A6;color:#6B5646}.foot span:last-child{color:#E0701E}
+.kick{color:#E0701E}
+mark{background:linear-gradient(transparent 55%,rgba(245,184,0,.6) 55%);color:#2B2118}
+.up{color:#E5383B}.down{color:#2F6BD8}.flat{color:#8A7565}
+.hookname{font-size:104px;font-weight:900;letter-spacing:-3px;line-height:1.1;color:#2B2118}
 .hookphrase{font-size:100px;font-weight:900;letter-spacing:-3px;line-height:1.15;margin-top:8px}
-.hookval{font-size:120px;font-weight:900;letter-spacing:-3px;margin-top:60px;color:#fff}
+.hookval{font-size:120px;font-weight:900;letter-spacing:-3px;margin-top:60px;color:#2B2118}
 .hookchg{font-size:58px;font-weight:900;margin-top:6px}
 .hooksub{margin-top:56px}
-.hooksub div{font-size:44px;font-weight:700;color:#C9CED8;padding:20px 0;border-top:2px solid #2A3345}
-.sec{font-size:84px;font-weight:900;letter-spacing:-2px;margin-bottom:12px;color:#fff}
-.secd{font-size:36px;color:#9AA4B5;margin-bottom:40px;font-weight:500}
-.mk{background:#1B2130;border:3px solid #2A3345;border-radius:30px;padding:30px 36px 22px;margin-bottom:24px}
+.hooksub div{font-size:44px;font-weight:700;color:#6B5646;padding:20px 0;border-top:2px solid #F6D9C3}
+.sec{font-size:84px;font-weight:900;letter-spacing:-2px;margin-bottom:12px;color:#2B2118}
+.secd{font-size:36px;color:#8A7565;margin-bottom:40px;font-weight:500}
+.mk{background:#FFFFFF;border:3px solid #F6D9C3;box-shadow:0 6px 0 #F8E2D0;border-radius:30px;padding:30px 36px 22px;margin-bottom:24px}
 .mk .r1{display:flex;justify-content:space-between;align-items:baseline}
-.mk .nm{font-size:42px;font-weight:700;color:#C9CED8}
-.mk .vl{font-size:66px;font-weight:900;color:#fff;letter-spacing:-1px}
+.mk .nm{font-size:42px;font-weight:700;color:#6B5646}
+.mk .vl{font-size:66px;font-weight:900;color:#2B2118;letter-spacing:-1px}
 .mk .r2{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
 .mk .cg{font-size:42px;font-weight:900}
-.mk .m1{font-size:30px;color:#9AA4B5}
+.mk .m1{font-size:30px;color:#8A7565}
 .mk svg{display:block;margin-top:10px}
 .mk.sm{padding:22px 34px 18px;margin-bottom:18px}.mk.sm .vl{font-size:56px}.mk.sm .nm{font-size:38px}.mk.sm .cg{font-size:36px}
 .mg{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.mc{background:#1B2130;border:3px solid #2A3345;border-radius:28px;padding:30px 30px 26px}
-.mc .a{font-size:36px;font-weight:700;color:#C9CED8}.mc .b{font-size:70px;font-weight:900;color:#F5B800;letter-spacing:-1px;margin-top:6px}
-.mc .c{font-size:28px;color:#9AA4B5;margin-top:4px}
-.pt{display:flex;gap:26px;align-items:flex-start;background:#1B2130;border:3px solid #2A3345;border-radius:30px;padding:40px 40px;margin-bottom:28px}
-.pt .n{flex:none;width:76px;height:76px;border-radius:50%;background:#F5B800;color:#11151D;font-size:42px;font-weight:900;display:flex;align-items:center;justify-content:center}
-.pt .t{font-size:52px;font-weight:900;line-height:1.3;color:#fff}
-.disc{color:#7E879A}
-.end2 .h2{color:#fff}.end2 .lead{color:#C9CED8}
-.cta{background:#F5B800;color:#11151D}
+.mc{background:#FFFFFF;border:3px solid #F6D9C3;border-radius:28px;padding:30px 30px 26px}
+.mc .a{font-size:36px;font-weight:700;color:#6B5646}.mc .b{font-size:70px;font-weight:900;color:#E0701E;letter-spacing:-1px;margin-top:6px}
+.mc .c{font-size:28px;color:#8A7565;margin-top:4px}
+.pt{display:flex;gap:26px;align-items:flex-start;background:#FFFFFF;border:3px solid #F6D9C3;border-radius:30px;padding:40px 40px;margin-bottom:28px}
+.pt .n{flex:none;width:76px;height:76px;border-radius:50%;background:#F5B800;color:#2B2118;font-size:42px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.pt .t{font-size:52px;font-weight:900;line-height:1.3;color:#2B2118}
+.disc{color:#9A8676}
+.end2 .h2{color:#2B2118}.end2 .lead{color:#6B5646}
+.cta{background:#F08A3E;color:#FFFFFF}
 .duck{width:280px;bottom:170px}
+.cov2{justify-content:flex-start;padding-top:30px}
+.covdate{display:inline-block;align-self:flex-start;font-size:40px;font-weight:900;color:#fff;background:#E0701E;padding:12px 30px;border-radius:999px}
+.covtitle{font-size:76px;font-weight:900;line-height:1.2;letter-spacing:-2px;margin-top:30px;color:#2B2118}
+.covhook{background:#fff;border:5px solid #F08A3E;border-radius:40px;padding:44px 48px 40px;margin-top:44px;box-shadow:0 10px 0 #F8D9BF}
+.covhook .hookname{font-size:88px}.covhook .hookphrase{font-size:104px;margin-top:4px}
+.covval{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap;margin-top:22px}
+.covval span{font-size:84px;font-weight:900;letter-spacing:-2px}.covval b{font-size:52px;font-weight:900}
+.ctrow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.ct{background:#fff;border:3px solid #F6D9C3;border-radius:26px;padding:24px 22px}
+.ctn{font-size:30px;font-weight:700;color:#6B5646}.ctv{font-size:44px;font-weight:900;letter-spacing:-1px;margin-top:6px;white-space:nowrap}
+.ctc{font-size:32px;font-weight:900;margin-top:2px}
+.covduck2{position:absolute;right:60px;bottom:150px;width:250px}
 """
 
 
@@ -263,7 +275,7 @@ def spark(vals, dirc, w=760, h=80, start=0.0):
     lo, hi = min(vals), max(vals)
     rng = (hi - lo) or 1
     pts = " ".join(f"{i * w / (len(vals) - 1):.1f},{h - 6 - (v - lo) / rng * (h - 12):.1f}" for i, v in enumerate(vals))
-    col = {"up": "#FF5B5B", "down": "#4E8FFF"}.get(dirc, "#9AA4B5")
+    col = {"up": "#E5383B", "down": "#2F6BD8"}.get(dirc, "#8A7565")
     return (f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}"><polyline points="{pts}" fill="none" stroke="{col}" stroke-width="5" '
             f'stroke-linejoin="round" stroke-linecap="round" pathLength="1" stroke-dasharray="1" data-draw="{start:.2f}"/></svg>')
 
@@ -333,10 +345,14 @@ def scenes_brief(ep):
 
 def cover_brief(ep):
     h = ep["hook"]
-    return f'''<div class="main cov"><div class="kick">{kday(ep["date_us"])} 마감 · 아침 경제 브리핑</div>
-<div class="hookname">{esc(h["name"])}</div><div class="hookphrase {h["dir"]}">{esc(h["phrase"])}</div>
-<div class="hookval">{esc(h["value"])}</div><div class="hookchg {h["dir"]}">{esc(h["chg"])}</div>
-</div><img class="duck covduck" src="{uri("duck.png")}">'''
+    rows = [r for r in (ep["fx"][:1] + ep["us"][:1] + ep["kr"][:1] + ep["us"][1:2]) if r["key"] != h["key"]][:3]
+    tiles = "".join(f'<div class="ct"><div class="ctn">{esc(r["name"])}</div><div class="ctv">{esc(r["value"])}</div>'
+                    f'<div class="ctc {r["dir"]}">{esc(r["chg"].split(" (")[0])}</div></div>' for r in rows)
+    return f'''<div class="main cov2">
+<div class="covtitle">{kday(ep["date_us"])} 마감<br>아침 경제 브리핑</div>
+<div class="covhook"><div class="hookname">{esc(h["name"])}</div><div class="hookphrase {h["dir"]}">{esc(h["phrase"])}</div>
+<div class="covval"><span>{esc(h["value"])}</span><b class="{h["dir"]}">{esc(h["chg"])}</b></div></div>
+<div class="ctrow">{tiles}</div></div><img class="duck covduck2" src="{uri("duck.png")}">'''
 
 
 if __name__ == "__main__":
