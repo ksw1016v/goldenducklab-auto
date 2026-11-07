@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-07 22:49 UTC",
+ "generated_at": "2026-11-07 22:56 UTC",
  "markets": {
   "kospi": {
    "key": "kospi",
@@ -672,10 +672,10 @@
    "step": 10000,
    "date": "2026-11-07",
    "prev_date": "2026-11-06",
-   "last": 75669.0,
+   "last": 75677.0312,
    "prev": 75746.9297,
-   "chg": -77.9297,
-   "pct": -0.103,
+   "chg": -69.8984,
+   "pct": -0.092,
    "z": -0.04,
    "vol_1y": 2.315,
    "streak": -3,
@@ -716,10 +716,10 @@
     80405.2891,
     75942.125,
     75746.9297,
-    75669.0
+    75677.0312
    ],
-   "chg_1m_pct": -7.36,
-   "chg_ytd_pct": -13.53
+   "chg_1m_pct": -7.35,
+   "chg_ytd_pct": -13.52
   },
   "vix": {
    "key": "vix",
@@ -773,20 +773,53 @@
    "chg_ytd_pct": 71.51
   }
  },
- "macro": {},
- "errors": [
-  "cnykrw: single positional indexer is out-of-bounds",
-  "CPIAUCSL: The read operation timed out",
-  "CPILFESL: The read operation timed out",
-  "UNRATE: The read operation timed out",
-  "PAYEMS: The read operation timed out",
-  "DFEDTARU: The read operation timed out",
-  "T10Y2Y: The read operation timed out"
- ],
+ "macro": {
+  "CUUR0000SA0": {
+   "id": "CUUR0000SA0",
+   "name": "미국 소비자물가(CPI)",
+   "how": "yoy",
+   "date": "2026-09",
+   "value": 3.74,
+   "prev": 3.4,
+   "prev_date": "2026-08"
+  },
+  "CUUR0000SA0L1E": {
+   "id": "CUUR0000SA0L1E",
+   "name": "미국 근원 CPI",
+   "how": "yoy",
+   "date": "2026-09",
+   "value": 2.56,
+   "prev": 2.45,
+   "prev_date": "2026-08"
+  },
+  "LNS14000000": {
+   "id": "LNS14000000",
+   "name": "미국 실업률",
+   "how": "level",
+   "date": "2026-10",
+   "value": 4.1,
+   "prev": 4.2,
+   "prev_date": "2026-09"
+  },
+  "CES0000000001": {
+   "id": "CES0000000001",
+   "name": "미국 비농업 고용",
+   "how": "diff",
+   "date": "2026-10",
+   "value": 165.0,
+   "prev": 60.0,
+   "prev_date": "2026-09"
+  }
+ },
+ "errors": [],
  "manual": {
   "bok_rate": 3.0,
   "bok_rate_date": "2026-10-22",
-  "bok_rate_note": "금통위 동결(8/27 인상 이후 유지). 금통위 결정 후 이 값을 갱신",
-  "source": "한국은행 금융통화위원회 2026-10-22 결정"
+  "bok_rate_note": "한국은행 금통위 동결(8/27 인상 이후 유지)",
+  "fed_lo": 3.75,
+  "fed_hi": 4.0,
+  "fed_date": "2026-10-28",
+  "fed_note": "FOMC 동결(10대2, 9/16 결정 수준 유지)",
+  "update_rule": "금통위·FOMC 결정 직후 이 파일을 갱신"
  }
 }
