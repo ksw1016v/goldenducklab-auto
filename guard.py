@@ -11,6 +11,8 @@ KST = datetime.timedelta(hours=9) - (datetime.timedelta(hours=12) if kind == "et
 today = (datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) + KST).date()
 skip = 0
 for e in log:
+    if e.get("type") == "reel" or e.get("repost"):
+        continue  # 릴스·재게시 기록은 하루 1편 계산에서 빼요
     is_etf = str(e.get("slug", "")).startswith("etf-")
     if (kind == "etf") != is_etf:
         continue

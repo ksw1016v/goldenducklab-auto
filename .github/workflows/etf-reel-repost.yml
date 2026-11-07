@@ -1,0 +1,57 @@
+name: etf-reel-repost
+
+# 이미 카드뉴스가 올라간 ETF의 릴스만 새로 만들어 다시 올려요 (수동 실행 전용)
+on:
+  workflow_dispatch:
+    inputs:
+      tickers:
+        description: "다시 올릴 티커 (쉼표로 구분, 예: QQQ,SCHD)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency: instagram-post
+
+jobs:
+  repost:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 폰트와 브라우저 준비
+        run: |
+          mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
+          pip install -q playwright==1.48.0 numpy imageio-ffmpeg
+          if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
+
+      - name: 릴스 영상·표지 만들어 올리기
+        run: |
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          for T in $(echo "${{ github.event.inputs.tickers }}" | tr ',' ' '); do
+            P=$(grep -l "\"ticker\": \"$T\"" etf/episodes/*.json | head -1)
+            if [ -z "$P" ]; then echo "::warning::$T 원고가 없어 건너뜀"; continue; fi
+            python3 reel.py "$P"
+            echo "$T $P" >> /tmp/reels.txt
+          done
+          git add out/
+          git commit -m "re-render ETF reels ${{ github.event.inputs.tickers }}" || true
+          git pull --rebase
+          git push
+          echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: 인스타그램 릴스 게시
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 20
+          while read T P; do
+            python3 publish.py reel "$P" "$T" repost
+          done < /tmp/reels.txt
+          git add state.json
+          git commit -m "reposted ETF reels ${{ github.event.inputs.tickers }}" || true
+          git pull --rebase
+          git push
