@@ -51,6 +51,26 @@ h2{font-size:64px;line-height:1.3;font-weight:900;letter-spacing:-1px;margin-bot
 """
 
 THEMES = {
+    # 현금흐름 황금알: 초록·민트 바탕 + 황금색 강조
+    "income": """
+body{background:#EDF8F2;color:#173B30}
+.frame{border-color:#1F6B52}
+.tag{background:#1F6B52;color:#FFFFFF}
+.page,.kicker,.next,.foot span:last-child,.kv span{color:#3F8A6E}
+.foot{border-top-color:#9FCFBA}
+h1,h2,.ticker,.dval,.it,.check{color:#173B30}
+.item,.drow{border-color:#CDE7DC;background:#FFFFFF}
+.id,.dpr,.ename,.lead,.sub{color:#35594C}
+.dy{background:#1F6B52;color:#FFFFFF}
+.kv{border-bottom-color:#CDE7DC}
+.check{border-bottom-color:#CDE7DC}
+.box{border-color:#3F8A6E}
+.tip{background:#E0F3EA;border-color:#3F9B78}
+.tip b{color:#1F6B52}
+.cta{background:#1F6B52}
+.disc{color:#5E7F72}
+.dret{color:#1F6B52}
+""",
     # ETF 황금알: 네이비·블루 바탕 + 황금색 강조 (기초편 크림·골드와 구분)
     "etf": """
 body{background:#EEF3F9;color:#1B2A41}
@@ -109,6 +129,10 @@ def slide(ep, s, i, n):
         rows = "".join(f"""<div class="drow"><div class="dy">{esc(y)}</div><div class="dv"><div class="dpr">{"원금 " + esc(p) if p != "-" else "이 시점엔 아직 상장 전"}</div>
 <div class="dval">{esc(v)}</div></div><div class="dret {'neg' if r.startswith('-') else ''}">{esc(r)}</div></div>""" for y, p, v, r in s["rows"])
         body = f"""<div class="main"><h2>{esc(s['title'])}</h2>{rows}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
+    elif k == "need":
+        rows = "".join(f"""<div class="drow"><div class="dy" style="font-size:{30 if len(c) > 3 else 34}px;line-height:1.15;text-align:center">{esc(c)}</div><div class="dv"><div class="dpr">{esc(l)}</div>
+<div class="dval">{esc(v)}</div></div><div class="dret">{esc(sd)}</div></div>""" for c, l, v, sd in s["rows"])
+        body = f"""<div class="main"><h2>{esc(s['title'])}</h2>{rows}{f'<div class="tip" style="margin-top:10px">{esc(s["tip"])}</div>' if s.get("tip") else ""}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
     elif k == "end":
         body = f"""<div class="main end"><img src="{uri('logo.png')}"><h2 style="margin-bottom:10px">{esc(s['title'])}</h2>
 <div class="lead" style="margin:0">{esc(s['sub'])}</div><div><span class="cta">{esc(s['cta'])}</span></div>

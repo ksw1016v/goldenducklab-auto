@@ -156,3 +156,113 @@ def cover(ep):
 <div class="h1">월 10만원씩<br>{y}년 모았다면?</div>
 <div class="covnum"><span class="cp">원금 {won(principal)}</span><span class="ca">→</span><span class="cv">{won(e[f"v{y}y_10"])}</span></div>
 </div><img class="duck covduck" src="{uri("duck.png")}">'''
+
+
+# ───────────── 현금흐름 황금알 (income) ─────────────
+
+def income_numbers(ticker):
+    d = json.loads((ROOT / "etf" / "income.json").read_text(encoding="utf-8"))
+    return next(x for x in d["etfs"] if x["ticker"].upper() == ticker.upper())
+
+
+def _label_lines(info):
+    t = info["ticker"]
+    label = t if not t.isdigit() else info["name"]
+    lines = label.split(" ", 1) if " " in label else [label]
+    units = max(sum(1.0 if ord(c) > 0x3000 else 0.66 for c in ln) for ln in lines)
+    return label, lines, units
+
+
+def scenes_income(ep):
+    s = ep["slides"]
+    info = next(x for x in s if x["type"] == "etf_info")
+    needs = [x for x in s if x["type"] == "need"]
+    lists = [x for x in s if x["type"] == "list"]
+    record, notes = lists[0], lists[1]
+    end = s[-1]
+    e = income_numbers(info["ticker"])
+    label, lines, units = _label_lines(info)
+    big = min(230, int(840 / units))
+    duck = f'<img class="duck" data-pop="{{}}" src="{uri("duck.png")}">'
+    out = []
+
+    # 1) 표지: 티커 → 월 0원에서 100만원까지 카운트업 → 받으려면?
+    mark = "<br>".join(f"<mark>{esc(x)}</mark>" for x in lines)
+    out.append((f'''<div class="main"><div class="kick" data-in="0.2">현금흐름 황금알 · {esc(e["freq"])} 배당</div>
+<div class="big" data-in="0.45" style="font-size:{big}px;line-height:1.1">{mark}</div>
+<div class="h1"><span data-in="1.2">로 매달</span><br>
+<span data-in="1.5"><span data-count="1.5,1.2" data-from="0" data-to="1000000">0만원</span></span><br>
+<span data-in="2.9">받으려면?</span></div>
+<div class="subt" data-in="3.5">배당수익률 연 {e["yield_pct"]:.1f}%로<br>계산해 봐요</div></div>{duck.format(1.0)}''', 5.2))
+
+    # 2) 소개
+    kv = "".join(f'<div class="kv" data-in="{1.7 + 0.45 * i:.2f}"><span>{esc(a)}</span><b>{esc(b)}</b></div>'
+                 for i, (a, b) in enumerate(info["rows"]))
+    out.append((f'''<div class="main"><div class="big" data-in="0.1" style="font-size:{min(big, 150)}px;line-height:1.1">{"<br>".join(esc(x) for x in lines)}</div>
+<div class="ename" data-in="0.45">{esc(info["name"])}</div><div class="chip" data-in="0.8">{esc(info["category"])}</div>
+<div class="lead" data-in="1.15" style="margin-top:40px;font-size:46px">{esc(info["desc"])}</div>
+<div style="font-size:40px">{kv}</div></div>''', 5.0 + 0.45 * max(0, len(info["rows"]) - 4)))
+
+    note = needs[0].get("note", "")
+
+    # 3) 필요한 원금: 월 50만·100만·300만 차례로 0원에서 카운트업
+    rows, at = "", 1.0
+    for a in (50, 100, 300):
+        need = e[f"need_{a}"]
+        rows += (f'<div class="drow{" hi" if a == 100 else ""}" data-in="{at:.2f}"><div class="dy" style="font-size:34px;line-height:1.15;text-align:center">월{a}만</div>'
+                 f'<div class="dv"><div class="dpr">매달 {a}만원 받으려면</div>'
+                 f'<div class="dval" data-count="{at:.2f},1.5" data-from="0" data-to="{need}">0만원</div></div></div>')
+        at += 2.1
+    eggs = '<div class="eggs">' + "".join(f'<div class="egg" data-drop="{at + 0.3 * k:.2f}"></div>' for k in range(3)) + "</div>"
+    out.append((f'''<div class="main"><div class="h2" style="font-size:84px"><span data-in="0.1">매달 <mark>이만큼</mark> 받으려면</span><br><span data-in="0.45">얼마가 필요할까?</span></div>
+{rows}{eggs}<div class="disc" data-in="0.6">{esc(note)}</div></div>''', at + 2.2))
+
+    # 4) 꾸준히 모았다면: 넣은 돈 → 지금 금액, 그리고 매달 받는 배당
+    m = e["dca_months"]
+    period = f"{m // 12}년" if m % 12 == 0 else f"{m}개월"
+    inv = e["dca_invested"]
+    out.append((f'''<div class="main"><div class="h2"><span data-in="0.1">월 50만원씩</span><br><span data-in="0.45"><mark>{period}</mark> 모았다면?</span></div>
+<div class="mrow" data-in="1.0"><div class="ml">넣은 돈 {inv // 10_000:,}만원</div><div class="mp">지금 금액 (분배금 재투자)</div>
+<div class="mv" data-count="1.0,1.6" data-from="{inv}" data-to="{e["dca_value"]}">{inv // 10_000:,}만원</div></div>
+<div class="mrow hi" data-in="3.0"><div class="ml">매달 받는 배당 (세전)</div><div class="mp">지금 배당수익률 기준</div>
+<div class="mv" data-count="3.0,1.4" data-from="0" data-to="{e["dca_monthly_income"]}">0만원</div></div>
+<div class="say" data-in="4.8">모아 둔 돈이 매달 월급처럼 들어와요</div>
+<div class="disc" data-in="0.6">{esc(note)}</div></div>''', 6.6))
+
+    # 5) 배당 기록 / 6) 알아둘 점
+    for blk, dur in ((record, 5.0), (notes, 5.4)):
+        items = "".join(f'<div class="item" data-in="{0.8 + 0.8 * j:.2f}"><div class="num">{j + 1}</div><div><div class="it">{esc(a)}</div>'
+                        + (f'<div class="id">{esc(b)}</div>' if b else "") + '</div></div>' for j, (a, b) in enumerate(blk["items"]))
+        tip = f'<div class="tip" data-in="{0.8 + 0.8 * len(blk["items"]) + 0.2:.2f}">{blk["tip"]}</div>' if blk.get("tip") else ""
+        out.append((f'<div class="main"><div class="h2" data-in="0.1">{blk["title"]}</div>{items}{tip}</div>', dur))
+
+    # 7) 마무리
+    out.append((f'''<div class="main end2"><img data-zoom="0.1" src="{uri("logo.png")}">
+<div class="h2" data-in="0.8" style="margin-bottom:16px">{end["title"]}</div>
+<div class="lead" data-in="1.2" style="margin:0;font-size:40px">{esc(end["sub"])}</div>
+<div data-in="1.6" style="margin-top:44px"><span class="cta">{esc(end["cta"])}</span></div>
+<div class="next" data-in="2.0" style="font-size:36px">{esc(end.get("next", ""))}</div></div>''', 5.5))
+    return out
+
+
+def cover_income(ep):
+    info = next(x for x in ep["slides"] if x["type"] == "etf_info")
+    e = income_numbers(info["ticker"])
+    label, lines, units = _label_lines(info)
+    big = min(250, int(840 / units))
+
+    def won(v):
+        v = int(v)
+        if v >= 100_000_000:
+            a, mm = divmod(v, 100_000_000)
+            mm //= 10_000
+            return f"{a}억 {mm:,}만원" if mm else f"{a}억원"
+        return f"{v // 10_000:,}만원"
+
+    mark = "<br>".join(f"<mark>{esc(x)}</mark>" for x in lines)
+    return f'''<div class="main cov">
+<div class="kick">현금흐름 황금알 · {esc(e["freq"])} 배당</div>
+<div class="big" style="font-size:{big}px;line-height:1.1">{mark}</div>
+<div class="h1">로 매달 100만원<br>받으려면?</div>
+<div class="covnum"><span class="cp">배당수익률 연 {e["yield_pct"]:.1f}%</span><span class="ca">→</span><span class="cv">{won(e["need_100"])}</span></div>
+</div><img class="duck covduck" src="{uri("duck.png")}">'''

@@ -13,8 +13,9 @@ skip = 0
 for e in log:
     if e.get("type") == "reel" or e.get("repost"):
         continue  # 릴스·재게시 기록은 하루 1편 계산에서 빼요
-    is_etf = str(e.get("slug", "")).startswith("etf-")
-    if (kind == "etf") != is_etf:
+    slug = str(e.get("slug", ""))
+    k = "etf" if slug.startswith("etf-") else ("income" if slug.startswith("inc-") else "basic")
+    if k != kind:
         continue
     at = datetime.datetime.strptime(e["at"], "%Y-%m-%d %H:%M:%S")
     if (at + KST).date() == today:

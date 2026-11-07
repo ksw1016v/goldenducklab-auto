@@ -9,7 +9,7 @@ import json, sys, os, pathlib, subprocess, tempfile, wave
 import numpy as np
 from playwright.sync_api import sync_playwright
 from render import CSS, THEMES, esc, uri
-from reel_anim import ANIM_JS, scenes, cover
+from reel_anim import ANIM_JS, scenes, cover, scenes_income, cover_income
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
@@ -64,10 +64,19 @@ ETF_REEL = """
 .covnum{border-color:#C9D7E6}.covnum .cp{color:#3E5674}.covnum .ca{color:#4A6A8F}
 """
 
+INCOME_REEL = """
+.kick{color:#3F8A6E}
+.drow.hi,.mrow.hi{border-color:#1F6B52;border-width:5px}
+.mrow{border-color:#CDE7DC}
+.mrow .ml{color:#3F8A6E}.mrow .mp{color:#35594C}
+.say{color:#1F6B52}
+.covnum{border-color:#CDE7DC}.covnum .cp{color:#35594C}.covnum .ca{color:#3F8A6E}
+"""
+
 
 def page(ep, inner, dur):
     theme = THEMES.get(ep.get("theme", ""), "")
-    extra = ETF_REEL if ep.get("theme") == "etf" else ""
+    extra = {"etf": ETF_REEL, "income": INCOME_REEL}.get(ep.get("theme"), "")
     tag = f"{ep['series']} #{ep['no']:02d}"
     return f"""<html><head><meta charset="utf-8"><style>{CSS}{theme}{REEL_CSS}{extra}</style>{ANIM_JS}</head><body data-dur="{dur}">
 <div class="frame"><div class="top"><span class="tag">{esc(tag)}</span><span class="page"></span></div>{inner}
@@ -132,7 +141,8 @@ def build(path):
     slug = ep.get("slug") or f"{ep['no']:02d}"
     out_dir = ROOT / "out" / slug
     out_dir.mkdir(parents=True, exist_ok=True)
-    sc = scenes(ep)
+    income = ep.get("kind") == "income"
+    sc = scenes_income(ep) if income else scenes(ep)
     total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
@@ -147,7 +157,7 @@ def build(path):
             exe = os.environ.get("CHROME_PATH")
             b = p.chromium.launch(executable_path=exe) if exe else p.chromium.launch()
             pg = b.new_page(viewport={"width": W, "height": H})
-            pg.set_content(page(ep, cover(ep), 999), wait_until="load")
+            pg.set_content(page(ep, (cover_income if income else cover)(ep), 999), wait_until="load")
             pg.evaluate("document.fonts.ready")
             pg.screenshot(path=str(out_dir / "cover.jpg"), type="jpeg", quality=92)
             for i, (inner, dur) in enumerate(sc):
