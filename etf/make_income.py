@@ -128,7 +128,7 @@ def build(t, no, nxt):
                    [f"매달 100만원엔 약 {won(e['need_100'])} 필요", ""],
                    ["지급 월이 다른 종목을 섞으면 매달 현금흐름", ""]],
          "tip": "과거 배당이 <mark>미래 배당을 보장하지 않아요</mark>"},
-        {"type": "end", "title": "오늘의 황금알,<br>저장해 두세요", "sub": "매일 아침 · 점심 · 저녁 새 황금알",
+        {"type": "end", "title": "오늘의 황금알,<br>저장해 두세요", "sub": "매일 새 황금알 하나씩",
          "cta": "@golden_duck_lab 팔로우", "next": f"다음 편 예고 · {nxt}" if nxt else "다음 현금흐름편도 기대해 주세요"},
     ]
     tag = (e["ticker"] if us else e["name"]).replace(" ", "").replace("(", "").replace(")", "").replace("&", "")

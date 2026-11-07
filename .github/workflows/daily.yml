@@ -2,14 +2,14 @@ name: daily-post
 
 on:
   schedule:
-    # 목표 07:30 KST · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
-    - cron: "17 22 * * *"
-    - cron: "23 22 * * *"
-    - cron: "37 22 * * *"
-    - cron: "53 22 * * *"
-    - cron: "17 23 * * *"
+    # 목표 09:00 KST · 예비 실행(정시 실행은 Claude 예약 작업이 08:56에 시작)
     - cron: "47 23 * * *"
+    - cron: "53 23 * * *"
+    - cron: "7 0 * * *"
     - cron: "23 0 * * *"
+    - cron: "47 0 * * *"
+    - cron: "17 1 * * *"
+    - cron: "47 1 * * *"
   workflow_dispatch:       # 수동 실행 버튼
 
 permissions:

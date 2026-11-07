@@ -1,4 +1,4 @@
-"""아침 경제 브리핑 릴스: econ/data.json → 원고(econ/episodes/<날짜>.json) + 릴스 장면.
+"""오늘의 경제 브리핑 릴스: econ/data.json → 원고(econ/episodes/<날짜>.json) + 릴스 장면.
 
 후킹: 데이터에서 '오늘 가장 눈에 띄는 움직임'을 점수로 골라 첫 장면 제목으로 쓴다.
   - 평소 변동폭 대비 큰 움직임(z), 사상 최고·52주 최고/최저, 둥근 숫자 돌파, 연속 상승·하락, 한 달 누적 변화
@@ -170,7 +170,7 @@ def build():
     if man.get("bok_rate"):
         macro.append(["한국 기준금리", f"{man['bok_rate']:.2f}%", f"{kday(man['bok_rate_date'])} 결정"])
 
-    ep = {"series": "아침 경제 브리핑", "theme": "brief", "kind": "brief", "no": 0, "slug": f"brief-{slug_date}",
+    ep = {"series": "오늘의 경제 브리핑", "theme": "brief", "kind": "brief", "no": 0, "slug": f"brief-{slug_date}",
           "date_us": us_date, "date_kr": kr_date,
           "hook": {"key": hook["key"] if hook else "spx", "name": hook["name"] if hook else "S&P 500",
                    "phrase": hook["phrase"] if hook else "오늘의 시장", "value": fmt(hm), "last": hm["last"], "dec": hm["dec"],
@@ -192,7 +192,7 @@ def build():
 def caption(ep, M):
     h = ep["hook"]
     em = "📉" if h["dir"] == "down" else "📈"
-    L = [f"{h['name']} {h['phrase']} {em}", f"{kday(ep['date_us'])} 마감 기준, 오늘의 아침 경제 브리핑이에요 🦆", ""]
+    L = [f"{h['name']} {h['phrase']} {em}", f"{kday(ep['date_us'])} 마감 기준, 오늘의 경제 브리핑이에요 🦆", ""]
     def block(title, rows):
         L.append(title)
         for r in rows:
@@ -212,7 +212,7 @@ def caption(ep, M):
     L.append("✔ 오늘의 포인트")
     L += [f"· {p}" for p in ep["points"]]
     L += ["", f"📌 {DISC}. 지표는 미국 노동통계국·한국은행·연준 발표 기준이에요.", "",
-          "매일 아침 시장을 한눈에 정리해 드려요. 저장해 두고 출근길에 확인하세요 💛", "",
+          "시장 흐름을 한눈에 정리해 드려요. 저장해 두고 다시 확인하세요 💛", "",
           "#경제브리핑 #환율 #코스피 #미국증시 #나스닥 #재테크 #골든덕랩"]
     return "\n".join(L)
 
@@ -302,7 +302,7 @@ def scenes_brief(ep):
     suf = "원" if h["key"] in ("usdkrw", "jpykrw", "eurkrw") else ("%" if h["key"] == "us10y" else "")
     base = h["last"] * (1.04 if h["dir"] == "down" else 0.96)
     subs = "".join(f'<div data-in="{2.4 + 0.45 * i:.2f}">{esc(s)}</div>' for i, s in enumerate(h["sub"]))
-    out.append((f'''<div class="main"><div class="kick" data-in="0.15">{kday(ep["date_us"])} 마감 · 아침 경제 브리핑</div>
+    out.append((f'''<div class="main"><div class="kick" data-in="0.15">{kday(ep["date_us"])} 마감 · 오늘의 경제 브리핑</div>
 <div class="hookname" data-in="0.4">{esc(h["name"])}</div>
 <div class="hookphrase {h["dir"]}" data-pop="0.8">{esc(h["phrase"])}</div>
 <div class="hookval" data-in="1.3"><span data-count="1.3,1.0" data-from="{base}" data-to="{h["last"]}" data-fmt="num" data-dec="{dec}" data-pre="{pre}" data-suf="{suf}">{esc(h["value"])}</span></div>
@@ -337,8 +337,8 @@ def scenes_brief(ep):
                 2.8 + 0.6 * len(ep["points"])))
     # 8) 마무리
     out.append((f'''<div class="main end2"><img data-zoom="0.1" src="{uri("logo.png")}">
-<div class="h2" data-in="0.7" style="margin-bottom:16px">매일 아침,<br>시장을 한눈에</div>
-<div class="lead" data-in="1.1" style="margin:0;font-size:40px">저장해 두고 출근길에 확인하세요</div>
+<div class="h2" data-in="0.7" style="margin-bottom:16px">시장 흐름,<br>한눈에</div>
+<div class="lead" data-in="1.1" style="margin:0;font-size:40px">저장해 두고 다시 확인하세요</div>
 <div data-in="1.5" style="margin-top:44px"><span class="cta">@golden_duck_lab 팔로우</span></div></div>''', 4.2))
     return out
 
@@ -349,7 +349,7 @@ def cover_brief(ep):
     tiles = "".join(f'<div class="ct"><div class="ctn">{esc(r["name"])}</div><div class="ctv">{esc(r["value"])}</div>'
                     f'<div class="ctc {r["dir"]}">{esc(r["chg"].split(" (")[0])}</div></div>' for r in rows)
     return f'''<div class="main cov2">
-<div class="covtitle">{kday(ep["date_us"])} 마감<br>아침 경제 브리핑</div>
+<div class="covtitle">{kday(ep["date_us"])} 마감<br>오늘의 경제 브리핑</div>
 <div class="covhook"><div class="hookname">{esc(h["name"])}</div><div class="hookphrase {h["dir"]}">{esc(h["phrase"])}</div>
 <div class="covval"><span>{esc(h["value"])}</span><b class="{h["dir"]}">{esc(h["chg"])}</b></div></div>
 <div class="ctrow">{tiles}</div></div><img class="duck covduck2" src="{uri("duck.png")}">'''

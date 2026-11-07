@@ -4,7 +4,7 @@ GitHub 예약 실행은 늦거나 겹칠 수 있어 목표 시간 앞뒤로 여�
 """
 import json, os, sys, pathlib, datetime
 
-TARGET = {"brief": (7, 0), "basic": (7, 30), "income": (12, 10), "etf": (21, 0)}
+TARGET = {"brief": (7, 0), "basic": (9, 0), "income": (12, 10), "etf": (21, 0)}
 LATE = {"brief": (10, 30)}   # 아침 브리핑은 이 시각이 지나면 그날은 건너뜀(예약 실행만)   # 한국 시간 게시 목표
 EARLY = datetime.timedelta(minutes=15)                             # 목표보다 이만큼까지만 먼저 올려도 됨
 
