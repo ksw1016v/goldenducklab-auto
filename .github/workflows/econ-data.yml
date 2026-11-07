@@ -1,0 +1,27 @@
+name: econ-data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy
+      - run: python econ/fetch.py
+      - name: 저장
+        run: |
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add econ/data.json
+          git commit -m "econ data $(date -u +%F)" || true
+          git pull --rebase
+          git push
