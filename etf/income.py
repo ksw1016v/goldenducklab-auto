@@ -1,4 +1,4 @@
-"""현금흐름 황금알: 국내·미국 배당주 건전성·위험성 점검 (GitHub Actions에서 실행)
+"""현금흐름 황금알: 국내·미국 배당주·배당 ETF 건전성·위험성 점검 (GitHub Actions에서 실행)
 
 후보: etf/dividend_candidates.csv
 각 종목마다
@@ -25,6 +25,10 @@ RULES = {
     "min_mdd": -50,           # 5년 최대 낙폭(%) 하한
     "yield_lo": 1.5, "yield_hi": 9.0,
     "min_cap_usd": 30e9, "min_cap_krw": 3e12,
+    # ETF 기준
+    "etf_min_years": 5,       # 연속 분배 연수
+    "etf_min_aum_usd": 1e9, "etf_min_aum_krw": 1e11,
+    "etf_max_fee": 0.6,       # 총보수(%) 상한
 }
 NO_PAYOUT = {"리츠", "인프라"}
 NO_DEBT = {"금융", "리츠", "인프라"}
@@ -96,15 +100,34 @@ def main():
             checks = []
             def chk(name, val, ok, rule, skip=False):
                 checks.append({"name": name, "value": val, "ok": (None if skip else bool(ok)), "rule": rule})
-            chk("연속 배당", f"{yrs}년", yrs >= RULES["min_years"], f"{RULES['min_years']}년 이상")
-            chk("최근 5년 배당 삭감", "없음" if not cut else "있음", not cut, "없어야 통과")
-            chk("배당성향", f"{payout:.0f}%" if payout else "정보 없음", (payout or 0) <= RULES["max_payout"], f"{RULES['max_payout']}% 이하",
-                skip=(r["category"] in NO_PAYOUT or payout is None))
-            chk("부채비율", f"{de:.0f}%" if de else "정보 없음", (de or 0) <= RULES["max_de"], f"{RULES['max_de']}% 이하",
-                skip=(r["category"] in NO_DEBT or de is None))
-            capok = cap is not None and cap >= (RULES["min_cap_usd"] if us else RULES["min_cap_krw"])
-            capv = (f"${cap / 1e9:,.0f}B" if us else f"{cap / 1e12:,.1f}조원") if cap else "정보 없음"
-            chk("시가총액", capv, capok, "미국 300억달러·국내 3조원 이상", skip=cap is None)
+            is_etf = r["type"] == "ETF"
+            aum = fee = None
+            if is_etf:
+                aum = info.get("totalAssets")
+                aum = float(aum) if isinstance(aum, (int, float)) and aum > 0 else None
+                fee = info.get("netExpenseRatio")
+                if not isinstance(fee, (int, float)):
+                    fee = info.get("annualReportExpenseRatio")
+                    fee = fee * 100 if isinstance(fee, (int, float)) else None
+                fee = round(float(fee), 2) if isinstance(fee, (int, float)) and fee > 0 else None
+                chk("연속 분배", f"{yrs}년", yrs >= RULES["etf_min_years"], f"{RULES['etf_min_years']}년 이상")
+                chk("최근 5년 분배 삭감", "없음" if not cut else "있음", not cut, "없어야 통과",
+                    skip=r["category"] == "배당·커버드콜")
+                aok = aum is not None and aum >= (RULES["etf_min_aum_usd"] if us else RULES["etf_min_aum_krw"])
+                av = (f"${aum / 1e9:,.1f}B" if us else f"{aum / 1e8:,.0f}억원") if aum else "정보 없음"
+                chk("운용 규모", av, aok, "미국 10억달러·국내 1,000억원 이상", skip=aum is None)
+                chk("총보수", f"연 {fee:.2f}%" if fee else "정보 없음", (fee or 0) <= RULES["etf_max_fee"],
+                    f"{RULES['etf_max_fee']}% 이하", skip=fee is None)
+            else:
+                chk("연속 배당", f"{yrs}년", yrs >= RULES["min_years"], f"{RULES['min_years']}년 이상")
+                chk("최근 5년 배당 삭감", "없음" if not cut else "있음", not cut, "없어야 통과")
+                chk("배당성향", f"{payout:.0f}%" if payout else "정보 없음", (payout or 0) <= RULES["max_payout"], f"{RULES['max_payout']}% 이하",
+                    skip=(r["category"] in NO_PAYOUT or payout is None))
+                chk("부채비율", f"{de:.0f}%" if de else "정보 없음", (de or 0) <= RULES["max_de"], f"{RULES['max_de']}% 이하",
+                    skip=(r["category"] in NO_DEBT or de is None))
+                capok = cap is not None and cap >= (RULES["min_cap_usd"] if us else RULES["min_cap_krw"])
+                capv = (f"${cap / 1e9:,.0f}B" if us else f"{cap / 1e12:,.1f}조원") if cap else "정보 없음"
+                chk("시가총액", capv, capok, "미국 300억달러·국내 3조원 이상", skip=cap is None)
             chk("변동성(3년)", f"연 {vol:.0f}%", vol <= RULES["max_vol"], f"{RULES['max_vol']}% 이하")
             chk("최대 낙폭(5년)", f"{mdd:.0f}%", mdd >= RULES["min_mdd"], f"{RULES['min_mdd']}%보다 작게")
             chk("배당수익률", f"{y:.1f}%", RULES["yield_lo"] <= y <= RULES["yield_hi"], f"{RULES['yield_lo']}~{RULES['yield_hi']}%")
@@ -117,7 +140,7 @@ def main():
                 "price": round(price, 2), "ttm_div": round(ttm, 4), "yield_pct": round(y, 2),
                 "freq": freq, "pay_months": months, "pay_count": int(len(one)),
                 "years_paid": yrs, "cut_5y": cut, "div_5y_ago": round(past, 4) if past else None, "div_growth_5y_pct": growth,
-                "payout_pct": payout, "debt_equity_pct": de, "market_cap": cap,
+                "payout_pct": payout, "debt_equity_pct": de, "market_cap": cap, "aum": aum, "fee_pct": fee,
                 "vol_3y_pct": round(vol, 1), "mdd_5y_pct": round(mdd, 1), "risk": risk,
                 "checks": checks, "pass": passed,
             })
