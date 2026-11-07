@@ -48,6 +48,18 @@ h2{font-size:64px;line-height:1.3;font-weight:900;letter-spacing:-1px;margin-bot
 .dv{flex:1}.dpr{font-size:30px;color:#7a4a28}.dval{font-size:56px;font-weight:900;letter-spacing:-1px}
 .dret{font-size:40px;font-weight:900;color:#4E7D22}.dret.neg{color:#D9534F}
 .disc{font-size:24px;color:#9a7a5a;margin-top:18px;line-height:1.5}
+.hgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hrow{position:relative;background:#fff;border:3px solid #F5DFA8;border-radius:24px;padding:16px 22px 14px 22px}
+.hm{position:absolute;right:18px;top:18px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fff;background:#7CB342}
+.hm.na{background:#C9C2B5}
+.hn{font-size:28px;font-weight:700;color:#7a4a28}
+.hv{font-size:40px;font-weight:900;letter-spacing:-1px;margin-top:4px}
+.hr{font-size:22px;color:#8a7a6a;margin-top:2px}
+.badge{display:inline-block;font-size:32px;font-weight:900;padding:12px 30px;border-radius:999px;background:#F5B800;color:#5C2E0E;margin-bottom:30px}
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:30px}
+.mo{height:170px;border-radius:28px;background:#fff;border:3px solid #F5DFA8;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:#C9C2B5}
+.mo.on{background:#F5B800;border-color:#F5B800;color:#5C2E0E}
+.mo small{font-size:26px;font-weight:700;margin-top:6px}
 """
 
 THEMES = {
@@ -70,6 +82,9 @@ h1,h2,.ticker,.dval,.it,.check{color:#173B30}
 .cta{background:#1F6B52}
 .disc{color:#5E7F72}
 .dret{color:#1F6B52}
+.hrow{border-color:#CDE7DC}.hm{background:#2E9B6F}.hv{color:#173B30}.hn{color:#35594C}.hr{color:#5E7F72}
+.badge{background:#1F6B52;color:#fff}
+.mo{border-color:#CDE7DC}.mo.on{background:#F5B800;border-color:#E2A800;color:#173B30}
 """,
     # ETF 황금알: 네이비·블루 바탕 + 황금색 강조 (기초편 크림·골드와 구분)
     "etf": """
@@ -133,6 +148,16 @@ def slide(ep, s, i, n):
         rows = "".join(f"""<div class="drow"><div class="dy" style="font-size:{30 if len(c) > 3 else 34}px;line-height:1.15;text-align:center">{esc(c)}</div><div class="dv"><div class="dpr">{esc(l)}</div>
 <div class="dval">{esc(v)}</div></div><div class="dret">{esc(sd)}</div></div>""" for c, l, v, sd in s["rows"])
         body = f"""<div class="main"><h2>{esc(s['title'])}</h2>{rows}{f'<div class="tip" style="margin-top:10px">{esc(s["tip"])}</div>' if s.get("tip") else ""}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
+    elif k == "health":
+        rows = '<div class="hgrid">' + "".join(f"""<div class="hrow"><div class="hm {'' if ok else 'na'}">{'✓' if ok else '–'}</div><div class="hn">{esc(nm)}</div><div class="hv">{esc(v)}</div><div class="hr">{esc(rule)}</div></div>"""
+                       for nm, v, ok, rule in s["rows"]) + "</div>"
+        badge = f'<div><span class="badge">{esc(s["badge"])}</span></div>' if s.get("badge") else ""
+        body = f"""<div class="main"><h2 style="margin-bottom:24px">{esc(s['title'])}</h2>{badge}{rows}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
+    elif k == "calendar":
+        on = set(s["months"])
+        cells = "".join(f'<div class="mo {"on" if m in on else ""}">{m}월{"<small>배당</small>" if m in on else ""}</div>' for m in range(1, 13))
+        tip = f'<div class="tip">{esc(s["tip"])}</div>' if s.get("tip") else ""
+        body = f"""<div class="main"><h2>{esc(s['title'])}</h2><div class="cal">{cells}</div>{tip}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
     elif k == "end":
         body = f"""<div class="main end"><img src="{uri('logo.png')}"><h2 style="margin-bottom:10px">{esc(s['title'])}</h2>
 <div class="lead" style="margin:0">{esc(s['sub'])}</div><div><span class="cta">{esc(s['cta'])}</span></div>

@@ -1,27 +1,35 @@
-# 현금흐름 황금알 발행 순서 (매일 12:00 KST에 위에서부터 하나씩)
-SCHD
-JEPI
-458730
-VYM
-JEPQ
-446720
-DGRO
-HDV
-VIG
-161510
-QYLD
-SPYD
-DIVO
-XYLD
-NOBL
-VNQ
-XLU
-XLP
-BND
-AGG
-HYG
-LQD
-TLT
-BIL
-SPY
-QQQ
+# 현금흐름 황금알 발행 순서 (매일 12:00 KST, 건전성 점검 통과 종목만 · make_income.py queue 로 재생성)
+PG  # P&G
+033780  # KT&G
+SCHD  # 슈왑 미국배당주
+161510  # PLUS 고배당주
+KO  # 코카콜라
+032640  # LG유플러스
+VYM  # 뱅가드 고배당
+279530  # KODEX 고배당
+MCD  # 맥도날드
+088980  # 맥쿼리인프라
+DGRO  # 아이셰어즈 배당성장
+211560  # TIGER 배당성장
+JPM  # JP모건체이스
+HDV  # 아이셰어즈 고배당
+210780  # TIGER 코스피고배당
+VZ  # 버라이즌
+NOBL  # 배당귀족
+104530  # KOSEF 고배당
+XOM  # 엑슨모빌
+SPYD  # S&P500 고배당
+CVX  # 셰브론
+DVY  # 아이셰어즈 우량배당
+O  # 리얼티인컴
+JEPI  # JP모건 프리미엄인컴
+ADP  # ADP
+DIVO  # DIVO 배당인컴
+NEE  # 넥스트에라에너지
+VNQ  # 뱅가드 리츠
+DUK  # 듀크에너지
+XLU  # 유틸리티 섹터
+SO  # 서던컴퍼니
+XLP  # 필수소비재 섹터
+UNP  # 유니언퍼시픽
+BLK  # 블랙록

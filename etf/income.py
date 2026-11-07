@@ -117,7 +117,7 @@ def main():
                     fee = fee * 100 if isinstance(fee, (int, float)) else None
                 fee = round(float(fee), 2) if isinstance(fee, (int, float)) and fee > 0 else None
                 chk("연속 분배", f"{yrs}년", yrs >= RULES["etf_min_years"], f"{RULES['etf_min_years']}년 이상")
-                chk("분배 삭감(최근 6년)", "없음" if not cut else "있음", not cut, "없어야 통과",
+                chk("분배 삭감", "없음" if not cut else "있음", not cut, "최근 6년간 없어야 통과",
                     skip=r["category"] == "배당·커버드콜")
                 aok = aum is not None and aum >= (RULES["etf_min_aum_usd"] if us else RULES["etf_min_aum_krw"])
                 av = (f"${aum / 1e9:,.1f}B" if us else f"{aum / 1e8:,.0f}억원") if aum else "정보 없음"
@@ -126,7 +126,7 @@ def main():
                     f"{RULES['etf_max_fee']}% 이하", skip=fee is None)
             else:
                 chk("연속 배당", f"{yrs}년", yrs >= RULES["min_years"], f"{RULES['min_years']}년 이상")
-                chk("배당 삭감(최근 6년)", "없음" if not cut else "있음", not cut, "없어야 통과")
+                chk("배당 삭감", "없음" if not cut else "있음", not cut, "최근 6년간 없어야 통과")
                 chk("배당성향", f"{payout:.0f}%" if payout else "정보 없음", (payout or 0) <= RULES["max_payout"], f"{RULES['max_payout']}% 이하",
                     skip=(r["category"] in NO_PAYOUT or payout is None))
                 chk("부채비율", f"{de:.0f}%" if de else "정보 없음", (de or 0) <= RULES["max_de"], f"{RULES['max_de']}% 이하",

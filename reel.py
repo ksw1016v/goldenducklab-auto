@@ -71,6 +71,11 @@ INCOME_REEL = """
 .mrow .ml{color:#3F8A6E}.mrow .mp{color:#35594C}
 .say{color:#1F6B52}
 .covnum{border-color:#CDE7DC}.covnum .cp{color:#35594C}.covnum .ca{color:#3F8A6E}
+.hgrid{gap:20px}.hrow{padding:24px 28px 20px;border-width:4px}.hm{width:60px;height:60px;font-size:38px;right:24px;top:24px}
+.hn{font-size:38px}.hv{font-size:56px;margin-top:4px}.hr{font-size:28px;margin-top:4px}
+.badge{font-size:44px;padding:18px 40px}
+.rcal{gap:26px;margin-bottom:46px}.mcell{position:relative}.rcal .mo{height:230px;font-size:60px}.rcal .mo small{font-size:34px}
+.mo.lit{position:absolute;inset:0}
 """
 
 
