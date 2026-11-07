@@ -196,7 +196,10 @@ def caption(ep, M):
     def block(title, rows):
         L.append(title)
         for r in rows:
-            L.append(f"{r['name']} {r['value']} ({r['chg'].replace('▲', '+').replace('▼', '-').replace('+ ', '+').replace('- ', '-')})")
+            c = r['chg'].replace('▲ ', '+').replace('▼ ', '-').replace('- ', '-')
+            if "원 (" in c:
+                c = c.replace(" (", ", ").rstrip(")")
+            L.append(f"{r['name']} {r['value']} ({c})")
         L.append("")
     block("🇺🇸 미국 증시", ep["us"])
     block(f"🇰🇷 한국 증시 ({kday(ep['date_kr'])})", ep["kr"])
