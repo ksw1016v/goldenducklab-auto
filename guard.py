@@ -4,7 +4,8 @@ GitHub 예약 실행은 늦거나 겹칠 수 있어 목표 시간 앞뒤로 여�
 """
 import json, os, sys, pathlib, datetime
 
-TARGET = {"basic": (7, 30), "income": (12, 10), "etf": (21, 0)}   # 한국 시간 게시 목표
+TARGET = {"brief": (7, 0), "basic": (7, 30), "income": (12, 10), "etf": (21, 0)}
+LATE = {"brief": (10, 30)}   # 아침 브리핑은 이 시각이 지나면 그날은 건너뜀(예약 실행만)   # 한국 시간 게시 목표
 EARLY = datetime.timedelta(minutes=15)                             # 목표보다 이만큼까지만 먼저 올려도 됨
 
 kind = sys.argv[1]
@@ -16,10 +17,10 @@ shift = datetime.timedelta(hours=12) if kind == "etf" else datetime.timedelta(0)
 today = (now - shift).date()
 skip = 0
 for e in log:
-    if e.get("type") == "reel" or e.get("repost"):
-        continue  # 릴스·재게시 기록은 하루 1편 계산에서 빼요
     slug = str(e.get("slug", ""))
-    k = "etf" if slug.startswith("etf-") else ("income" if slug.startswith("inc-") else "basic")
+    k = "brief" if slug.startswith("brief-") else ("etf" if slug.startswith("etf-") else ("income" if slug.startswith("inc-") else "basic"))
+    if (e.get("type") == "reel" and k != "brief") or e.get("repost"):
+        continue  # 릴스·재게시 기록은 하루 1편 계산에서 빼요(브리핑은 릴스가 본편)
     if k != kind:
         continue
     at = datetime.datetime.strptime(e["at"], "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=9)
@@ -30,5 +31,7 @@ if os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch":
     h, m = TARGET[kind]
     start = datetime.datetime.combine(today, datetime.time(h, m)) - EARLY
     if now < start:
+        skip = 1
+    if kind in LATE and now > datetime.datetime.combine(today, datetime.time(*LATE[kind])):
         skip = 1
 print(f"skip={skip}")

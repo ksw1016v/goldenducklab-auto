@@ -1,0 +1,77 @@
+name: brief-post
+
+on:
+  schedule:
+    # 목표 07:00 KST 화~토 (월~금 22:00 UTC) · 예비 실행, 10:30 KST가 지나면 건너뜀(guard.py)
+    - cron: "47 21 * * 1-5"
+    - cron: "53 21 * * 1-5"
+    - cron: "7 22 * * 1-5"
+    - cron: "23 22 * * 1-5"
+    - cron: "47 22 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: instagram-post
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 오늘 이미 올렸는지 확인
+        id: guard
+        run: |
+          git pull -q origin main
+          python3 guard.py brief >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        if: steps.guard.outputs.skip != '1'
+        with:
+          python-version: "3.11"
+
+      - name: 데이터 받기·원고 만들기
+        if: steps.guard.outputs.skip != '1'
+        id: pick
+        run: |
+          pip install -q yfinance pandas numpy playwright==1.48.0 imageio-ffmpeg
+          python econ/fetch.py
+          P=$(python econ/brief.py)
+          SLUG=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" $P)
+          if grep -q "\"$SLUG\"" state.json; then echo "::warning::$SLUG 은 이미 올렸어요(새 거래일 데이터 없음)"; exit 0; fi
+          echo "path=$P" >> "$GITHUB_OUTPUT"
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+
+      - name: 한글 폰트와 브라우저
+        if: steps.pick.outputs.path != ''
+        run: |
+          mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
+          if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
+
+      - name: 릴스 만들고 저장소에 올리기
+        if: steps.pick.outputs.path != ''
+        run: |
+          python reel.py ${{ steps.pick.outputs.path }}
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add econ/data.json econ/episodes out/${{ steps.pick.outputs.slug }}
+          git commit -m "render ${{ steps.pick.outputs.slug }}" || true
+          git pull --rebase
+          git push
+          echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: 릴스 게시
+        if: steps.pick.outputs.path != ''
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 20
+          python publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.slug }}
+          git add state.json
+          git commit -m "published ${{ steps.pick.outputs.slug }}"
+          git pull --rebase
+          git push
