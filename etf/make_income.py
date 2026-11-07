@@ -114,7 +114,7 @@ def build(t, no, nxt):
         {"type": "cover", "kicker": f"현금흐름 황금알 · {kind_text(e)}",
          "title": f"<mark>{cover_name}</mark>{josa(name)}<br>매달 100만원<br>받으려면?",
          "sub": f"배당수익률 연 {y:.1f}% 기준<br>{asof[:4]}.{asof[5:7]} 데이터로 계산해 봐요"},
-        {"type": "etf_info", "ticker": e["ticker"] if us else e["name"], "name": e.get("yahoo_name") if us else e["ticker"],
+        {"type": "etf_info", "ticker": name, "name": (f"티커 {e['ticker']} · " if name != e["ticker"] else "") + (e.get("yahoo_name") or "") if us else e["ticker"],
          "category": e["category"], "desc": e["desc"], "rows": rows},
         {"type": "health", "title": f"{word}, <mark>믿을 만할까?</mark>", "badge": f"건전성 점검 통과 · 위험도 {e['risk']}",
          "rows": hrows, "note": f"{asof} 기준 · 골든덕랩 자체 점검 기준이며 투자 권유가 아니에요"},

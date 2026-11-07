@@ -138,7 +138,9 @@ def slide(ep, s, i, n):
         body = f'<div class="main"><h2>{esc(s["title"])}</h2>{items}{tip}</div>'
     elif k == "etf_info":
         rows = "".join(f'<div class="kv"><span>{esc(a)}</span><b>{esc(b)}</b></div>' for a, b in s["rows"])
-        body = f"""<div class="main"><div class="ticker">{esc(s['ticker'])}</div><div class="ename">{esc(s['name'])}</div>
+        units = sum(1.0 if ord(c) > 0x3000 else 0.62 for c in s["ticker"])
+        tfs = 150 if units <= 6 else max(80, int(900 / units))
+        body = f"""<div class="main"><div class="ticker" style="font-size:{tfs}px">{esc(s['ticker'])}</div><div class="ename">{esc(s['name'])}</div>
 <div class="chip">{esc(s['category'])}</div><div class="lead" style="margin-top:28px">{esc(s['desc'])}</div>{rows}</div>"""
     elif k == "dca":
         rows = "".join(f"""<div class="drow"><div class="dy">{esc(y)}</div><div class="dv"><div class="dpr">{"원금 " + esc(p) if p != "-" else "이 시점엔 아직 상장 전"}</div>
