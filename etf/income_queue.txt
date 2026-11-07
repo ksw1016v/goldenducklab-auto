@@ -16,12 +16,14 @@ DVY  # 아이셰어즈 우량배당
 O  # 리얼티인컴
 JEPI  # JP모건 프리미엄인컴
 ADP  # ADP
-DIVO  # DIVO 배당인컴
+JEPQ  # JP모건 나스닥 프리미엄인컴
 NEE  # 넥스트에라에너지
-VNQ  # 뱅가드 리츠
+DIVO  # DIVO 배당인컴
 DUK  # 듀크에너지
-XLU  # 유틸리티 섹터
+XYLD  # S&P500 커버드콜
 SO  # 서던컴퍼니
-XLP  # 필수소비재 섹터
+VNQ  # 뱅가드 리츠
 UNP  # 유니언퍼시픽
+XLU  # 유틸리티 섹터
 BLK  # 블랙록
+XLP  # 필수소비재 섹터
