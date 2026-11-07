@@ -157,16 +157,17 @@ def build(t, no, nxt):
 
 def passed():
     d = json.loads((ROOT / "etf" / "income.json").read_text(encoding="utf-8"))
-    return {x["ticker"]: x for x in d["etfs"] if x.get("status") == "ok" and x.get("pass")}
+    # 국내 종목은 다루지 않음(미국 주식·미국 ETF만)
+    return {x["ticker"]: x for x in d["etfs"] if x.get("status") == "ok" and x.get("pass") and x["market"] == "US"}
 
 
 def make_queue():
-    """통과 종목을 미국주식 → 국내ETF·주식 → 미국ETF → 국내 순으로 번갈아 배치 (후보 파일 순서 = 인지도 순)"""
+    """통과한 미국 종목을 주식 → ETF 순으로 번갈아 배치 (후보 파일 순서 = 인지도 순)"""
     ok = passed()
-    b = {"US주식": [], "USETF": [], "KR주식": [], "KRETF": []}
+    b = {"US주식": [], "USETF": []}
     for t, e in ok.items():
         b[e["market"] + e["type"]].append(t)
-    order = ["US주식", "KR주식", "USETF", "KRETF"]
+    order = ["US주식", "USETF"]
     q = []
     while any(b.values()):
         for k in order:
