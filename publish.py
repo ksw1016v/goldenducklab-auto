@@ -109,7 +109,7 @@ def post_reel(path, state_val, repost=False):
     print("릴스 게시 완료 media id:", res["id"])
     st = load_state()
     if not repost:
-        st.setdefault("etf_reels", []).append(state_val)
+        st.setdefault("income_reels" if slug.startswith("inc-") else "etf_reels", []).append(state_val)
     st.setdefault("log", []).append({"no": ep["no"], "slug": slug, "type": "reel", "repost": repost, "media_id": res["id"], "at": time.strftime("%Y-%m-%d %H:%M:%S")})
     STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
 

@@ -1,0 +1,83 @@
+name: income-post
+
+on:
+  schedule:
+    - cron: "0 3 * * *"    # 매일 12:00 KST (03:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: instagram-post
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 오늘 이미 올렸는지 확인
+        id: guard
+        run: python3 guard.py income >> "$GITHUB_OUTPUT"
+
+      - name: 다음 현금흐름 원고 만들기
+        if: steps.guard.outputs.skip != '1'
+        id: pick
+        run: |
+          OUT=$(python3 etf/make_income.py next)
+          echo "path=$(echo $OUT | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+          echo "ticker=$(echo $OUT | cut -d' ' -f2)" >> "$GITHUB_OUTPUT"
+          echo "다음 현금흐름: $OUT"
+
+      - name: 대기열 비어 있음
+        if: steps.guard.outputs.skip != '1' && steps.pick.outputs.path == ''
+        run: echo "::warning::현금흐름 대기열이 비었어요. etf/dividend_candidates.csv에 후보를 추가하고 income-data 실행 후 make_income.py queue 를 돌려 주세요."
+
+      - name: 한글 폰트와 브라우저 설치
+        if: steps.pick.outputs.path != ''
+        run: |
+          mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
+          pip install -q playwright==1.48.0 numpy imageio-ffmpeg
+          if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
+
+      - name: 카드뉴스 렌더링 후 저장소에 올리기
+        if: steps.pick.outputs.path != ''
+        run: |
+          python3 render.py ${{ steps.pick.outputs.path }}
+          python3 reel.py ${{ steps.pick.outputs.path }} || echo "::warning::릴스 영상 생성 실패 (카드뉴스는 그대로 게시)"
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add etf/income_episodes out/
+          git commit -m "render income ${{ steps.pick.outputs.ticker }}" || true
+          git pull --rebase
+          git push
+          echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: 인스타그램 게시
+        if: steps.pick.outputs.path != ''
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 20
+          python3 publish.py post ${{ steps.pick.outputs.path }} income_published ${{ steps.pick.outputs.ticker }}
+          git add state.json
+          git commit -m "published income ${{ steps.pick.outputs.ticker }}"
+          git pull --rebase
+          git push
+
+      - name: 릴스 게시
+        if: steps.pick.outputs.path != ''
+        continue-on-error: true
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          SLUG=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" ${{ steps.pick.outputs.path }})
+          if [ ! -f "out/$SLUG/reel.mp4" ]; then echo "::warning::릴스 영상이 없어 건너뜀"; exit 0; fi
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.ticker }}
+          git add state.json
+          git commit -m "published income reel ${{ steps.pick.outputs.ticker }}"
+          git pull --rebase
+          git push
