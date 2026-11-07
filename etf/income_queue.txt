@@ -1,5 +1,5 @@
 # 현금흐름 황금알 발행 순서 (매일 12:00 KST, 건전성 점검 통과 종목만 · make_income.py queue 로 재생성)
-PG  # 프록터앤드갬블
+PG  # P&G
 SCHD  # 슈왑 미국배당주
 KO  # 코카콜라
 VYM  # 뱅가드 고배당
@@ -15,7 +15,7 @@ CVX  # 셰브론
 DVY  # 아이셰어즈 우량배당
 O  # 리얼티인컴
 JEPI  # JP모건 프리미엄인컴
-ADP  # 오토매틱데이터프로세싱
+ADP  # ADP
 JEPQ  # JP모건 나스닥 프리미엄인컴
 NEE  # 넥스트에라에너지
 DIVO  # DIVO 배당인컴

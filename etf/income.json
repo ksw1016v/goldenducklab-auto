@@ -114,7 +114,7 @@
   },
   {
    "ticker": "PG",
-   "name": "프록터앤드갬블",
+   "name": "P&G",
    "market": "US",
    "type": "주식",
    "category": "필수소비재",
@@ -1830,7 +1830,7 @@
   },
   {
    "ticker": "ADP",
-   "name": "오토매틱데이터프로세싱",
+   "name": "ADP",
    "market": "US",
    "type": "주식",
    "category": "산업재",
