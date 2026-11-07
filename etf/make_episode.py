@@ -67,7 +67,7 @@ def build(t, no, nxt):
     slides.append({"type": "list", "title": f"{title_name}<br><mark>알아둘 점</mark>", "items": notes})
     best = e.get(f"v{longest}y_50") if longest else None
     slides.append({"type": "list", "title": "오늘의 <mark>황금알</mark> 요약", "items": [[f"{e['invests']}에 분산투자", ""], [f"월 50만원 {longest}년 → {won(best)}" if best else "아직 장기 기록이 짧아요", ""], ["숫자보다 꾸준함이 핵심", ""]], "tip": "과거 수익률은 <mark>미래를 보장하지 않아요</mark>"})
-    slides.append({"type": "end", "title": "오늘의 황금알,<br>저장해 두세요", "sub": "매일 아침 9시 · 저녁 7시 새 황금알", "cta": "@golden_duck_lab 팔로우", "next": f"다음 편 예고 · {nxt}" if nxt else "다음 ETF도 기대해 주세요"})
+    slides.append({"type": "end", "title": "오늘의 황금알,<br>저장해 두세요", "sub": "매일 아침 9시 · 점심 12시 · 저녁 7시 새 황금알", "cta": "@golden_duck_lab 팔로우", "next": f"다음 편 예고 · {nxt}" if nxt else "다음 ETF도 기대해 주세요"})
 
     def line(amt):
         parts = []

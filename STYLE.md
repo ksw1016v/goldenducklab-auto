@@ -26,7 +26,7 @@
 - cover: `{"type":"cover","kicker":"질문형 한 줄","title":"3줄 이내, <br>로 줄바꿈, 핵심어 <mark></mark>","sub":"2줄 이내"}`
 - list: `{"type":"list","title":"...","lead":"(선택) 2줄 이내","items":[["제목","설명(없으면 빈 문자열)"], ...],"tip":"(선택) 한두 문장"}` — items는 3~4개
 - check: `{"type":"check","title":"...","items":["5개"],"tip":"(선택)"}`
-- end: `{"type":"end","title":"오늘의 황금알,<br>저장해 두세요","sub":"매일 아침 9시 · 저녁 7시 새 황금알","cta":"@golden_duck_lab 팔로우","next":"다음 편 예고 · 다음 편 제목"}`
+- end: `{"type":"end","title":"오늘의 황금알,<br>저장해 두세요","sub":"매일 아침 9시 · 점심 12시 · 저녁 7시 새 황금알","cta":"@golden_duck_lab 팔로우","next":"다음 편 예고 · 다음 편 제목"}`
 - 강조: `<mark>단어</mark>`(노란 형광펜), `<p>단어</p>`(핑크), 줄바꿈 `<br>`
 - 글자 수: list 항목 제목 20자 안팎, 설명 25자 안팎 (넘치면 render.py가 "overflow" 경고)
 
