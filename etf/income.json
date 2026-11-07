@@ -1,180 +1,4656 @@
 {
  "meta": {
-  "generated_at": "2026-11-07 01:04 UTC",
+  "generated_at": "2026-11-07 01:25 UTC",
   "fx_last_krw_per_usd": 1356.34,
-  "assumptions": "배당수익률=최근 1년 배당/현재가(세전), 필요 원금은 현재 배당수익률 유지 가정, 적립은 월 50만원·분배금 재투자·환율 반영, 세금·수수료 미반영"
+  "rules": {
+   "min_years": 10,
+   "max_payout": 80,
+   "max_de": 200,
+   "max_vol": 35,
+   "min_mdd": -50,
+   "yield_lo": 1.5,
+   "yield_hi": 9.0,
+   "min_cap_usd": 30000000000.0,
+   "min_cap_krw": 3000000000000.0,
+   "etf_min_years": 5,
+   "etf_min_aum_usd": 1000000000.0,
+   "etf_min_aum_krw": 100000000000.0,
+   "etf_max_fee": 0.6
+  },
+  "assumptions": "배당수익률=최근 1년 배당/현재가(세전), 필요 원금은 현재 배당수익률 유지 가정·원화 환산, 세금·수수료 미반영"
  },
  "etfs": [
   {
-   "ticker": "SCHD",
-   "name": "Schwab US Dividend Equity ETF",
+   "ticker": "JNJ",
+   "name": "존슨앤드존슨",
    "market": "US",
+   "type": "주식",
+   "category": "헬스케어",
+   "invests": "의약품·의료기기",
+   "desc": "60년 넘게 배당을 늘려온 글로벌 헬스케어 기업",
+   "yahoo_name": "Johnson & Johnson",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 272.32,
+   "ttm_div": 5.28,
+   "yield_pct": 1.94,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 64,
+   "cut_5y": false,
+   "div_5y_ago": 4.14,
+   "div_growth_5y_pct": 27.5,
+   "payout_pct": 80.1,
+   "debt_equity_pct": 54.8,
+   "market_cap": 664947261440.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 18.7,
+   "mdd_5y_pct": -23.6,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "64년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "80%",
+     "ok": false,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "55%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$665B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 19%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-24%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 309454554,
+   "need_100": 618909108,
+   "need_300": 1856727323,
+   "status": "ok"
+  },
+  {
+   "ticker": "PG",
+   "name": "P&G",
+   "market": "US",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "생활용품(세제·면도기·기저귀)",
+   "desc": "세제·생활용품으로 경기와 상관없이 꾸준히 버는 기업",
+   "yahoo_name": "The Procter & Gamble Company",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 167.1,
+   "ttm_div": 4.324,
+   "yield_pct": 2.59,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    4,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 64,
+   "cut_5y": false,
+   "div_5y_ago": 3.401,
+   "div_growth_5y_pct": 27.1,
+   "payout_pct": 64.6,
+   "debt_equity_pct": 70.3,
+   "market_cap": 383361286144.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 18.4,
+   "mdd_5y_pct": -24.6,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "64년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "65%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "70%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$383B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 18%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-25%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.6%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 231868649,
+   "need_100": 463737297,
+   "need_300": 1391211892,
+   "status": "ok"
+  },
+  {
+   "ticker": "KO",
+   "name": "코카콜라",
+   "market": "US",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "음료",
+   "desc": "전 세계에서 음료를 팔며 60년 넘게 배당을 늘려온 기업",
+   "yahoo_name": "The Coca-Cola Company",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 95.73,
+   "ttm_div": 2.1,
+   "yield_pct": 2.19,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 64,
+   "cut_5y": false,
+   "div_5y_ago": 1.67,
+   "div_growth_5y_pct": 25.7,
+   "payout_pct": 62.0,
+   "debt_equity_pct": 107.4,
+   "market_cap": 411562999808.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 16.6,
+   "mdd_5y_pct": -20.9,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "64년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "62%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "107%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$412B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 17%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-21%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.2%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 273514295,
+   "need_100": 547028591,
+   "need_300": 1641085772,
+   "status": "ok"
+  },
+  {
+   "ticker": "PEP",
+   "name": "펩시코",
+   "market": "US",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "음료·스낵",
+   "desc": "음료와 스낵을 함께 파는 식음료 기업",
+   "yahoo_name": "PepsiCo, Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1972-06-01",
+   "price": 142.71,
+   "ttm_div": 5.806,
+   "yield_pct": 4.07,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 54,
+   "cut_5y": false,
+   "div_5y_ago": 4.196,
+   "div_growth_5y_pct": 38.4,
+   "payout_pct": 73.0,
+   "debt_equity_pct": 230.7,
+   "market_cap": 192609828864.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 20.4,
+   "mdd_5y_pct": -36.9,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "54년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "73%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "231%",
+     "ok": false,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$193B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 20%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-37%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 147478477,
+   "need_100": 294956955,
+   "need_300": 884870865,
+   "status": "ok"
+  },
+  {
+   "ticker": "MCD",
+   "name": "맥도날드",
+   "market": "US",
+   "type": "주식",
+   "category": "경기소비재",
+   "invests": "패스트푸드·가맹점 임대료",
+   "desc": "가맹점 임대료와 로열티로 안정적으로 버는 외식 기업",
+   "yahoo_name": "McDonald's Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1966-07-05",
+   "price": 278.04,
+   "ttm_div": 7.44,
+   "yield_pct": 2.68,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 50,
+   "cut_5y": false,
+   "div_5y_ago": 5.16,
+   "div_growth_5y_pct": 44.2,
+   "payout_pct": 59.7,
+   "debt_equity_pct": null,
+   "market_cap": 195677028352.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 18.9,
+   "mdd_5y_pct": -32.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "50년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "60%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$196B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 19%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-32%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.7%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 224225813,
+   "need_100": 448451627,
+   "need_300": 1345354880,
+   "status": "ok"
+  },
+  {
+   "ticker": "ABBV",
+   "name": "애브비",
+   "market": "US",
+   "type": "주식",
+   "category": "헬스케어",
+   "invests": "의약품",
+   "desc": "면역질환 치료제 등을 만드는 제약 기업",
+   "yahoo_name": "AbbVie Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "2013-01-02",
+   "price": 288.24,
+   "ttm_div": 6.92,
+   "yield_pct": 2.4,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    4,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 13,
+   "cut_5y": false,
+   "div_5y_ago": 5.2,
+   "div_growth_5y_pct": 33.1,
+   "payout_pct": 117.3,
+   "debt_equity_pct": null,
+   "market_cap": 514924281856.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 25.0,
+   "mdd_5y_pct": -24.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "13년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "117%",
+     "ok": false,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$515B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 25%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-24%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.4%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 249919067,
+   "need_100": 499838133,
+   "need_300": 1499514400,
+   "status": "ok"
+  },
+  {
+   "ticker": "JPM",
+   "name": "JP모건체이스",
+   "market": "US",
+   "type": "주식",
+   "category": "금융",
+   "invests": "은행",
+   "desc": "미국 최대 은행",
+   "yahoo_name": "JPMorgan Chase & Co.",
+   "last_date": "2026-11-05",
+   "first_date": "1980-03-17",
+   "price": 337.34,
+   "ttm_div": 6.15,
+   "yield_pct": 1.82,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    4,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 42,
+   "cut_5y": false,
+   "div_5y_ago": 3.7,
+   "div_growth_5y_pct": 66.2,
+   "payout_pct": 25.8,
+   "debt_equity_pct": null,
+   "market_cap": 888274812928.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 23.3,
+   "mdd_5y_pct": -39.7,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "42년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "26%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$888B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 23%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-40%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.8%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 329112192,
+   "need_100": 658224383,
+   "need_300": 1974673149,
+   "status": "ok"
+  },
+  {
+   "ticker": "VZ",
+   "name": "버라이즌",
+   "market": "US",
+   "type": "주식",
+   "category": "통신",
+   "invests": "통신 서비스",
+   "desc": "미국 대형 통신사",
+   "yahoo_name": "Verizon Communications Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1983-11-21",
+   "price": 46.12,
+   "ttm_div": 2.814,
+   "yield_pct": 6.1,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    4,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 42,
+   "cut_5y": false,
+   "div_5y_ago": 2.524,
+   "div_growth_5y_pct": 11.5,
+   "payout_pct": 71.8,
+   "debt_equity_pct": 182.0,
+   "market_cap": 189366681600.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 23.6,
+   "mdd_5y_pct": -44.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "42년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "72%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "182%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$189B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 24%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-44%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "6.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 98336885,
+   "need_100": 196673769,
+   "need_300": 590021308,
+   "status": "ok"
+  },
+  {
+   "ticker": "XOM",
+   "name": "엑슨모빌",
+   "market": "US",
+   "type": "주식",
+   "category": "에너지",
+   "invests": "석유·가스",
+   "desc": "미국 최대 석유 기업",
+   "yahoo_name": "ExxonMobil Holdings Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 165.3,
+   "ttm_div": 4.12,
+   "yield_pct": 2.49,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 64,
+   "cut_5y": false,
+   "div_5y_ago": 3.48,
+   "div_growth_5y_pct": 18.4,
+   "payout_pct": 42.4,
+   "debt_equity_pct": 12.6,
+   "market_cap": 676620599296.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 23.5,
+   "mdd_5y_pct": -20.7,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "64년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "42%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "13%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$677B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 24%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-21%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 240728160,
+   "need_100": 481456320,
+   "need_300": 1444368959,
+   "status": "ok"
+  },
+  {
+   "ticker": "CVX",
+   "name": "셰브론",
+   "market": "US",
+   "type": "주식",
+   "category": "에너지",
+   "invests": "석유·가스",
+   "desc": "미국 대형 석유 기업",
+   "yahoo_name": "Chevron Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 212.93,
+   "ttm_div": 7.05,
+   "yield_pct": 3.31,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 42,
+   "cut_5y": false,
+   "div_5y_ago": 5.26,
+   "div_growth_5y_pct": 34.0,
+   "payout_pct": 51.8,
+   "debt_equity_pct": 19.0,
+   "market_cap": 414802116608.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 22.9,
+   "mdd_5y_pct": -28.9,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "42년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "52%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "19%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$415B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 23%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-29%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.3%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 181217015,
+   "need_100": 362434030,
+   "need_300": 1087302090,
+   "status": "ok"
+  },
+  {
+   "ticker": "O",
+   "name": "리얼티인컴",
+   "market": "US",
+   "type": "주식",
+   "category": "리츠",
+   "invests": "상업용 부동산 임대",
+   "desc": "매달 배당을 주는 대표적인 미국 리츠",
+   "yahoo_name": "Realty Income Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1994-10-18",
+   "price": 59.5,
+   "ttm_div": 3.25,
+   "yield_pct": 5.46,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 32,
+   "cut_5y": false,
+   "div_5y_ago": 2.7364,
+   "div_growth_5y_pct": 18.8,
+   "payout_pct": 222.3,
+   "debt_equity_pct": 75.2,
+   "market_cap": 56305201152.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 17.8,
+   "mdd_5y_pct": -38.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "32년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "222%",
+     "ok": null,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "75%",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$56B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 18%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-38%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "5.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 109846154,
+   "need_100": 219692308,
+   "need_300": 659076923,
+   "status": "ok"
+  },
+  {
+   "ticker": "PM",
+   "name": "필립모리스",
+   "market": "US",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "담배",
+   "desc": "글로벌 담배 기업",
+   "yahoo_name": "Philip Morris International Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "2008-03-17",
+   "price": 201.5,
+   "ttm_div": 4.41,
+   "yield_pct": 2.19,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    12
+   ],
+   "pay_count": 3,
+   "years_paid": 18,
+   "cut_5y": false,
+   "div_5y_ago": 4.85,
+   "div_growth_5y_pct": -9.1,
+   "payout_pct": 87.7,
+   "debt_equity_pct": null,
+   "market_cap": 308418412544.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 25.0,
+   "mdd_5y_pct": -25.8,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "18년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "88%",
+     "ok": false,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$308B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 25%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-26%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.2%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 274149660,
+   "need_100": 548299320,
+   "need_300": 1644897959,
+   "status": "ok"
+  },
+  {
+   "ticker": "HD",
+   "name": "홈디포",
+   "market": "US",
+   "type": "주식",
+   "category": "경기소비재",
+   "invests": "주택 개량용품 유통",
+   "desc": "미국 최대 주택 개량용품 유통 기업",
+   "yahoo_name": "The Home Depot, Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1981-09-22",
+   "price": 349.94,
+   "ttm_div": 9.29,
+   "yield_pct": 2.65,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 39,
+   "cut_5y": false,
+   "div_5y_ago": 6.45,
+   "div_growth_5y_pct": 44.0,
+   "payout_pct": 64.8,
+   "debt_equity_pct": 380.3,
+   "market_cap": 342676439040.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 23.8,
+   "mdd_5y_pct": -35.9,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "39년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "65%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "380%",
+     "ok": false,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$343B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 24%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-36%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.7%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 226010766,
+   "need_100": 452021532,
+   "need_300": 1356064595,
+   "status": "ok"
+  },
+  {
+   "ticker": "CSCO",
+   "name": "시스코",
+   "market": "US",
+   "type": "주식",
+   "category": "IT",
+   "invests": "네트워크 장비",
+   "desc": "인터넷 네트워크 장비 기업",
+   "yahoo_name": "Cisco Systems, Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1990-02-16",
+   "price": 95.72,
+   "ttm_div": 1.25,
+   "yield_pct": 1.31,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    4,
+    7
+   ],
+   "pay_count": 3,
+   "years_paid": 15,
+   "cut_5y": false,
+   "div_5y_ago": 1.47,
+   "div_growth_5y_pct": -15.0,
+   "payout_pct": 49.9,
+   "debt_equity_pct": 62.0,
+   "market_cap": 370011766784.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 27.5,
+   "mdd_5y_pct": -38.6,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "15년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "50%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "62%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$370B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 27%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-39%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.3%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 459456006,
+   "need_100": 918912012,
+   "need_300": 2756736035,
+   "status": "ok"
+  },
+  {
+   "ticker": "TXN",
+   "name": "텍사스인스트루먼트",
+   "market": "US",
+   "type": "주식",
+   "category": "IT",
+   "invests": "아날로그 반도체",
+   "desc": "산업·자동차용 아날로그 반도체 기업",
+   "yahoo_name": "Texas Instruments Incorporated",
+   "last_date": "2026-11-05",
+   "first_date": "1972-06-01",
+   "price": 278.15,
+   "ttm_div": 5.78,
+   "yield_pct": 2.08,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    5,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 54,
+   "cut_5y": false,
+   "div_5y_ago": 4.21,
+   "div_growth_5y_pct": 37.3,
+   "payout_pct": 73.7,
+   "debt_equity_pct": 70.7,
+   "market_cap": 253575725056.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 37.7,
+   "mdd_5y_pct": -33.9,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "54년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "74%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "71%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$254B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 38%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-34%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 288737018,
+   "need_100": 577474036,
+   "need_300": 1732422107,
+   "status": "ok"
+  },
+  {
+   "ticker": "AVGO",
+   "name": "브로드컴",
+   "market": "US",
+   "type": "주식",
+   "category": "IT",
+   "invests": "반도체·소프트웨어",
+   "desc": "반도체와 기업용 소프트웨어 기업",
+   "yahoo_name": "Broadcom Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "2009-08-06",
+   "price": 291.53,
+   "ttm_div": 2.6,
+   "yield_pct": 0.89,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 16,
+   "cut_5y": false,
+   "div_5y_ago": 1.44,
+   "div_growth_5y_pct": 80.6,
+   "payout_pct": 32.4,
+   "debt_equity_pct": 59.6,
+   "market_cap": 1401967345664.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 50.7,
+   "mdd_5y_pct": -41.5,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "16년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "32%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "60%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$1,402B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 51%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-41%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "0.9%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 672761536,
+   "need_100": 1345523071,
+   "need_300": 4036569214,
+   "status": "ok"
+  },
+  {
+   "ticker": "MSFT",
+   "name": "마이크로소프트",
+   "market": "US",
+   "type": "주식",
+   "category": "IT",
+   "invests": "소프트웨어·클라우드",
+   "desc": "윈도우·오피스·클라우드 기업",
+   "yahoo_name": "Microsoft Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1986-03-13",
+   "price": 535.93,
+   "ttm_div": 3.64,
+   "yield_pct": 0.68,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 23,
+   "cut_5y": false,
+   "div_5y_ago": 2.24,
+   "div_growth_5y_pct": 62.5,
+   "payout_pct": 19.0,
+   "debt_equity_pct": 28.5,
+   "market_cap": 3940412817408.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 26.5,
+   "mdd_5y_pct": -37.6,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "23년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "19%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "28%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$3,940B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 27%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-38%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "0.7%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 883401087,
+   "need_100": 1766802174,
+   "need_300": 5300406521,
+   "status": "ok"
+  },
+  {
+   "ticker": "LMT",
+   "name": "록히드마틴",
+   "market": "US",
+   "type": "주식",
+   "category": "산업재",
+   "invests": "방위산업",
+   "desc": "미국 최대 방위산업 기업",
+   "yahoo_name": "Lockheed Martin Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 576.16,
+   "ttm_div": 13.8,
+   "yield_pct": 2.4,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 42,
+   "cut_5y": false,
+   "div_5y_ago": 10.4,
+   "div_growth_5y_pct": 32.7,
+   "payout_pct": 49.0,
+   "debt_equity_pct": 203.7,
+   "market_cap": 130998116352.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 25.2,
+   "mdd_5y_pct": -33.2,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "42년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "49%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "204%",
+     "ok": false,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$131B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 25%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-33%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.4%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 250504336,
+   "need_100": 501008672,
+   "need_300": 1503026017,
+   "status": "ok"
+  },
+  {
+   "ticker": "MRK",
+   "name": "머크",
+   "market": "US",
+   "type": "주식",
+   "category": "헬스케어",
+   "invests": "의약품",
+   "desc": "글로벌 제약 기업",
+   "yahoo_name": "Merck & Co., Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 146.94,
+   "ttm_div": 3.4,
+   "yield_pct": 2.31,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 64,
+   "cut_5y": false,
+   "div_5y_ago": 2.5405,
+   "div_growth_5y_pct": 33.8,
+   "payout_pct": 343.4,
+   "debt_equity_pct": 119.9,
+   "market_cap": 361725493248.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 27.1,
+   "mdd_5y_pct": -44.7,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "64년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "343%",
+     "ok": false,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "120%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$362B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 27%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-45%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.3%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 259305887,
+   "need_100": 518611773,
+   "need_300": 1555835320,
+   "status": "ok"
+  },
+  {
+   "ticker": "CAT",
+   "name": "캐터필러",
+   "market": "US",
+   "type": "주식",
+   "category": "산업재",
+   "invests": "건설·광산 장비",
+   "desc": "세계 최대 건설장비 기업",
+   "yahoo_name": "Caterpillar Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1962-01-02",
+   "price": 553.64,
+   "ttm_div": 6.28,
+   "yield_pct": 1.13,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    4,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 44,
+   "cut_5y": false,
+   "div_5y_ago": 4.28,
+   "div_growth_5y_pct": 46.7,
+   "payout_pct": 24.2,
+   "debt_equity_pct": 210.4,
+   "market_cap": 255625838592.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 33.4,
+   "mdd_5y_pct": -48.0,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "44년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "24%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "210%",
+     "ok": false,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$256B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 33%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-48%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.1%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 528955428,
+   "need_100": 1057910856,
+   "need_300": 3173732568,
+   "status": "ok"
+  },
+  {
+   "ticker": "ADP",
+   "name": "ADP",
+   "market": "US",
+   "type": "주식",
+   "category": "산업재",
+   "invests": "급여·인사 서비스",
+   "desc": "기업 급여 처리 서비스 기업",
+   "yahoo_name": "Automatic Data Processing, Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1980-03-17",
+   "price": 307.14,
+   "ttm_div": 6.8,
+   "yield_pct": 2.21,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 43,
+   "cut_5y": false,
+   "div_5y_ago": 3.72,
+   "div_growth_5y_pct": 82.8,
+   "payout_pct": 60.3,
+   "debt_equity_pct": 109.8,
+   "market_cap": 119750270976.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 21.6,
+   "mdd_5y_pct": -42.2,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "43년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "60%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "110%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$120B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 22%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-42%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.2%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 271005895,
+   "need_100": 542011791,
+   "need_300": 1626035372,
+   "status": "ok"
+  },
+  {
+   "ticker": "NEE",
+   "name": "넥스트에라에너지",
+   "market": "US",
+   "type": "주식",
+   "category": "유틸리티",
+   "invests": "전력",
+   "desc": "미국 최대 전력·신재생 에너지 기업",
+   "yahoo_name": "NextEra Energy, Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1973-02-21",
+   "price": 88.25,
+   "ttm_div": 2.436,
+   "yield_pct": 2.76,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    6,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 43,
+   "cut_5y": false,
+   "div_5y_ago": 1.505,
+   "div_growth_5y_pct": 61.9,
+   "payout_pct": 43.9,
+   "debt_equity_pct": 153.3,
+   "market_cap": 182360752128.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 25.6,
+   "mdd_5y_pct": -47.2,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "43년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "44%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "153%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$182B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 26%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-47%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.8%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 217364532,
+   "need_100": 434729064,
+   "need_300": 1304187192,
+   "status": "ok"
+  },
+  {
+   "ticker": "DUK",
+   "name": "듀크에너지",
+   "market": "US",
+   "type": "주식",
+   "category": "유틸리티",
+   "invests": "전력",
+   "desc": "미국 대형 전력 회사",
+   "yahoo_name": "Duke Energy Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1980-03-17",
+   "price": 130.08,
+   "ttm_div": 4.28,
+   "yield_pct": 3.29,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 43,
+   "cut_5y": false,
+   "div_5y_ago": 3.88,
+   "div_growth_5y_pct": 10.3,
+   "payout_pct": 64.2,
+   "debt_equity_pct": 162.2,
+   "market_cap": 99630350336.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 16.8,
+   "mdd_5y_pct": -26.0,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "43년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "64%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "162%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$100B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 17%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-26%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.3%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 182355143,
+   "need_100": 364710286,
+   "need_300": 1094130857,
+   "status": "ok"
+  },
+  {
+   "ticker": "SO",
+   "name": "서던컴퍼니",
+   "market": "US",
+   "type": "주식",
+   "category": "유틸리티",
+   "invests": "전력",
+   "desc": "미국 남동부 전력 회사",
+   "yahoo_name": "The Southern Company",
+   "last_date": "2026-11-05",
+   "first_date": "1981-12-31",
+   "price": 93.34,
+   "ttm_div": 3.0,
+   "yield_pct": 3.21,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 44,
+   "cut_5y": false,
+   "div_5y_ago": 2.6,
+   "div_growth_5y_pct": 15.4,
+   "payout_pct": 68.5,
+   "debt_equity_pct": 168.5,
+   "market_cap": 107507859456.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 17.5,
+   "mdd_5y_pct": -23.3,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "44년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "68%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "168%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$108B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 18%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-23%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.2%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 186679993,
+   "need_100": 373359985,
+   "need_300": 1120079956,
+   "status": "ok"
+  },
+  {
+   "ticker": "WMT",
+   "name": "월마트",
+   "market": "US",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "유통",
+   "desc": "미국 최대 유통 기업",
+   "yahoo_name": "Walmart Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1972-08-25",
+   "price": 127.72,
+   "ttm_div": 0.979,
+   "yield_pct": 0.77,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    5,
+    8,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 52,
+   "cut_5y": false,
+   "div_5y_ago": 0.73,
+   "div_growth_5y_pct": 34.1,
+   "payout_pct": 35.0,
+   "debt_equity_pct": 71.7,
+   "market_cap": 995843768320.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 23.6,
+   "mdd_5y_pct": -26.0,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "52년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "35%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "72%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$996B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 24%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-26%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "0.8%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 782757924,
+   "need_100": 1565515847,
+   "need_300": 4696547542,
+   "status": "ok"
+  },
+  {
+   "ticker": "CL",
+   "name": "콜게이트",
+   "market": "US",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "생활용품(치약·세제)",
+   "desc": "치약과 생활용품 기업",
+   "yahoo_name": "Colgate-Palmolive Company",
+   "last_date": "2026-11-05",
+   "first_date": "1973-05-02",
+   "price": 98.69,
+   "ttm_div": 2.11,
+   "yield_pct": 2.14,
+   "freq": "분기",
+   "pay_months": [
+    1,
+    4,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 53,
+   "cut_5y": false,
+   "div_5y_ago": 1.79,
+   "div_growth_5y_pct": 17.9,
+   "payout_pct": 81.7,
+   "debt_equity_pct": 1205.6,
+   "market_cap": 76757524480.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 20.1,
+   "mdd_5y_pct": -31.1,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "53년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "82%",
+     "ok": false,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "1206%",
+     "ok": false,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$77B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 20%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-31%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 280635078,
+   "need_100": 561270156,
+   "need_300": 1683810468,
+   "status": "ok"
+  },
+  {
+   "ticker": "KMB",
+   "name": "킴벌리클라크",
+   "market": "US",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "생활용품(화장지·기저귀)",
+   "desc": "화장지와 기저귀 등 생활용품 기업",
+   "yahoo_name": "Kimberly-Clark Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1980-03-17",
+   "price": 110.46,
+   "ttm_div": 5.1,
+   "yield_pct": 4.62,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 41,
+   "cut_5y": false,
+   "div_5y_ago": 4.49,
+   "div_growth_5y_pct": 13.6,
+   "payout_pct": 97.3,
+   "debt_equity_pct": 211.9,
+   "market_cap": 66536972288.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 22.6,
+   "mdd_5y_pct": -37.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "41년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "97%",
+     "ok": false,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "212%",
+     "ok": false,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$67B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 23%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-37%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.6%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 129952940,
+   "need_100": 259905880,
+   "need_300": 779717641,
+   "status": "ok"
+  },
+  {
+   "ticker": "UNP",
+   "name": "유니언퍼시픽",
+   "market": "US",
+   "type": "주식",
+   "category": "산업재",
+   "invests": "철도 운송",
+   "desc": "미국 서부 대형 철도 회사",
+   "yahoo_name": "Union Pacific Corporation",
+   "last_date": "2026-11-05",
+   "first_date": "1980-01-02",
+   "price": 297.95,
+   "ttm_div": 5.56,
+   "yield_pct": 1.87,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 46,
+   "cut_5y": false,
+   "div_5y_ago": 4.08,
+   "div_growth_5y_pct": 36.3,
+   "payout_pct": 43.4,
+   "debt_equity_pct": 141.3,
+   "market_cap": 172376948736.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 21.6,
+   "mdd_5y_pct": -32.9,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "46년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "43%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "141%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$172B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 22%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-33%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 321528790,
+   "need_100": 643057580,
+   "need_300": 1929172741,
+   "status": "ok"
+  },
+  {
+   "ticker": "AMGN",
+   "name": "암젠",
+   "market": "US",
+   "type": "주식",
+   "category": "헬스케어",
+   "invests": "바이오 의약품",
+   "desc": "대형 바이오 제약 기업",
+   "yahoo_name": "Amgen Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1983-06-17",
+   "price": 460.28,
+   "ttm_div": 9.94,
+   "yield_pct": 2.16,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 15,
+   "cut_5y": false,
+   "div_5y_ago": 6.88,
+   "div_growth_5y_pct": 44.5,
+   "payout_pct": 57.6,
+   "debt_equity_pct": 376.3,
+   "market_cap": 249046466560.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 27.3,
+   "mdd_5y_pct": -26.7,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "15년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "58%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "376%",
+     "ok": false,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$249B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 27%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-27%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.2%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 277835009,
+   "need_100": 555670019,
+   "need_300": 1667010056,
+   "status": "ok"
+  },
+  {
+   "ticker": "BLK",
+   "name": "블랙록",
+   "market": "US",
+   "type": "주식",
+   "category": "금융",
+   "invests": "자산운용",
+   "desc": "세계 최대 자산운용사",
+   "yahoo_name": "BlackRock, Inc.",
+   "last_date": "2026-11-05",
+   "first_date": "1999-10-01",
+   "price": 1170.67,
+   "ttm_div": 22.4,
+   "yield_pct": 1.91,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 23,
+   "cut_5y": false,
+   "div_5y_ago": 16.02,
+   "div_growth_5y_pct": 39.8,
+   "payout_pct": 51.0,
+   "debt_equity_pct": 22.1,
+   "market_cap": 182045147136.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 25.2,
+   "mdd_5y_pct": -45.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "23년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "51%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "22%",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "$182B",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 25%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-45%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 313572333,
+   "need_100": 627144666,
+   "need_300": 1881433999,
+   "status": "ok"
+  },
+  {
+   "ticker": "005930",
+   "name": "삼성전자",
+   "market": "KR",
+   "type": "주식",
+   "category": "IT",
+   "invests": "반도체·스마트폰",
+   "desc": "분기마다 배당을 주는 국내 대표 기업",
+   "yahoo_name": "Samsung Electronics Co., Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 188700.0,
+   "ttm_div": 5913.0,
+   "yield_pct": 3.13,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 20,
+   "cut_5y": true,
+   "div_5y_ago": 3015.0,
+   "div_growth_5y_pct": 96.1,
+   "payout_pct": 7.5,
+   "debt_equity_pct": 2.8,
+   "market_cap": 1228800746586112.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 52.2,
+   "mdd_5y_pct": -47.9,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "20년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "8%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "3%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "1,228.8조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 52%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-48%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 191476408,
+   "need_100": 382952816,
+   "need_300": 1148858447,
+   "status": "ok"
+  },
+  {
+   "ticker": "033780",
+   "name": "KT&G",
+   "market": "KR",
+   "type": "주식",
+   "category": "필수소비재",
+   "invests": "담배·인삼",
+   "desc": "담배와 홍삼으로 꾸준히 버는 국내 대표 배당주",
+   "yahoo_name": "KT&G Corporation",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 189900.0,
+   "ttm_div": 6600.0,
+   "yield_pct": 3.48,
+   "freq": "반기",
+   "pay_months": [
+    2,
+    8
+   ],
+   "pay_count": 2,
+   "years_paid": 26,
+   "cut_5y": true,
+   "div_5y_ago": 4800.0,
+   "div_growth_5y_pct": 37.5,
+   "payout_pct": 43.9,
+   "debt_equity_pct": 20.3,
+   "market_cap": 19713606287360.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 29.1,
+   "mdd_5y_pct": -23.0,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "26년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "44%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "20%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "19.7조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 29%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-23%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 172636364,
+   "need_100": 345272727,
+   "need_300": 1035818182,
+   "status": "ok"
+  },
+  {
+   "ticker": "017670",
+   "name": "SK텔레콤",
+   "market": "KR",
+   "type": "주식",
+   "category": "통신",
+   "invests": "이동통신",
+   "desc": "국내 1위 이동통신사",
+   "yahoo_name": "SK Telecom Co., Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 77700.0,
+   "ttm_div": 1660.0,
+   "yield_pct": 2.14,
+   "freq": "분기",
+   "pay_months": [
+    5,
+    8
+   ],
+   "pay_count": 2,
+   "years_paid": 20,
+   "cut_5y": true,
+   "div_5y_ago": 4610.1008,
+   "div_growth_5y_pct": -64.0,
+   "payout_pct": 48.6,
+   "debt_equity_pct": 42.6,
+   "market_cap": 16554681958400.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 35.8,
+   "mdd_5y_pct": -42.4,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "20년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "49%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "43%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "16.6조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 36%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-42%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 280843373,
+   "need_100": 561686747,
+   "need_300": 1685060241,
+   "status": "ok"
+  },
+  {
+   "ticker": "030200",
+   "name": "KT",
+   "market": "KR",
+   "type": "주식",
+   "category": "통신",
+   "invests": "통신 서비스",
+   "desc": "유무선 통신 기업",
+   "yahoo_name": "KT Corporation",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 53300.0,
+   "ttm_div": 2400.0,
+   "yield_pct": 4.5,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 11,
+   "cut_5y": true,
+   "div_5y_ago": 1350.0,
+   "div_growth_5y_pct": 77.8,
+   "payout_pct": 45.0,
+   "debt_equity_pct": 61.7,
+   "market_cap": 12617478307840.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 28.5,
+   "mdd_5y_pct": -35.1,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "11년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "45%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "62%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "12.6조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 29%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-35%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 133250000,
+   "need_100": 266500000,
+   "need_300": 799500000,
+   "status": "ok"
+  },
+  {
+   "ticker": "032640",
+   "name": "LG유플러스",
+   "market": "KR",
+   "type": "주식",
+   "category": "통신",
+   "invests": "통신 서비스",
+   "desc": "유무선 통신 기업",
+   "yahoo_name": "LG Uplus Corp.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-04-24",
+   "price": 16760.0,
+   "ttm_div": 680.0,
+   "yield_pct": 4.06,
+   "freq": "반기",
+   "pay_months": [
+    3,
+    8
+   ],
+   "pay_count": 2,
+   "years_paid": 13,
+   "cut_5y": true,
+   "div_5y_ago": 650.0,
+   "div_growth_5y_pct": 4.6,
+   "payout_pct": 52.4,
+   "debt_equity_pct": 62.2,
+   "market_cap": 7113409036288.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 26.6,
+   "mdd_5y_pct": -35.5,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "13년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "52%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "62%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "7.1조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 27%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-36%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 147882353,
+   "need_100": 295764706,
+   "need_300": 887294118,
+   "status": "ok"
+  },
+  {
+   "ticker": "105560",
+   "name": "KB금융",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "은행·금융지주",
+   "desc": "국내 대표 금융지주",
+   "yahoo_name": "KB Financial Group Inc.",
+   "last_date": "2026-11-06",
+   "first_date": "2001-12-25",
+   "price": 151000.0,
+   "ttm_div": 4833.0,
+   "yield_pct": 3.2,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 16,
+   "cut_5y": true,
+   "div_5y_ago": 2520.0,
+   "div_growth_5y_pct": 91.8,
+   "payout_pct": 27.2,
+   "debt_equity_pct": null,
+   "market_cap": 52419060826112.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 39.4,
+   "mdd_5y_pct": -33.6,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "16년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "27%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "52.4조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 39%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-34%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.2%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 187461204,
+   "need_100": 374922408,
+   "need_300": 1124767225,
+   "status": "ok"
+  },
+  {
+   "ticker": "055550",
+   "name": "신한지주",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "은행·금융지주",
+   "desc": "국내 대표 금융지주",
+   "yahoo_name": "Shinhan Financial Group Co., Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 86700.0,
+   "ttm_div": 3100.0,
+   "yield_pct": 3.58,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    4,
+    7,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 17,
+   "cut_5y": true,
+   "div_5y_ago": 2060.0,
+   "div_growth_5y_pct": 50.5,
+   "payout_pct": 25.2,
+   "debt_equity_pct": null,
+   "market_cap": 40134443532288.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 35.8,
+   "mdd_5y_pct": -29.0,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "17년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "25%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "40.1조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 36%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-29%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.6%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 167806452,
+   "need_100": 335612903,
+   "need_300": 1006838710,
+   "status": "ok"
+  },
+  {
+   "ticker": "086790",
+   "name": "하나금융지주",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "은행·금융지주",
+   "desc": "국내 대표 금융지주",
+   "yahoo_name": "Hana Financial Group Inc.",
+   "last_date": "2026-11-06",
+   "first_date": "2002-12-13",
+   "price": 118300.0,
+   "ttm_div": 5751.0,
+   "yield_pct": 4.86,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 5,
+   "years_paid": 20,
+   "cut_5y": true,
+   "div_5y_ago": 2050.0,
+   "div_growth_5y_pct": 180.5,
+   "payout_pct": 29.8,
+   "debt_equity_pct": null,
+   "market_cap": 31598787428352.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 37.2,
+   "mdd_5y_pct": -35.4,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "20년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "30%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "31.6조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 37%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-35%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 123422014,
+   "need_100": 246844027,
+   "need_300": 740532081,
+   "status": "ok"
+  },
+  {
+   "ticker": "316140",
+   "name": "우리금융지주",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "은행·금융지주",
+   "desc": "국내 대표 금융지주",
+   "yahoo_name": "Woori Financial Group Inc.",
+   "last_date": "2026-11-06",
+   "first_date": "2019-02-21",
+   "price": 31400.0,
+   "ttm_div": 1400.0,
+   "yield_pct": 4.46,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 7,
+   "cut_5y": true,
+   "div_5y_ago": 510.0,
+   "div_growth_5y_pct": 174.5,
+   "payout_pct": 33.2,
+   "debt_equity_pct": null,
+   "market_cap": 23017340010496.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 31.6,
+   "mdd_5y_pct": -34.0,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "7년",
+     "ok": false,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "33%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "23.0조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 32%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-34%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 134571429,
+   "need_100": 269142857,
+   "need_300": 807428571,
+   "status": "ok"
+  },
+  {
+   "ticker": "024110",
+   "name": "기업은행",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "은행",
+   "desc": "중소기업 대출 중심 국책은행",
+   "yahoo_name": "Industrial Bank of Korea",
+   "last_date": "2026-11-06",
+   "first_date": "2000-02-11",
+   "price": 19490.0,
+   "ttm_div": 1258.0,
+   "yield_pct": 6.45,
+   "freq": "연 1회",
+   "pay_months": [
+    3,
+    7
+   ],
+   "pay_count": 2,
+   "years_paid": 2,
+   "cut_5y": true,
+   "div_5y_ago": 471.0,
+   "div_growth_5y_pct": 167.1,
+   "payout_pct": 34.1,
+   "debt_equity_pct": null,
+   "market_cap": 15541829894144.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 25.6,
+   "mdd_5y_pct": -34.4,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "2년",
+     "ok": false,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "34%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "15.5조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 26%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-34%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "6.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 92957075,
+   "need_100": 185914149,
+   "need_300": 557742448,
+   "status": "ok"
+  },
+  {
+   "ticker": "000810",
+   "name": "삼성화재",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "손해보험",
+   "desc": "국내 1위 손해보험사",
+   "yahoo_name": "Samsung Fire & Marine Insurance Co., Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 604000.0,
+   "ttm_div": 19500.0,
+   "yield_pct": 3.23,
+   "freq": "연 1회",
+   "pay_months": [
+    3
+   ],
+   "pay_count": 1,
+   "years_paid": 2,
+   "cut_5y": true,
+   "div_5y_ago": 8800.0,
+   "div_growth_5y_pct": 121.6,
+   "payout_pct": 40.0,
+   "debt_equity_pct": 0.9,
+   "market_cap": 25675748605952.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 50.2,
+   "mdd_5y_pct": -30.1,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "2년",
+     "ok": false,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "40%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "1%",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "25.7조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 50%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-30%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.2%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 185846154,
+   "need_100": 371692308,
+   "need_300": 1115076923,
+   "status": "ok"
+  },
+  {
+   "ticker": "005830",
+   "name": "DB손해보험",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "손해보험",
+   "desc": "대형 손해보험사",
+   "yahoo_name": "DB Insurance Co., Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 171100.0,
+   "ttm_div": 7600.0,
+   "yield_pct": 4.44,
+   "freq": "연 1회",
+   "pay_months": [
+    3
+   ],
+   "pay_count": 1,
+   "years_paid": 2,
+   "cut_5y": true,
+   "div_5y_ago": 2200.0,
+   "div_growth_5y_pct": 245.5,
+   "payout_pct": 25.7,
+   "debt_equity_pct": 32.3,
+   "market_cap": 10376097824768.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 41.8,
+   "mdd_5y_pct": -36.0,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "2년",
+     "ok": false,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "26%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "32%",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "10.4조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 42%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-36%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.4%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 135078947,
+   "need_100": 270157895,
+   "need_300": 810473684,
+   "status": "ok"
+  },
+  {
+   "ticker": "005380",
+   "name": "현대차",
+   "market": "KR",
+   "type": "주식",
+   "category": "경기소비재",
+   "invests": "자동차",
+   "desc": "국내 1위 자동차 기업",
+   "yahoo_name": "Hyundai Motor Company",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 279500.0,
+   "ttm_div": 10000.0,
+   "yield_pct": 3.58,
+   "freq": "분기",
+   "pay_months": [
+    2,
+    5,
+    8,
+    11
+   ],
+   "pay_count": 4,
+   "years_paid": 26,
+   "cut_5y": true,
+   "div_5y_ago": 4000.0,
+   "div_growth_5y_pct": 150.0,
+   "payout_pct": 32.2,
+   "debt_equity_pct": 134.0,
+   "market_cap": 73544344010752.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 49.4,
+   "mdd_5y_pct": -63.0,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "26년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "32%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "134%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "73.5조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 49%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-63%",
+     "ok": false,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.6%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 167700000,
+   "need_100": 335400000,
+   "need_300": 1006200000,
+   "status": "ok"
+  },
+  {
+   "ticker": "000270",
+   "name": "기아",
+   "market": "KR",
+   "type": "주식",
+   "category": "경기소비재",
+   "invests": "자동차",
+   "desc": "국내 대형 자동차 기업",
+   "yahoo_name": "Kia Corporation",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 100300.0,
+   "ttm_div": 6800.0,
+   "yield_pct": 6.78,
+   "freq": "연 1회",
+   "pay_months": [
+    3
+   ],
+   "pay_count": 1,
+   "years_paid": 2,
+   "cut_5y": true,
+   "div_5y_ago": 1000.0,
+   "div_growth_5y_pct": 580.0,
+   "payout_pct": 37.4,
+   "debt_equity_pct": 3.5,
+   "market_cap": 38982201114624.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 44.2,
+   "mdd_5y_pct": -53.6,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "2년",
+     "ok": false,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "37%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "4%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "39.0조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 44%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-54%",
+     "ok": false,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "6.8%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 88500000,
+   "need_100": 177000000,
+   "need_300": 531000000,
+   "status": "ok"
+  },
+  {
+   "ticker": "088980",
+   "name": "맥쿼리인프라",
+   "market": "KR",
+   "type": "주식",
+   "category": "인프라",
+   "invests": "도로·항만 등 인프라 투자",
+   "desc": "도로·터널 통행료 등에서 나온 돈을 나눠 주는 인프라 펀드",
+   "yahoo_name": "Macquarie Korea Infrastructure Fund",
+   "last_date": "2026-11-06",
+   "first_date": "2006-03-15",
+   "price": 9680.0,
+   "ttm_div": 730.0,
+   "yield_pct": 7.54,
+   "freq": "반기",
+   "pay_months": [
+    6,
+    12
+   ],
+   "pay_count": 2,
+   "years_paid": 20,
+   "cut_5y": false,
+   "div_5y_ago": 730.0,
+   "div_growth_5y_pct": 0.0,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 11.9,
+   "mdd_5y_pct": -33.8,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "20년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 12%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-34%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "7.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 79561644,
+   "need_100": 159123288,
+   "need_300": 477369863,
+   "status": "ok"
+  },
+  {
+   "ticker": "029780",
+   "name": "삼성카드",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "신용카드",
+   "desc": "삼성 계열 카드사",
+   "yahoo_name": "Samsung Card Co., Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2007-06-27",
+   "price": 42050.0,
+   "ttm_div": 2800.0,
+   "yield_pct": 6.66,
+   "freq": "연 1회",
+   "pay_months": [
+    3
+   ],
+   "pay_count": 1,
+   "years_paid": 2,
+   "cut_5y": true,
+   "div_5y_ago": 1800.0,
+   "div_growth_5y_pct": 55.6,
+   "payout_pct": 48.1,
+   "debt_equity_pct": 261.1,
+   "market_cap": 4487184908288.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 29.2,
+   "mdd_5y_pct": -39.5,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "2년",
+     "ok": false,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "48%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "261%",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "4.5조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 29%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-40%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "6.7%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 90107143,
+   "need_100": 180214286,
+   "need_300": 540642857,
+   "status": "ok"
+  },
+  {
+   "ticker": "016360",
+   "name": "삼성증권",
+   "market": "KR",
+   "type": "주식",
+   "category": "금융",
+   "invests": "증권",
+   "desc": "삼성 계열 증권사",
+   "yahoo_name": "Samsung Securities Co.,Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-01-04",
+   "price": 74000.0,
+   "ttm_div": 4000.0,
+   "yield_pct": 5.41,
+   "freq": "연 1회",
+   "pay_months": [
+    12
+   ],
+   "pay_count": 1,
+   "years_paid": 23,
+   "cut_5y": true,
+   "div_5y_ago": 2200.0,
+   "div_growth_5y_pct": 81.8,
+   "payout_pct": 24.4,
+   "debt_equity_pct": 421.5,
+   "market_cap": 6608199876608.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 45.2,
+   "mdd_5y_pct": -50.5,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "23년",
+     "ok": true,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "24%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "422%",
+     "ok": null,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "6.6조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 45%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-51%",
+     "ok": false,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "5.4%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 111000000,
+   "need_100": 222000000,
+   "need_300": 666000000,
+   "status": "ok"
+  },
+  {
+   "ticker": "021240",
+   "name": "코웨이",
+   "market": "KR",
+   "type": "주식",
+   "category": "경기소비재",
+   "invests": "정수기·생활가전 렌탈",
+   "desc": "정수기 렌탈료로 꾸준히 버는 기업",
+   "yahoo_name": "COWAY Co., Ltd.",
+   "last_date": "2026-11-06",
+   "first_date": "2000-02-11",
+   "price": 107600.0,
+   "ttm_div": 3357.0,
+   "yield_pct": 3.12,
+   "freq": "분기",
+   "pay_months": [
+    4,
+    5,
+    8
+   ],
+   "pay_count": 3,
+   "years_paid": 0,
+   "cut_5y": true,
+   "div_5y_ago": 1200.0,
+   "div_growth_5y_pct": 179.8,
+   "payout_pct": 27.5,
+   "debt_equity_pct": 69.9,
+   "market_cap": 7545871138816.0,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 38.9,
+   "mdd_5y_pct": -50.2,
+   "risk": "높음",
+   "checks": [
+    {
+     "name": "연속 배당",
+     "value": "0년",
+     "ok": false,
+     "rule": "10년 이상"
+    },
+    {
+     "name": "최근 5년 배당 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "배당성향",
+     "value": "28%",
+     "ok": true,
+     "rule": "80% 이하"
+    },
+    {
+     "name": "부채비율",
+     "value": "70%",
+     "ok": true,
+     "rule": "200% 이하"
+    },
+    {
+     "name": "시가총액",
+     "value": "7.5조원",
+     "ok": true,
+     "rule": "미국 300억달러·국내 3조원 이상"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 39%",
+     "ok": false,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-50%",
+     "ok": false,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 192314567,
+   "need_100": 384629133,
+   "need_300": 1153887399,
+   "status": "ok"
+  },
+  {
+   "ticker": "SCHD",
+   "name": "슈왑 미국배당주",
+   "market": "US",
+   "type": "ETF",
    "category": "배당",
    "invests": "미국 배당성장 우량주 약 100개",
-   "desc": "10년 이상 배당을 이어온 재무가 탄탄한 미국 기업에 투자",
+   "desc": "10년 이상 배당을 이어온 재무 우량 기업에 나눠 투자하는 ETF",
+   "yahoo_name": "Schwab U.S. Dividend Equity ETF",
    "last_date": "2026-11-05",
    "first_date": "2011-10-20",
    "price": 35.42,
    "ttm_div": 1.055,
-   "pay_count": 4,
-   "freq": "분기",
    "yield_pct": 2.98,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 15,
+   "cut_5y": false,
    "div_5y_ago": 0.744,
    "div_growth_5y_pct": 41.8,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 136679740,
-   "dca_monthly_income": 339255,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 121091694592.0,
+   "fee_pct": 0.06,
+   "vol_3y_pct": 13.4,
+   "mdd_5y_pct": -18.9,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "15년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$121.1B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.06%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 13%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-19%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.0%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
    "need_50": 201440748,
    "need_100": 402881496,
    "need_300": 1208644487,
    "status": "ok"
   },
   {
-   "ticker": "JEPI",
-   "name": "JPMorgan Equity Premium Income ETF",
-   "market": "US",
-   "category": "배당·커버드콜",
-   "invests": "미국 대형주+옵션 프리미엄",
-   "desc": "미국 주식에 투자하면서 옵션을 팔아 매달 높은 분배금을 지향",
-   "last_date": "2026-11-05",
-   "first_date": "2020-05-21",
-   "price": 56.39,
-   "ttm_div": 3.876,
-   "pay_count": 10,
-   "freq": "매월",
-   "yield_pct": 6.87,
-   "div_5y_ago": 4.363,
-   "div_growth_5y_pct": -11.2,
-   "dca_months": 79,
-   "dca_invested": 39500000,
-   "dca_value": 54972225,
-   "dca_monthly_income": 314879,
-   "need_50": 87291021,
-   "need_100": 174582041,
-   "need_300": 523746124,
-   "status": "ok"
-  },
-  {
-   "ticker": "458730",
-   "name": "TIGER 미국배당다우존스",
-   "market": "KR",
-   "category": "해외지수(국내상장)",
-   "invests": "미국 배당성장 우량주(SCHD와 같은 지수)",
-   "desc": "SCHD와 같은 지수를 국내 상장 ETF로 추종하며 매달 분배",
-   "last_date": "2026-11-06",
-   "first_date": "2023-06-20",
-   "price": 15250.0,
-   "ttm_div": 439.0,
-   "pay_count": 12,
-   "freq": "매월",
-   "yield_pct": 2.88,
-   "div_5y_ago": null,
-   "div_growth_5y_pct": null,
-   "dca_months": 42,
-   "dca_invested": 21000000,
-   "dca_value": 27994222,
-   "dca_monthly_income": 67156,
-   "need_50": 208428246,
-   "need_100": 416856492,
-   "need_300": 1250569476,
-   "status": "ok"
-  },
-  {
    "ticker": "VYM",
-   "name": "Vanguard High Dividend Yield ETF",
+   "name": "뱅가드 고배당",
    "market": "US",
+   "type": "ETF",
    "category": "배당",
-   "invests": "미국 고배당주",
-   "desc": "배당수익률이 평균보다 높은 미국 대형주 중심",
+   "invests": "미국 고배당주 약 500개",
+   "desc": "배당수익률이 평균보다 높은 미국 대형주에 넓게 투자하는 ETF",
+   "yahoo_name": "Vanguard High Dividend Yield Index Fund ETF Shares",
    "last_date": "2026-11-05",
    "first_date": "2006-11-16",
    "price": 159.8,
    "ttm_div": 3.676,
-   "pay_count": 4,
-   "freq": "분기",
    "yield_pct": 2.3,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 20,
+   "cut_5y": false,
    "div_5y_ago": 2.967,
    "div_growth_5y_pct": 23.9,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 126300386,
-   "dca_monthly_income": 242115,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 100987871232.0,
+   "fee_pct": 0.04,
+   "vol_3y_pct": 12.6,
+   "mdd_5y_pct": -17.5,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "20년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$101.0B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.04%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 13%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-18%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.3%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
    "need_50": 260826991,
    "need_100": 521653982,
    "need_300": 1564961945,
    "status": "ok"
   },
   {
-   "ticker": "JEPQ",
-   "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+   "ticker": "VIG",
+   "name": "뱅가드 배당성장",
    "market": "US",
-   "category": "배당·커버드콜",
-   "invests": "나스닥100 주식+옵션 프리미엄",
-   "desc": "JEPI의 나스닥 버전으로 기술주와 옵션 수익을 함께 추구",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "미국 배당성장주",
+   "desc": "10년 이상 배당을 늘려온 미국 기업에 투자하는 ETF",
+   "yahoo_name": "Vanguard Dividend Appreciation Index Fund ETF Shares",
    "last_date": "2026-11-05",
-   "first_date": "2022-05-04",
-   "price": 53.71,
-   "ttm_div": 5.843,
-   "pay_count": 10,
-   "freq": "매월",
-   "yield_pct": 10.88,
-   "div_5y_ago": null,
-   "div_growth_5y_pct": null,
-   "dca_months": 55,
-   "dca_invested": 27500000,
-   "dca_value": 37139053,
-   "dca_monthly_income": 336690,
-   "need_50": 55153174,
-   "need_100": 110306348,
-   "need_300": 330919043,
-   "status": "ok"
-  },
-  {
-   "ticker": "446720",
-   "name": "SOL 미국배당다우존스",
-   "market": "KR",
-   "category": "해외지수(국내상장)",
-   "invests": "미국 배당성장 우량주(SCHD와 같은 지수)",
-   "desc": "SCHD와 같은 지수를 추종하는 국내 상장 월배당 ETF",
-   "last_date": "2026-11-06",
-   "first_date": "2022-11-15",
-   "price": 13955.0,
-   "ttm_div": 406.0,
-   "pay_count": 12,
-   "freq": "매월",
-   "yield_pct": 2.91,
-   "div_5y_ago": null,
-   "div_growth_5y_pct": null,
-   "dca_months": 49,
-   "dca_invested": 24500000,
-   "dca_value": 33687151,
-   "dca_monthly_income": 81673,
-   "need_50": 206231527,
-   "need_100": 412463054,
-   "need_300": 1237389163,
+   "first_date": "2006-05-02",
+   "price": 244.26,
+   "ttm_div": 3.646,
+   "yield_pct": 1.49,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 20,
+   "cut_5y": false,
+   "div_5y_ago": 2.552,
+   "div_growth_5y_pct": 42.9,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 135700684800.0,
+   "fee_pct": 0.04,
+   "vol_3y_pct": 12.4,
+   "mdd_5y_pct": -21.5,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "20년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$135.7B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.04%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 12%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-22%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.5%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 401963787,
+   "need_100": 803927574,
+   "need_300": 2411782721,
    "status": "ok"
   },
   {
    "ticker": "DGRO",
-   "name": "iShares Core Dividend Growth ETF",
+   "name": "아이셰어즈 배당성장",
    "market": "US",
+   "type": "ETF",
    "category": "배당",
    "invests": "미국 배당성장주",
-   "desc": "꾸준히 배당을 늘리면서 배당 여력도 있는 기업에 투자",
+   "desc": "배당을 꾸준히 늘리면서 배당 여력도 있는 기업에 투자하는 ETF",
+   "yahoo_name": "iShares Core Dividend Growth ETF",
    "last_date": "2026-11-05",
    "first_date": "2014-06-12",
    "price": 80.25,
    "ttm_div": 1.494,
-   "pay_count": 4,
-   "freq": "분기",
    "yield_pct": 1.86,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 12,
+   "cut_5y": false,
    "div_5y_ago": 1.046,
    "div_growth_5y_pct": 42.8,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 136251266,
-   "dca_monthly_income": 211380,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 45256122368.0,
+   "fee_pct": 0.08,
+   "vol_3y_pct": 11.9,
+   "mdd_5y_pct": -20.7,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "12년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$45.3B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.08%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 12%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-21%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
    "need_50": 322289157,
    "need_100": 644578313,
    "need_300": 1933734940,
@@ -182,224 +4658,876 @@
   },
   {
    "ticker": "HDV",
-   "name": "iShares Core High Dividend ETF",
+   "name": "아이셰어즈 고배당",
    "market": "US",
+   "type": "ETF",
    "category": "배당",
    "invests": "미국 고배당 우량주 약 75개",
-   "desc": "재무 건전성을 걸러낸 고배당 미국 기업에 투자",
+   "desc": "재무 건전성을 걸러낸 고배당 기업에 투자하는 ETF",
+   "yahoo_name": "iShares Core High Dividend ETF",
    "last_date": "2026-11-05",
    "first_date": "2011-03-31",
    "price": 30.56,
    "ttm_div": 0.9582,
-   "pay_count": 7,
-   "freq": "분기",
    "yield_pct": 3.14,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12
+   ],
+   "pay_count": 7,
+   "years_paid": 15,
+   "cut_5y": false,
    "div_5y_ago": 0.6758,
    "div_growth_5y_pct": 41.8,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 126749792,
-   "dca_monthly_income": 331184,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 16281927680.0,
+   "fee_pct": 0.08,
+   "vol_3y_pct": 11.9,
+   "mdd_5y_pct": -16.9,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "15년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$16.3B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.08%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 12%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-17%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
    "need_50": 191358794,
    "need_100": 382717589,
    "need_300": 1148152766,
    "status": "ok"
   },
   {
-   "ticker": "VIG",
-   "name": "Vanguard Dividend Appreciation ETF",
-   "market": "US",
-   "category": "배당",
-   "invests": "미국 배당성장주",
-   "desc": "10년 이상 배당을 늘려온 미국 기업에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "2006-05-02",
-   "price": 244.26,
-   "ttm_div": 3.646,
-   "pay_count": 4,
-   "freq": "분기",
-   "yield_pct": 1.49,
-   "div_5y_ago": 2.552,
-   "div_growth_5y_pct": 42.9,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 132630887,
-   "dca_monthly_income": 164979,
-   "need_50": 401963787,
-   "need_100": 803927574,
-   "need_300": 2411782721,
-   "status": "ok"
-  },
-  {
-   "ticker": "161510",
-   "name": "PLUS 고배당주",
-   "market": "KR",
-   "category": "배당",
-   "invests": "국내 고배당주",
-   "desc": "배당수익률이 높은 국내 기업에 투자",
-   "last_date": "2026-11-06",
-   "first_date": "2012-08-29",
-   "price": 22015.0,
-   "ttm_div": 1084.0,
-   "pay_count": 12,
-   "freq": "매월",
-   "yield_pct": 4.92,
-   "div_5y_ago": 560.0,
-   "div_growth_5y_pct": 93.6,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 136765647,
-   "dca_monthly_income": 561185,
-   "need_50": 121854244,
-   "need_100": 243708487,
-   "need_300": 731125461,
-   "status": "ok"
-  },
-  {
-   "ticker": "QYLD",
-   "name": "Global X NASDAQ 100 Covered Call ETF",
-   "market": "US",
-   "category": "배당·커버드콜",
-   "invests": "나스닥100+커버드콜",
-   "desc": "나스닥100을 보유하며 콜옵션을 매달 팔아 높은 분배금을 지향",
-   "last_date": "2026-11-05",
-   "first_date": "2013-12-12",
-   "price": 16.88,
-   "ttm_div": 2.143,
-   "pay_count": 12,
-   "freq": "매월",
-   "yield_pct": 12.7,
-   "div_5y_ago": 2.58,
-   "div_growth_5y_pct": -16.9,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 103961669,
-   "dca_monthly_income": 1099871,
-   "need_50": 47260847,
-   "need_100": 94521694,
-   "need_300": 283565082,
-   "status": "ok"
-  },
-  {
-   "ticker": "SPYD",
-   "name": "SPDR Portfolio S&P 500 High Dividend ETF",
-   "market": "US",
-   "category": "배당",
-   "invests": "S&P 500 중 고배당 80개",
-   "desc": "S&P 500 안에서 배당수익률이 높은 80개 기업에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "2015-10-22",
-   "price": 49.9,
-   "ttm_div": 2.06,
-   "pay_count": 4,
-   "freq": "분기",
-   "yield_pct": 4.13,
-   "div_5y_ago": 1.63,
-   "div_growth_5y_pct": 26.4,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 111218226,
-   "dca_monthly_income": 382614,
-   "need_50": 145339810,
-   "need_100": 290679621,
-   "need_300": 872038862,
-   "status": "ok"
-  },
-  {
-   "ticker": "DIVO",
-   "name": "Amplify CWP Enhanced Dividend Income ETF",
-   "market": "US",
-   "category": "배당·커버드콜",
-   "invests": "미국 배당주+일부 콜옵션 매도",
-   "desc": "배당주에 투자하고 일부 종목에 콜옵션을 팔아 추가 수입을 추구",
-   "last_date": "2026-11-05",
-   "first_date": "2016-12-15",
-   "price": 46.74,
-   "ttm_div": 3.026,
-   "pay_count": 12,
-   "freq": "매월",
-   "yield_pct": 6.47,
-   "div_5y_ago": 1.821,
-   "div_growth_5y_pct": 66.2,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 127860007,
-   "dca_monthly_income": 689817,
-   "need_50": 92676804,
-   "need_100": 185353609,
-   "need_300": 556060826,
-   "status": "ok"
-  },
-  {
-   "ticker": "XYLD",
-   "name": "Global X S&P 500 Covered Call ETF",
-   "market": "US",
-   "category": "배당·커버드콜",
-   "invests": "S&P 500+커버드콜",
-   "desc": "S&P 500을 보유하며 콜옵션을 팔아 매달 분배금을 지급",
-   "last_date": "2026-11-05",
-   "first_date": "2013-06-24",
-   "price": 40.05,
-   "ttm_div": 4.24,
-   "pay_count": 12,
-   "freq": "매월",
-   "yield_pct": 10.59,
-   "div_5y_ago": 4.615,
-   "div_growth_5y_pct": -8.1,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 102218421,
-   "dca_monthly_income": 901802,
-   "need_50": 56674527,
-   "need_100": 113349054,
-   "need_300": 340047163,
-   "status": "ok"
-  },
-  {
    "ticker": "NOBL",
-   "name": "ProShares S&P 500 Dividend Aristocrats ETF",
+   "name": "배당귀족",
    "market": "US",
+   "type": "ETF",
    "category": "배당",
    "invests": "25년 이상 배당 증가 S&P 500 기업",
-   "desc": "'배당 귀족'이라 불리는 25년 연속 배당 증가 기업에 동일 비중 투자",
+   "desc": "25년 넘게 배당을 늘려온 '배당 귀족' 기업에 같은 비중으로 투자하는 ETF",
+   "yahoo_name": "ProShares S&P 500 Dividend Aristocrats ETF",
    "last_date": "2026-11-05",
    "first_date": "2013-10-10",
    "price": 60.41,
    "ttm_div": 1.1735,
-   "pay_count": 4,
-   "freq": "분기",
    "yield_pct": 1.94,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 13,
+   "cut_5y": false,
    "div_5y_ago": 0.8805,
    "div_growth_5y_pct": 33.3,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 114518042,
-   "dca_monthly_income": 185382,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 11900102656.0,
+   "fee_pct": 0.35,
+   "vol_3y_pct": 13.1,
+   "mdd_5y_pct": -19.0,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "13년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$11.9B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.35%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 13%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-19%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "1.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
    "need_50": 308870898,
    "need_100": 617741796,
    "need_300": 1853225389,
    "status": "ok"
   },
   {
-   "ticker": "VNQ",
-   "name": "Vanguard Real Estate ETF",
+   "ticker": "SPYD",
+   "name": "S&P500 고배당",
    "market": "US",
-   "category": "섹터",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "S&P 500 중 고배당 80개",
+   "desc": "S&P 500 안에서 배당수익률이 높은 80개 기업에 투자하는 ETF",
+   "yahoo_name": "State Street SPDR Portfolio S&P 500 High Dividend ETF",
+   "last_date": "2026-11-05",
+   "first_date": "2015-10-22",
+   "price": 49.9,
+   "ttm_div": 2.06,
+   "yield_pct": 4.13,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 11,
+   "cut_5y": true,
+   "div_5y_ago": 1.63,
+   "div_growth_5y_pct": 26.4,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 7642839552.0,
+   "fee_pct": 0.07,
+   "vol_3y_pct": 14.3,
+   "mdd_5y_pct": -27.4,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "11년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$7.6B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.07%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 14%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-27%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 145339810,
+   "need_100": 290679621,
+   "need_300": 872038862,
+   "status": "ok"
+  },
+  {
+   "ticker": "DVY",
+   "name": "아이셰어즈 우량배당",
+   "market": "US",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "미국 배당주 약 100개",
+   "desc": "배당을 꾸준히 지급해 온 미국 기업에 투자하는 ETF",
+   "yahoo_name": "iShares Select Dividend ETF",
+   "last_date": "2026-11-05",
+   "first_date": "2003-11-07",
+   "price": 161.15,
+   "ttm_div": 5.341,
+   "yield_pct": 3.31,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 23,
+   "cut_5y": false,
+   "div_5y_ago": 3.816,
+   "div_growth_5y_pct": 40.0,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 23690563584.0,
+   "fee_pct": 0.38,
+   "vol_3y_pct": 13.9,
+   "mdd_5y_pct": -22.1,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "23년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$23.7B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.38%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 14%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-22%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.3%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 181033507,
+   "need_100": 362067015,
+   "need_300": 1086201045,
+   "status": "ok"
+  },
+  {
+   "ticker": "JEPI",
+   "name": "JP모건 프리미엄인컴",
+   "market": "US",
+   "type": "ETF",
+   "category": "배당·커버드콜",
+   "invests": "미국 대형주+옵션 프리미엄",
+   "desc": "미국 주식에 투자하면서 옵션을 팔아 매달 분배금을 주는 ETF",
+   "yahoo_name": "JPMorgan Equity Premium Income ETF",
+   "last_date": "2026-11-05",
+   "first_date": "2020-05-21",
+   "price": 56.39,
+   "ttm_div": 3.876,
+   "yield_pct": 6.87,
+   "freq": "매월",
+   "pay_months": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    12
+   ],
+   "pay_count": 10,
+   "years_paid": 6,
+   "cut_5y": true,
+   "div_5y_ago": 4.363,
+   "div_growth_5y_pct": -11.2,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 46156169216.0,
+   "fee_pct": 0.35,
+   "vol_3y_pct": 10.4,
+   "mdd_5y_pct": -20.0,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "6년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": null,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$46.2B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.35%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 10%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-20%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "6.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 87291021,
+   "need_100": 174582041,
+   "need_300": 523746124,
+   "status": "ok"
+  },
+  {
+   "ticker": "JEPQ",
+   "name": "JP모건 나스닥 프리미엄인컴",
+   "market": "US",
+   "type": "ETF",
+   "category": "배당·커버드콜",
+   "invests": "나스닥100 주식+옵션 프리미엄",
+   "desc": "나스닥 기업에 투자하면서 옵션을 팔아 매달 분배금을 주는 ETF",
+   "yahoo_name": "JPMorgan Nasdaq Equity Premium Income ETF",
+   "last_date": "2026-11-05",
+   "first_date": "2022-05-04",
+   "price": 53.71,
+   "ttm_div": 5.843,
+   "yield_pct": 10.88,
+   "freq": "매월",
+   "pay_months": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    12
+   ],
+   "pay_count": 10,
+   "years_paid": 4,
+   "cut_5y": false,
+   "div_5y_ago": null,
+   "div_growth_5y_pct": null,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 42491858944.0,
+   "fee_pct": 0.35,
+   "vol_3y_pct": 16.5,
+   "mdd_5y_pct": -21.6,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "4년",
+     "ok": false,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": null,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$42.5B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.35%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 17%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-22%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "10.9%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 55153174,
+   "need_100": 110306348,
+   "need_300": 330919043,
+   "status": "ok"
+  },
+  {
+   "ticker": "DIVO",
+   "name": "DIVO 배당인컴",
+   "market": "US",
+   "type": "ETF",
+   "category": "배당·커버드콜",
+   "invests": "미국 배당주+일부 콜옵션 매도",
+   "desc": "배당주에 투자하고 일부 옵션을 팔아 매달 분배금을 주는 ETF",
+   "yahoo_name": "Amplify CWP Enhanced Dividend Income ETF",
+   "last_date": "2026-11-05",
+   "first_date": "2016-12-15",
+   "price": 46.74,
+   "ttm_div": 3.026,
+   "yield_pct": 6.47,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 9,
+   "cut_5y": false,
+   "div_5y_ago": 1.821,
+   "div_growth_5y_pct": 66.2,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 8008647168.0,
+   "fee_pct": 0.56,
+   "vol_3y_pct": 11.0,
+   "mdd_5y_pct": -16.6,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "9년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": null,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$8.0B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.56%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 11%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-17%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "6.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 92676804,
+   "need_100": 185353609,
+   "need_300": 556060826,
+   "status": "ok"
+  },
+  {
+   "ticker": "QYLD",
+   "name": "나스닥100 커버드콜",
+   "market": "US",
+   "type": "ETF",
+   "category": "배당·커버드콜",
+   "invests": "나스닥100+커버드콜",
+   "desc": "나스닥100을 보유하며 콜옵션을 팔아 매달 분배금을 주는 ETF",
+   "yahoo_name": "Global X NASDAQ 100 Covered Call ETF",
+   "last_date": "2026-11-05",
+   "first_date": "2013-12-12",
+   "price": 16.88,
+   "ttm_div": 2.143,
+   "yield_pct": 12.7,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 12,
+   "cut_5y": true,
+   "div_5y_ago": 2.58,
+   "div_growth_5y_pct": -16.9,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 8199295488.0,
+   "fee_pct": 0.6,
+   "vol_3y_pct": 14.3,
+   "mdd_5y_pct": -35.1,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "12년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": null,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$8.2B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.60%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 14%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-35%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "12.7%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 47260847,
+   "need_100": 94521694,
+   "need_300": 283565082,
+   "status": "ok"
+  },
+  {
+   "ticker": "XYLD",
+   "name": "S&P500 커버드콜",
+   "market": "US",
+   "type": "ETF",
+   "category": "배당·커버드콜",
+   "invests": "S&P 500+커버드콜",
+   "desc": "S&P 500을 보유하며 콜옵션을 팔아 매달 분배금을 주는 ETF",
+   "yahoo_name": "Global X S&P 500 Covered Call ETF",
+   "last_date": "2026-11-05",
+   "first_date": "2013-06-24",
+   "price": 40.05,
+   "ttm_div": 4.24,
+   "yield_pct": 10.59,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 13,
+   "cut_5y": true,
+   "div_5y_ago": 4.615,
+   "div_growth_5y_pct": -8.1,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 3350652416.0,
+   "fee_pct": 0.6,
+   "vol_3y_pct": 10.8,
+   "mdd_5y_pct": -30.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "13년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": null,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$3.4B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.60%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 11%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-30%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "10.6%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 56674527,
+   "need_100": 113349054,
+   "need_300": 340047163,
+   "status": "ok"
+  },
+  {
+   "ticker": "VNQ",
+   "name": "뱅가드 리츠",
+   "market": "US",
+   "type": "ETF",
+   "category": "리츠",
    "invests": "미국 리츠(부동산투자회사)",
-   "desc": "오피스·물류·주거 등 미국 부동산에 투자하는 리츠에 분산투자",
+   "desc": "오피스·물류·주거 등 미국 부동산 임대 수익을 나눠 받는 ETF",
+   "yahoo_name": "Vanguard Real Estate Index Fund ETF Shares",
    "last_date": "2026-11-05",
    "first_date": "2004-09-29",
    "price": 96.23,
    "ttm_div": 3.407,
-   "pay_count": 4,
-   "freq": "분기",
    "yield_pct": 3.54,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 22,
+   "cut_5y": true,
    "div_5y_ago": 3.25,
    "div_growth_5y_pct": 4.8,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 89618342,
-   "dca_monthly_income": 264410,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 69458698240.0,
+   "fee_pct": 0.13,
+   "vol_3y_pct": 16.6,
+   "mdd_5y_pct": -38.8,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "22년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$69.5B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.13%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 17%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-39%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "3.5%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
    "need_50": 169468747,
    "need_100": 338937493,
    "need_300": 1016812480,
@@ -407,24 +5535,83 @@
   },
   {
    "ticker": "XLU",
-   "name": "Utilities Select Sector SPDR Fund",
+   "name": "유틸리티 섹터",
    "market": "US",
+   "type": "ETF",
    "category": "섹터",
-   "invests": "S&P 500 유틸리티 업종",
-   "desc": "전력·가스 등 공공요금 성격 기업에 투자",
+   "invests": "미국 전력·가스 회사",
+   "desc": "전기·가스처럼 경기와 상관없이 쓰는 공공서비스 기업에 투자하는 ETF",
+   "yahoo_name": "State Street Utilities Select Sector SPDR ETF",
    "last_date": "2026-11-05",
    "first_date": "1998-12-22",
    "price": 43.3,
    "ttm_div": 1.211,
-   "pay_count": 4,
-   "freq": "분기",
    "yield_pct": 2.8,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 27,
+   "cut_5y": false,
    "div_5y_ago": 0.988,
    "div_growth_5y_pct": 22.6,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 107119387,
-   "dca_monthly_income": 249657,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 24252790784.0,
+   "fee_pct": 0.08,
+   "vol_3y_pct": 16.0,
+   "mdd_5y_pct": -28.1,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "27년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$24.3B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.08%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 16%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-28%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.8%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
    "need_50": 214533440,
    "need_100": 429066879,
    "need_300": 1287200638,
@@ -432,227 +5619,805 @@
   },
   {
    "ticker": "XLP",
-   "name": "Consumer Staples Select Sector SPDR Fund",
+   "name": "필수소비재 섹터",
    "market": "US",
+   "type": "ETF",
    "category": "섹터",
-   "invests": "S&P 500 필수소비재 업종",
-   "desc": "식품·생활용품 등 경기와 관계없이 꾸준히 팔리는 기업에 투자",
+   "invests": "미국 생활필수품 기업",
+   "desc": "식품·생활용품처럼 늘 사는 물건을 파는 기업에 투자하는 ETF",
+   "yahoo_name": "State Street Consumer Staples Select Sector SPDR ETF",
    "last_date": "2026-11-05",
    "first_date": "1998-12-22",
    "price": 91.25,
    "ttm_div": 2.197,
-   "pay_count": 4,
-   "freq": "분기",
    "yield_pct": 2.41,
+   "freq": "분기",
+   "pay_months": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "pay_count": 4,
+   "years_paid": 27,
+   "cut_5y": false,
    "div_5y_ago": 1.807,
    "div_growth_5y_pct": 21.6,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 106715621,
-   "dca_monthly_income": 214113,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": 15027510272.0,
+   "fee_pct": 0.08,
+   "vol_3y_pct": 13.4,
+   "mdd_5y_pct": -17.8,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "27년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "$15.0B",
+     "ok": true,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "연 0.08%",
+     "ok": true,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 13%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-18%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.4%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
    "need_50": 249203459,
    "need_100": 498406919,
    "need_300": 1495220756,
    "status": "ok"
   },
   {
-   "ticker": "BND",
-   "name": "Vanguard Total Bond Market ETF",
-   "market": "US",
-   "category": "채권",
-   "invests": "미국 투자등급 채권 전체",
-   "desc": "국채·회사채 등 미국 투자등급 채권시장 전체에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "2007-04-10",
-   "price": 71.65,
-   "ttm_div": 2.447,
-   "pay_count": 10,
+   "ticker": "161510",
+   "name": "PLUS 고배당주",
+   "market": "KR",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "국내 고배당주",
+   "desc": "배당수익률이 높은 국내 기업에 나눠 투자하는 ETF",
+   "yahoo_name": "ARIRANG Dividend ETF",
+   "last_date": "2026-11-06",
+   "first_date": "2012-08-29",
+   "price": 22015.0,
+   "ttm_div": 1084.0,
+   "yield_pct": 4.92,
    "freq": "매월",
-   "yield_pct": 3.42,
-   "div_5y_ago": 1.826,
-   "div_growth_5y_pct": null,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 70544312,
-   "dca_monthly_income": 200770,
-   "need_50": 175684515,
-   "need_100": 351369031,
-   "need_300": 1054107092,
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 13,
+   "cut_5y": true,
+   "div_5y_ago": 560.0,
+   "div_growth_5y_pct": 93.6,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 23.5,
+   "mdd_5y_pct": -26.3,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "13년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 23%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-26%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 121854244,
+   "need_100": 243708487,
+   "need_300": 731125461,
    "status": "ok"
   },
   {
-   "ticker": "AGG",
-   "name": "iShares Core US Aggregate Bond ETF",
-   "market": "US",
-   "category": "채권",
-   "invests": "미국 투자등급 채권 전체",
-   "desc": "미국 종합채권지수를 추종하는 대표 채권 ETF",
-   "last_date": "2026-11-05",
-   "first_date": "2003-09-29",
-   "price": 96.62,
-   "ttm_div": 3.305,
-   "pay_count": 10,
+   "ticker": "279530",
+   "name": "KODEX 고배당",
+   "market": "KR",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "국내 고배당주",
+   "desc": "배당을 많이 주는 국내 대형주에 투자하는 ETF",
+   "yahoo_name": "Samsung Investment Trust Management - Samsung Kodex High Dividend ETF Fund",
+   "last_date": "2026-11-06",
+   "first_date": "2017-10-17",
+   "price": 16160.0,
+   "ttm_div": 777.0,
+   "yield_pct": 4.81,
    "freq": "매월",
-   "yield_pct": 3.42,
-   "div_5y_ago": 2.075,
-   "div_growth_5y_pct": null,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 70515254,
-   "dca_monthly_income": 201005,
-   "need_50": 175406964,
-   "need_100": 350813928,
-   "need_300": 1052441785,
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 8,
+   "cut_5y": true,
+   "div_5y_ago": 440.0,
+   "div_growth_5y_pct": 76.6,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 20.8,
+   "mdd_5y_pct": -22.2,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "8년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 21%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-22%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "4.8%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 124787645,
+   "need_100": 249575290,
+   "need_300": 748725869,
    "status": "ok"
   },
   {
-   "ticker": "HYG",
-   "name": "iShares iBoxx $ High Yield Corporate Bond ETF",
-   "market": "US",
-   "category": "채권",
-   "invests": "미국 하이일드(고수익) 회사채",
-   "desc": "신용등급은 낮지만 이자가 높은 회사채에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "2007-04-11",
-   "price": 77.28,
-   "ttm_div": 3.949,
-   "pay_count": 10,
-   "freq": "매월",
-   "yield_pct": 5.11,
-   "div_5y_ago": 3.62,
-   "div_growth_5y_pct": null,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 82079173,
-   "dca_monthly_income": 349520,
-   "need_50": 117417066,
-   "need_100": 234834132,
-   "need_300": 704502395,
-   "status": "ok"
-  },
-  {
-   "ticker": "LQD",
-   "name": "iShares iBoxx $ Investment Grade Corporate Bond ETF",
-   "market": "US",
-   "category": "채권",
-   "invests": "미국 투자등급 회사채",
-   "desc": "신용등급이 높은 미국 기업이 발행한 회사채에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "2002-07-30",
-   "price": 104.66,
-   "ttm_div": 4.208,
-   "pay_count": 10,
-   "freq": "매월",
-   "yield_pct": 4.02,
-   "div_5y_ago": 3.105,
-   "div_growth_5y_pct": null,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 71507781,
-   "dca_monthly_income": 239589,
-   "need_50": 149230043,
-   "need_100": 298460086,
-   "need_300": 895380259,
-   "status": "ok"
-  },
-  {
-   "ticker": "TLT",
-   "name": "iShares 20+ Year Treasury Bond ETF",
-   "market": "US",
-   "category": "채권",
-   "invests": "미국 장기국채(20년 이상)",
-   "desc": "금리에 민감한 미국 장기 국채에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "2002-07-30",
-   "price": 81.93,
-   "ttm_div": 3.255,
-   "pay_count": 10,
-   "freq": "매월",
-   "yield_pct": 3.97,
-   "div_5y_ago": 2.192,
-   "div_growth_5y_pct": null,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 55368090,
-   "dca_monthly_income": 183310,
-   "need_50": 151023042,
-   "need_100": 302046084,
-   "need_300": 906138252,
-   "status": "ok"
-  },
-  {
-   "ticker": "BIL",
-   "name": "SPDR Bloomberg 1-3 Month T-Bill ETF",
-   "market": "US",
-   "category": "채권",
-   "invests": "미국 초단기국채(1~3개월)",
-   "desc": "현금처럼 쓰이는 초단기 미국 국채에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "2007-05-30",
-   "price": 91.43,
-   "ttm_div": 2.787,
-   "pay_count": 10,
-   "freq": "매월",
-   "yield_pct": 3.05,
-   "div_5y_ago": 0.003,
-   "div_growth_5y_pct": null,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 76701698,
-   "dca_monthly_income": 194837,
-   "need_50": 196835307,
-   "need_100": 393670615,
-   "need_300": 1181011845,
-   "status": "ok"
-  },
-  {
-   "ticker": "SPY",
-   "name": "SPDR S&P 500 ETF Trust",
-   "market": "US",
-   "category": "미국 대표지수",
-   "invests": "미국 대형주 500개(S&P 500)",
-   "desc": "1993년 상장한 세계 최초·최대급 ETF로 미국 대표 기업 500곳에 한 번에 투자",
-   "last_date": "2026-11-05",
-   "first_date": "1993-01-29",
-   "price": 733.0,
-   "ttm_div": 7.583,
-   "pay_count": 4,
+   "ticker": "211560",
+   "name": "TIGER 배당성장",
+   "market": "KR",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "국내 배당성장주",
+   "desc": "배당을 꾸준히 늘려온 국내 기업에 투자하는 ETF",
+   "yahoo_name": "Mirae Asset TIGER Dividend Growth ETF",
+   "last_date": "2026-11-06",
+   "first_date": "2014-12-17",
+   "price": 31135.0,
+   "ttm_div": 916.0,
+   "yield_pct": 2.94,
    "freq": "분기",
-   "yield_pct": 1.03,
-   "div_5y_ago": 5.662,
-   "div_growth_5y_pct": 33.9,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 144729336,
-   "dca_monthly_income": 124771,
-   "need_50": 579981538,
-   "need_100": 1159963075,
-   "need_300": 3479889226,
+   "pay_months": [
+    4,
+    7,
+    10
+   ],
+   "pay_count": 3,
+   "years_paid": 11,
+   "cut_5y": true,
+   "div_5y_ago": 490.0,
+   "div_growth_5y_pct": 86.9,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 25.5,
+   "mdd_5y_pct": -26.5,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "11년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 25%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-26%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 203941048,
+   "need_100": 407882096,
+   "need_300": 1223646288,
    "status": "ok"
   },
   {
-   "ticker": "QQQ",
-   "name": "Invesco QQQ Trust",
-   "market": "US",
-   "category": "미국 대표지수",
-   "invests": "나스닥 비금융 대형주 100개(나스닥100)",
-   "desc": "애플·마이크로소프트·엔비디아 등 기술주 비중이 높은 나스닥100 추종",
-   "last_date": "2026-11-05",
-   "first_date": "1999-03-10",
-   "price": 647.05,
-   "ttm_div": 3.091,
-   "pay_count": 4,
+   "ticker": "210780",
+   "name": "TIGER 코스피고배당",
+   "market": "KR",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "코스피 고배당주",
+   "desc": "코스피에서 배당수익률이 높은 기업에 투자하는 ETF",
+   "yahoo_name": "Mirae Asset TIGER KOSPI High Dividend ETF",
+   "last_date": "2026-11-06",
+   "first_date": "2014-12-05",
+   "price": 21545.0,
+   "ttm_div": 1091.0,
+   "yield_pct": 5.06,
    "freq": "분기",
-   "yield_pct": 0.48,
-   "div_5y_ago": 1.767,
-   "div_growth_5y_pct": 74.9,
-   "dca_months": 120,
-   "dca_invested": 60000000,
-   "dca_value": 174331022,
-   "dca_monthly_income": 69399,
-   "need_50": 1256001270,
-   "need_100": 2512002541,
-   "need_300": 7536007622,
+   "pay_months": [
+    1,
+    4,
+    7,
+    10
+   ],
+   "pay_count": 4,
+   "years_paid": 11,
+   "cut_5y": true,
+   "div_5y_ago": 540.0,
+   "div_growth_5y_pct": 102.0,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 21.1,
+   "mdd_5y_pct": -25.8,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "11년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "있음",
+     "ok": false,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 21%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-26%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "5.1%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 118487626,
+   "need_100": 236975252,
+   "need_300": 710925756,
+   "status": "ok"
+  },
+  {
+   "ticker": "104530",
+   "name": "KOSEF 고배당",
+   "market": "KR",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "국내 고배당주",
+   "desc": "국내 고배당 기업에 투자하는 ETF",
+   "yahoo_name": "KOSEF High Dividend",
+   "last_date": "2026-11-06",
+   "first_date": "2009-04-17",
+   "price": 15990.0,
+   "ttm_div": 855.0,
+   "yield_pct": 5.35,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 15,
+   "cut_5y": false,
+   "div_5y_ago": 530.0,
+   "div_growth_5y_pct": 61.3,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 24.4,
+   "mdd_5y_pct": -28.4,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "15년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 24%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-28%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "5.3%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": true,
+   "need_50": 112210526,
+   "need_100": 224421053,
+   "need_300": 673263158,
+   "status": "ok"
+  },
+  {
+   "ticker": "329200",
+   "name": "TIGER 리츠부동산인프라",
+   "market": "KR",
+   "type": "ETF",
+   "category": "리츠",
+   "invests": "국내 상장 리츠·인프라",
+   "desc": "국내 리츠와 인프라 펀드에 나눠 투자하는 ETF",
+   "yahoo_name": "Mirae Asset Tiger Reits Real Estate Infra ETF",
+   "last_date": "2026-11-06",
+   "first_date": "2019-07-19",
+   "price": 3705.0,
+   "ttm_div": 396.0,
+   "yield_pct": 10.69,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 6,
+   "cut_5y": false,
+   "div_5y_ago": 300.0,
+   "div_growth_5y_pct": 32.0,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 13.6,
+   "mdd_5y_pct": -43.8,
+   "risk": "보통",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "6년",
+     "ok": true,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 14%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-44%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "10.7%",
+     "ok": false,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 56136364,
+   "need_100": 112272727,
+   "need_300": 336818182,
+   "status": "ok"
+  },
+  {
+   "ticker": "458730",
+   "name": "TIGER 미국배당다우존스",
+   "market": "KR",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "미국 배당성장 우량주(SCHD와 같은 지수)",
+   "desc": "SCHD와 같은 지수를 원화로 투자하는 국내 상장 ETF",
+   "yahoo_name": "Mirae Asset Tiger U.S. Dividend Equity Etf",
+   "last_date": "2026-11-06",
+   "first_date": "2023-06-20",
+   "price": 15250.0,
+   "ttm_div": 439.0,
+   "yield_pct": 2.88,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 3,
+   "cut_5y": false,
+   "div_5y_ago": null,
+   "div_growth_5y_pct": null,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 14.4,
+   "mdd_5y_pct": -14.1,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "3년",
+     "ok": false,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 14%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-14%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 208428246,
+   "need_100": 416856492,
+   "need_300": 1250569476,
+   "status": "ok"
+  },
+  {
+   "ticker": "446720",
+   "name": "SOL 미국배당다우존스",
+   "market": "KR",
+   "type": "ETF",
+   "category": "배당",
+   "invests": "미국 배당성장 우량주(SCHD와 같은 지수)",
+   "desc": "SCHD와 같은 지수를 원화로 투자하는 국내 상장 ETF",
+   "yahoo_name": "Shinhan SOL US Dividend US Bond Mix 50 ETF [Bond Mix]",
+   "last_date": "2026-11-06",
+   "first_date": "2022-11-15",
+   "price": 13955.0,
+   "ttm_div": 406.0,
+   "yield_pct": 2.91,
+   "freq": "매월",
+   "pay_months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "pay_count": 12,
+   "years_paid": 4,
+   "cut_5y": false,
+   "div_5y_ago": null,
+   "div_growth_5y_pct": null,
+   "payout_pct": null,
+   "debt_equity_pct": null,
+   "market_cap": null,
+   "aum": null,
+   "fee_pct": null,
+   "vol_3y_pct": 14.5,
+   "mdd_5y_pct": -14.7,
+   "risk": "낮음",
+   "checks": [
+    {
+     "name": "연속 분배",
+     "value": "4년",
+     "ok": false,
+     "rule": "5년 이상"
+    },
+    {
+     "name": "최근 5년 분배 삭감",
+     "value": "없음",
+     "ok": true,
+     "rule": "없어야 통과"
+    },
+    {
+     "name": "운용 규모",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "미국 10억달러·국내 1,000억원 이상"
+    },
+    {
+     "name": "총보수",
+     "value": "정보 없음",
+     "ok": null,
+     "rule": "0.6% 이하"
+    },
+    {
+     "name": "변동성(3년)",
+     "value": "연 14%",
+     "ok": true,
+     "rule": "35% 이하"
+    },
+    {
+     "name": "최대 낙폭(5년)",
+     "value": "-15%",
+     "ok": true,
+     "rule": "-50%보다 작게"
+    },
+    {
+     "name": "배당수익률",
+     "value": "2.9%",
+     "ok": true,
+     "rule": "1.5~9.0%"
+    }
+   ],
+   "pass": false,
+   "need_50": 206231527,
+   "need_100": 412463054,
+   "need_300": 1237389163,
    "status": "ok"
   }
  ]
