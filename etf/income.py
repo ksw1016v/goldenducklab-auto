@@ -53,13 +53,19 @@ def main():
             rec["price"] = round(price, 4)
             rec["ttm_div"] = round(ttm, 4)
             rec["pay_count"] = int(len(one_y))
-            rec["freq"] = "매월" if len(one_y) >= 11 else ("분기" if len(one_y) >= 4 else ("반기" if len(one_y) >= 2 else ("연 1회" if len(one_y) == 1 else "없음")))
+            # 지급 주기: 최근 2년 지급 간격의 중앙값으로 판단 (빠진 달이 있어도 흔들리지 않게)
+            two_y = div[div.index > last_date - pd.Timedelta(days=730)]
+            gaps = two_y.index.to_series().diff().dt.days.dropna()
+            g = float(gaps.median()) if len(gaps) else 999
+            rec["freq"] = "매월" if g <= 45 else ("분기" if g <= 120 else ("반기" if g <= 220 else ("연 1회" if len(one_y) else "없음")))
             rec["yield_pct"] = round(ttm / price * 100, 2) if price else None
             five = last_date - pd.DateOffset(years=5)
             past = div[(div.index > five - pd.Timedelta(days=365)) & (div.index <= five)]
             if close.index[0] <= five - pd.Timedelta(days=365) and past.sum() > 0:
                 rec["div_5y_ago"] = round(float(past.sum()), 4)
-                rec["div_growth_5y_pct"] = round((ttm / float(past.sum()) - 1) * 100, 1)
+                gr = (ttm / float(past.sum()) - 1) * 100
+                # 채권·현금성은 금리 따라 움직여 '배당 성장'으로 보기 어렵고, 너무 큰 값은 비교 의미가 없어 뺌
+                rec["div_growth_5y_pct"] = round(gr, 1) if (m["category"] != "채권" and -90 < gr < 300) else None
             else:
                 rec["div_5y_ago"] = None
                 rec["div_growth_5y_pct"] = None
