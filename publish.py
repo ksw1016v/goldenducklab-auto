@@ -96,11 +96,14 @@ def post_reel(path, state_val):
     slug = ep.get("slug") or f"{ep['no']:02d}"
     base = os.environ["IMAGE_BASE"].rstrip("/")
     video = f"{base}/out/{slug}/reel.mp4"
+    cover = f"{base}/out/{slug}/cover.jpg"
+    has_cover = (ROOT / "out" / slug / "cover.jpg").exists()
     if os.environ.get("DRY_RUN"):
         print("DRY RUN reel", video)
         return
     uid = IG_USER_ID
-    cid = call("POST", f"{uid}/media", media_type="REELS", video_url=video, caption=ep["caption"], share_to_feed="true")["id"]
+    extra = {"cover_url": cover} if has_cover else {"thumb_offset": "3500"}
+    cid = call("POST", f"{uid}/media", media_type="REELS", video_url=video, caption=ep["caption"], share_to_feed="true", **extra)["id"]
     wait_ready(cid, tries=72)
     res = call("POST", f"{uid}/media_publish", creation_id=cid)
     print("릴스 게시 완료 media id:", res["id"])

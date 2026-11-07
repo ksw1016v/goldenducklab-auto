@@ -126,3 +126,33 @@ def scenes(ep):
 <div data-in="1.6" style="margin-top:44px"><span class="cta">{esc(end["cta"])}</span></div>
 <div class="next" data-in="2.0" style="font-size:36px">{esc(end.get("next", ""))}</div></div>''', 5.5))
     return out
+
+
+def cover(ep):
+    """릴스 미리보기(표지) 이미지용 HTML. 프로필 격자에서 가운데만 잘려 보여도 핵심이 보이게 중앙에 모은다."""
+    s = ep["slides"]
+    info = next(x for x in s if x["type"] == "etf_info")
+    e = raw_numbers(info["ticker"])
+    t = info["ticker"]
+    label = t if not t.isdigit() else info["name"]
+    lines = label.split(" ", 1) if " " in label else [label]
+    units = max(sum(1.0 if ord(c) > 0x3000 else 0.66 for c in ln) for ln in lines)
+    big = min(260, int(840 / units))
+    years = [y for y in (5, 10, 20) if e.get(f"v{y}y_10") not in ("", None)]
+    y = years[-1]
+    principal = 10 * 10_000 * e[f"invest{y}y_months"]
+
+    def won(v):
+        v = int(v)
+        if v >= 100_000_000:
+            a, m = divmod(v, 100_000_000)
+            m //= 10_000
+            return f"{a}억 {m:,}만원" if m else f"{a}억원"
+        return f"{v // 10_000:,}만원"
+
+    return f'''<div class="main cov">
+<div class="kick">{esc(info["category"])}</div>
+<div class="big" style="font-size:{big}px;line-height:1.1">{"<br>".join(f"<mark>{esc(x)}</mark>" for x in lines)}</div>
+<div class="h1">월 10만원씩<br>{y}년 모았다면?</div>
+<div class="covnum"><span class="cp">원금 {won(principal)}</span><span class="ca">→</span><span class="cv">{won(e[f"v{y}y_10"])}</span></div>
+</div><img class="duck covduck" src="{uri("duck.png")}">'''

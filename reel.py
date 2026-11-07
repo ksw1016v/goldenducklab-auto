@@ -9,7 +9,7 @@ import json, sys, os, pathlib, subprocess, tempfile, wave
 import numpy as np
 from playwright.sync_api import sync_playwright
 from render import CSS, THEMES, esc, uri
-from reel_anim import ANIM_JS, scenes
+from reel_anim import ANIM_JS, scenes, cover
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
@@ -47,6 +47,12 @@ body{width:1080px;height:1920px}
 .end2 img{width:520px;margin-bottom:40px}
 .cta{font-size:46px}
 span[data-in]{display:inline-block}
+.cov{justify-content:center;padding-top:0;padding-bottom:260px}
+.cov .h1{margin-top:36px}
+.covnum{display:flex;flex-wrap:wrap;align-items:baseline;gap:18px;margin-top:56px;background:#fff;border:4px solid #F5DFA8;border-radius:30px;padding:34px 40px}
+.covnum .cp{font-size:40px;color:#7a4a28;font-weight:500}.covnum .ca{font-size:44px;color:#C98A3D;font-weight:900}
+.covnum .cv{flex-basis:100%;font-size:80px;font-weight:900;letter-spacing:-2px}
+.covduck{bottom:150px}
 .duck,.end2 img,.egg{transform-origin:center}
 """
 ETF_REEL = """
@@ -55,6 +61,7 @@ ETF_REEL = """
 .mrow{border-color:#C9D7E6}
 .mrow .ml{color:#4A6A8F}.mrow .mp{color:#3E5674}
 .say{color:#2E6B3A}
+.covnum{border-color:#C9D7E6}.covnum .cp{color:#3E5674}.covnum .ca{color:#4A6A8F}
 """
 
 
@@ -140,6 +147,9 @@ def build(path):
             exe = os.environ.get("CHROME_PATH")
             b = p.chromium.launch(executable_path=exe) if exe else p.chromium.launch()
             pg = b.new_page(viewport={"width": W, "height": H})
+            pg.set_content(page(ep, cover(ep), 999), wait_until="load")
+            pg.evaluate("document.fonts.ready")
+            pg.screenshot(path=str(out_dir / "cover.jpg"), type="jpeg", quality=92)
             for i, (inner, dur) in enumerate(sc):
                 pg.set_content(page(ep, inner, dur), wait_until="load")
                 pg.evaluate("document.fonts.ready")
