@@ -104,6 +104,14 @@
    "slug": "inc-01",
    "media_id": "17914660302509261",
    "at": "2026-11-08 03:09:37"
+  },
+  {
+   "no": 1,
+   "slug": "inc-01",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18153180862558224",
+   "at": "2026-11-08 03:10:24"
   }
  ],
  "etf_published": [
@@ -118,6 +126,9 @@
   "360750"
  ],
  "income_published": [
+  "PG"
+ ],
+ "income_reels": [
   "PG"
  ]
 }
