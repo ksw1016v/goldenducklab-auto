@@ -36,6 +36,22 @@ jobs:
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
           echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
+      - name: 공개 주소 준비 (이미지·영상 미리 열어 두기)
+        if: steps.pick.outputs.skip != '1'
+        run: |
+          BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}/out/${{ steps.pick.outputs.slug }}"
+          for f in $(ls out/${{ steps.pick.outputs.slug }}); do
+            ok=0
+            for i in $(seq 1 12); do
+              code=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/$f")
+              if [ "$code" = "200" ]; then ok=1; break; fi
+              sleep 5
+            done
+            echo "$f -> $code"
+            [ "$ok" = "1" ] || { echo "::error::$f 공개 주소 준비 실패"; exit 1; }
+          done
+          sleep 20
+
       - name: 피드(캐러셀) 게시
         if: steps.pick.outputs.skip != '1'
         env:
