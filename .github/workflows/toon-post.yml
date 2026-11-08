@@ -5,7 +5,7 @@ name: toon-post
 on:
   workflow_dispatch:
     inputs:
-      no:
+      episode:
         description: "골든튠 원고 번호 (toon/NN.json 의 NN, 예: 00)"
         required: true
         default: "00"
@@ -26,7 +26,7 @@ jobs:
         id: pick
         run: |
           git pull -q origin main
-          P="toon/${{ inputs.no }}.json"
+          P="toon/${{ inputs.episode }}.json"
           test -f "$P" || { echo "::error::$P 없음"; exit 1; }
           SLUG=$(python3 -c "import json;print(json.load(open('$P',encoding='utf-8'))['slug'])")
           if python3 -c "import json,sys;s=json.load(open('state.json'));sys.exit(0 if '$SLUG' in s.get('toon_published',[]) else 1)"; then
