@@ -36,20 +36,27 @@ jobs:
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
           echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
-      - name: 공개 주소 준비 (이미지·영상 미리 열어 두기)
+      - name: 공개 주소 준비 (jsDelivr가 막히면 GitHub 원본 주소 사용)
         if: steps.pick.outputs.skip != '1'
         run: |
-          BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}/out/${{ steps.pick.outputs.slug }}"
-          for f in $(ls out/${{ steps.pick.outputs.slug }}); do
-            ok=0
-            for i in $(seq 1 12); do
-              code=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/$f")
-              if [ "$code" = "200" ]; then ok=1; break; fi
-              sleep 5
+          SLUG=${{ steps.pick.outputs.slug }}
+          check() {  # $1 = 주소 접두사, 모든 파일이 200이면 0
+            for f in $(ls out/$SLUG); do
+              ok=0
+              for i in $(seq 1 6); do
+                code=$(curl -s -o /dev/null -w "%{http_code}" "$1/out/$SLUG/$f")
+                [ "$code" = "200" ] && { ok=1; break; }
+                sleep 5
+              done
+              echo "$f -> $code"
+              [ "$ok" = "1" ] || return 1
             done
-            echo "$f -> $code"
-            [ "$ok" = "1" ] || { echo "::error::$f 공개 주소 준비 실패"; exit 1; }
-          done
+          }
+          J="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          R="https://raw.githubusercontent.com/${{ github.repository }}/${SHA}"
+          if check "$J"; then echo "IMAGE_BASE=$J" >> "$GITHUB_ENV"
+          elif check "$R"; then echo "::warning::jsDelivr 대신 GitHub 원본 주소 사용"; echo "IMAGE_BASE=$R" >> "$GITHUB_ENV"
+          else echo "::error::이미지 공개 주소 준비 실패"; exit 1; fi
           sleep 20
 
       - name: 피드(캐러셀) 게시
@@ -57,7 +64,6 @@ jobs:
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: |
-          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
           python3 publish.py post ${{ steps.pick.outputs.path }} toon_published ${{ steps.pick.outputs.slug }}
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -71,7 +77,6 @@ jobs:
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: |
-          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
           python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.slug }}
           git add state.json
           git commit -m "published toon reel ${{ steps.pick.outputs.slug }}"
