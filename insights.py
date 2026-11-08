@@ -27,8 +27,8 @@ for m in media.get("data", []):
     items.append({**{k: m.get(k) for k in ("id", "media_type", "media_product_type", "timestamp", "like_count", "comments_count", "permalink")},
                   "title": (m.get("caption") or "").split("\n")[0][:60], **vals, **({"insights_error": ins["error"]} if "error" in ins else {})})
     time.sleep(0.3)
-day = get(f"{IG_USER_ID}/insights", metric="reach,profile_views,follower_count", period="day")
-total = get(f"{IG_USER_ID}/insights", metric="profile_links_taps,accounts_engaged,total_interactions,views", period="day", metric_type="total_value")
+day = get(f"{IG_USER_ID}/insights", metric="reach,follower_count", period="day")
+total = get(f"{IG_USER_ID}/insights", metric="profile_views,profile_links_taps,accounts_engaged,total_interactions,views,reach", period="day", metric_type="total_value")
 out = {"fetched_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()), "account": acct, "account_daily": day, "account_totals_today": total, "media": items}
 (ROOT / "insights.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
 print(json.dumps(acct, ensure_ascii=False), len(items), "media")
