@@ -1,17 +1,62 @@
 {
- "fetched_at": "2026-11-08 19:45:57 UTC",
+ "fetched_at": "2026-11-08 23:05:05 UTC",
  "account": {
   "id": "17841465585453824",
-  "followers_count": 131,
-  "follows_count": 142,
+  "followers_count": 137,
+  "follows_count": 144,
   "media_count": 21,
   "username": "golden_duck_lab"
  },
  "account_daily": {
-  "error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AF_f8v0cEBobbOXVb2DU61x\"}}"
+  "error": "{\"error\":{\"message\":\"(#100) The following metrics (profile_views) should be specified with parameter metric_type=total_value\",\"code\":100,\"type\":\"OAuthException\",\"fbtrace_id\":\"AmMDCbW144nzUmKXuQHg1Eu\"}}"
  },
  "account_totals_today": {
-  "error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AhwhKI3V9KWKGPJ8dC58wqg\"}}"
+  "data": [
+   {
+    "id": "17841465585453824/insights/profile_links_taps/day",
+    "name": "profile_links_taps",
+    "period": "day",
+    "title": "프로필 링크 누름",
+    "description": "사업장 주소, 통화 버튼, 이메일 버튼 및 텍스트 버튼을 누른 횟수.",
+    "total_value": {
+     "value": 0
+    }
+   },
+   {
+    "id": "17841465585453824/insights/accounts_engaged/day",
+    "name": "accounts_engaged",
+    "period": "day",
+    "title": "참여한 계정",
+    "description": "광고를 포함하여 회원님의 콘텐츠에 반응을 보인 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함되며, 반응에는 좋아요, 저장, 댓글, 공유 또는 답장 등의 활동이 포함됩니다. 이 지표는 추산치이며 개발 중입니다.",
+    "total_value": {
+     "value": 40
+    }
+   },
+   {
+    "id": "17841465585453824/insights/total_interactions/day",
+    "name": "total_interactions",
+    "period": "day",
+    "title": "콘텐츠 상호 작용",
+    "description": "홍보 콘텐츠의 모든 반응을 포함하여 게시물 반응, 스토리 반응, 릴스 반응, 동영상 반응 및 라이브 방송 반응의 총 수.",
+    "total_value": {
+     "value": 68
+    }
+   },
+   {
+    "id": "17841465585453824/insights/views/day",
+    "name": "views",
+    "period": "day",
+    "title": "조회수",
+    "description": "콘텐츠가 재생되거나 표시된 횟수. 콘텐츠에는 릴스, 게시물, 스토리가 포함됩니다.",
+    "total_value": {
+     "value": 5100
+    }
+   }
+  ],
+  "paging": {
+   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1793833504&until=1794006304",
+   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794179106&until=1794351906"
+  }
  },
  "media": [
   {
@@ -23,7 +68,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfe2B98iAAk/",
    "title": "돈 얘기가 어렵게만 느껴졌다면, 오늘부터 골든튠!",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"At_9ktdjGRGPFZ8Fjo4r65Z\"}}"
+   "reach": 109,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 1,
+   "views": 126,
+   "ig_reels_avg_watch_time": 3041
   },
   {
    "id": "18189893302411468",
@@ -34,7 +84,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfe1_rrnOZl/",
    "title": "돈 얘기가 어렵게만 느껴졌다면, 오늘부터 골든튠!",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Asl9W2qLgPlAfSz-S2dB_NF\"}}"
+   "reach": 7,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 1,
+   "views": 18
   },
   {
    "id": "18132886477838197",
@@ -45,7 +99,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfetPoGnNRt/",
    "title": "VOO, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AXz-wPfH7efVr4R0hirKmRQ\"}}"
+   "reach": 923,
+   "saved": 4,
+   "shares": 0,
+   "total_interactions": 9,
+   "views": 1035,
+   "ig_reels_avg_watch_time": 5065
   },
   {
    "id": "18435063865196590",
@@ -56,7 +115,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfetNIWIE7D/",
    "title": "VOO, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AKPVX9D8UNrS-4XjKhajvIz\"}}"
+   "reach": 5,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 11
   },
   {
    "id": "18153180862558224",
@@ -67,7 +130,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfdwgaEGsZI/",
    "title": "P&G로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AgtG-IEMfqE1NncsVQcy69m\"}}"
+   "reach": 196,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 5,
+   "views": 216,
+   "ig_reels_avg_watch_time": 5598
   },
   {
    "id": "17914660302509261",
@@ -78,7 +146,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfdwd1PFFes/",
    "title": "P&G로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AT8Lu0yVI2ClLS9WTpckV0e\"}}"
+   "reach": 6,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 23
   },
   {
    "id": "18146573002590339",
@@ -89,7 +161,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfdalPrmFay/",
    "title": "연봉 계약서 금액과 통장에 찍히는 금액, 왜 다를까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"A165SfZf22MMibwkEepsDme\"}}"
+   "reach": 5,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 9
   },
   {
    "id": "18021369899956646",
@@ -100,7 +176,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfcrCOzlZBp/",
    "title": "TIGER 미국S&P500, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Ao3q_owF0mK9a8SAUsgH6Ji\"}}"
+   "reach": 686,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 3,
+   "views": 753,
+   "ig_reels_avg_watch_time": 4305
   },
   {
    "id": "18146735170590906",
@@ -111,7 +192,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfcq_bXl1rw/",
    "title": "TIGER 미국S&P500, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Ankh1_bZQjqmprrO6scQpIB\"}}"
+   "reach": 10,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 1,
+   "views": 16
   },
   {
    "id": "18132207886876092",
@@ -122,7 +207,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfbTxclDv0C/",
    "title": "같은 돈인데 왜 누구는 2배, 누구는 그대로일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Axhq7F7C4kepfKTp82f43ZP\"}}"
+   "reach": 8,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 3,
+   "views": 13
   },
   {
    "id": "18120831200471919",
@@ -133,7 +222,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfa7fGcGRtR/",
    "title": "SCHD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AvPRI0-KEcQuXKw3Aa_RqLP\"}}"
+   "reach": 2570,
+   "saved": 17,
+   "shares": 1,
+   "total_interactions": 27,
+   "views": 2951,
+   "ig_reels_avg_watch_time": 9046
   },
   {
    "id": "17873765601645383",
@@ -144,7 +238,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfaH_TVkilp/",
    "title": "SCHD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AjVNy_B_XPzKIkzhJFPqucA\"}}"
+   "reach": 12,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 21
   },
   {
    "id": "18060771512559422",
@@ -155,7 +253,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfYyhQNDw4k/",
    "title": "연 4% 적금, 이자가 생각보다 적어서 놀라신 적 있나요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AcoU-GvF_ntubdvhYS6s_-e\"}}"
+   "reach": 14,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 24
   },
   {
    "id": "17977310595149352",
@@ -166,7 +268,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfXnqdAFBRN/",
    "title": "QQQ, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AcYY-5Z-w84F9tbwU6rcM2O\"}}"
+   "reach": 1845,
+   "saved": 9,
+   "shares": 4,
+   "total_interactions": 18,
+   "views": 2143,
+   "ig_reels_avg_watch_time": 6941
   },
   {
    "id": "17915188911500189",
@@ -177,7 +284,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfXniVBE7HG/",
    "title": "QQQ, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AvPUA7srkSgA_naeD9aBeGN\"}}"
+   "reach": 13,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 1,
+   "views": 22
   },
   {
    "id": "17965540731218487",
@@ -188,7 +299,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfVye0cDIrv/",
    "title": "내 신용점수, 몇 점인지 알고 계세요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"ADFqo4oNc9QfI2kMvsrDzSO\"}}"
+   "reach": 9,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 15
   },
   {
    "id": "18425717158154987",
@@ -199,7 +314,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfVYnmejSKj/",
    "title": "SPY, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Acq9DLz7T-8ZA24LdFkfP7Z\"}}"
+   "reach": 17,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 3,
+   "views": 27
   },
   {
    "id": "17909833536665264",
@@ -210,7 +329,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfTnSO6l3XK/",
    "title": "매달 자동으로 빠져나가는 돈, 얼마인지 아세요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"Asfs-SefRGAPTHbXhoqIxs5\"}}"
+   "reach": 7,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 11
   },
   {
    "id": "18025123280714191",
@@ -221,7 +344,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfTIv8ol3LI/",
    "title": "갑자기 큰돈이 필요하면 어떻게 하시나요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"A1TnBbEsENRApGi-Zx11tgF\"}}"
+   "reach": 10,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 17
   },
   {
    "id": "18647933578049829",
@@ -232,7 +359,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfS-AUXkv4W/",
    "title": "월급날 다음 주면 잔고가 바닥나시나요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AlWne_QhxhBHEfzqan1Ytdl\"}}"
+   "reach": 11,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 2,
+   "views": 18
   },
   {
    "id": "18014374895979224",
@@ -243,7 +374,11 @@
    "comments_count": 1,
    "permalink": "https://www.instagram.com/p/DfRSr9Jn655/",
    "title": "월급은 들어오는데, 왜 통장엔 안 남을까요? 🥚",
-   "insights_error": "{\"error\":{\"message\":\"(#10) Application does not have permission for this action\",\"code\":10,\"type\":\"OAuthException\",\"fbtrace_id\":\"AHKrhy3F7-CVIb9g0tYVOQj\"}}"
+   "reach": 9,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 4,
+   "views": 16
   }
  ]
 }
