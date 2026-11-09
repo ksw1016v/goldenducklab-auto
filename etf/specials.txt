@@ -1,0 +1,2 @@
+# ETF 특별편: <etf/specials 안 파일> <이 날(KST)부터 다음 ETF 순서에 게시>
+dividend-calendar.json 2026-11-10

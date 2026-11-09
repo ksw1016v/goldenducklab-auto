@@ -2,7 +2,7 @@
 사용법: python etf/make_episode.py next   (대기열 다음 ETF)
        python etf/make_episode.py <티커> <편번호> [다음편제목]
 """
-import json, sys, pathlib
+import json, datetime, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DISC = "과거 수익률은 미래 수익을 보장하지 않아요 · 분배금 재투자, 세금·수수료 미반영 · 특정 종목 추천이 아닌 정보 제공"
@@ -108,17 +108,51 @@ def hook_title(t):
     return f"{label(e)} 월 10만원씩 {y}년 모았다면?"
 
 
+def specials(done):
+    """etf/specials.txt: '<파일> <YYYY-MM-DD(이 날부터 게시)>' · 아직 안 올린 특별편 목록"""
+    f = ROOT / "etf" / "specials.txt"
+    out = []
+    if f.exists():
+        for l in f.read_text(encoding="utf-8").splitlines():
+            l = l.split("#")[0].split()
+            if len(l) >= 2:
+                ep = json.loads((ROOT / "etf" / "specials" / l[0]).read_text(encoding="utf-8"))
+                if ep["special_id"] not in done:
+                    out.append((datetime.date.fromisoformat(l[1]), ep))
+    return out
+
+
+def build_special(ep, no, nxt):
+    ep = json.loads(json.dumps(ep))
+    ep["no"], ep["slug"] = no, f"etf-{no:02d}"
+    for s in ep["slides"]:
+        if s.get("next") == "{{NEXT}}":
+            s["next"] = f"다음 편 예고 · {nxt}" if nxt else "다음 ETF편도 기대해 주세요"
+    ep["caption"] = ep["caption"].replace("{{NEXT}}", nxt or "다음 ETF편")
+    path = ROOT / "etf" / "episodes" / f"{no:02d}.json"
+    path.write_text(json.dumps(ep, ensure_ascii=False, indent=1), encoding="utf-8")
+    return path
+
+
 def next_in_queue():
-    """대기열에서 다음 ETF로 원고를 만들고 '경로 티커'를 출력. 없으면 빈 줄."""
+    """대기열에서 다음 ETF로 원고를 만들고 '경로 티커'를 출력. 없으면 빈 줄. 게시일이 된 특별편이 있으면 먼저."""
     st = json.loads((ROOT / "state.json").read_text()) if (ROOT / "state.json").exists() else {}
     done = st.get("etf_published", [])
     queue = [l.split("#")[0].strip() for l in (ROOT / "etf" / "queue.txt").read_text(encoding="utf-8").splitlines()]
     queue = [q for q in queue if q]
     todo = [q for q in queue if q not in done]
+    today = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9)).date()
+    sp = specials(done)
+    due = [ep for d, ep in sp if d <= today]
+    if due:
+        path = build_special(due[0], len(done) + 1, hook_title(todo[0]) if todo else "")
+        print(path.relative_to(ROOT), due[0]["special_id"])
+        return
     if not todo:
         print("")
         return
-    nxt = hook_title(todo[1]) if len(todo) > 1 else ""
+    tomorrow = [ep for d, ep in sp if d <= today + datetime.timedelta(days=1)]
+    nxt = tomorrow[0]["teaser"] if tomorrow else (hook_title(todo[1]) if len(todo) > 1 else "")
     path = build(todo[0], len(done) + 1, nxt)
     print(path.relative_to(ROOT), todo[0])
 

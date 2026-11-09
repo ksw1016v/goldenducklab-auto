@@ -60,6 +60,9 @@ h2{font-size:64px;line-height:1.3;font-weight:900;letter-spacing:-1px;margin-bot
 .mo{height:170px;border-radius:28px;background:#fff;border:3px solid #F5DFA8;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:#C9C2B5}
 .mo.on{background:#F5B800;border-color:#F5B800;color:#5C2E0E}
 .mo small{font-size:26px;font-weight:700;margin-top:6px}
+.calg{gap:14px;margin-bottom:18px}.calg .mo{height:138px;font-size:40px}.calg .mo small{font-size:24px}
+.legend{margin:0 0 16px}.lg{display:flex;align-items:center;gap:14px;font-size:30px;padding:6px 0;color:#3E5674}
+.lg span{flex:none;width:30px;height:30px;border-radius:8px}.lg b{color:#1B2A41}
 """
 
 THEMES = {
@@ -117,7 +120,7 @@ def esc(s):  # 허용 태그(mark, span.pink, br)만 살리고 나머지 이스�
     return t
 
 def slide(ep, s, i, n):
-    tag = f"{ep['series']} #{ep['no']:02d}"
+    tag = f"{ep['series']} · 특별편" if ep.get("special_id") else f"{ep['series']} #{ep['no']:02d}"
     k = s["type"]
     if k == "cover":
         import re
@@ -155,6 +158,14 @@ def slide(ep, s, i, n):
                        for nm, v, ok, rule in s["rows"]) + "</div>"
         badge = f'<div><span class="badge">{esc(s["badge"])}</span></div>' if s.get("badge") else ""
         body = f"""<div class="main"><h2 style="margin-bottom:24px">{esc(s['title'])}</h2>{badge}{rows}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
+    elif k == "calendar" and s.get("groups"):
+        # 여러 종목의 지급 달을 색으로 나눠 12달 달력에 표시
+        mg = {m: g for g in s["groups"] for m in g["months"]}
+        cells = "".join((f'<div class="mo on" style="background:{mg[m]["color"]};border-color:{mg[m]["color"]};color:#fff">{m}월<small>{esc(mg[m]["label"])}</small></div>'
+                         if m in mg else f'<div class="mo">{m}월</div>') for m in range(1, 13))
+        legend = "".join(f'<div class="lg"><span style="background:{g["color"]}"></span><b>{esc(g["label"])}</b> {esc(g.get("desc", ""))}</div>' for g in s["groups"])
+        tip = f'<div class="tip">{esc(s["tip"])}</div>' if s.get("tip") else ""
+        body = f"""<div class="main"><h2>{esc(s['title'])}</h2><div class="cal calg">{cells}</div><div class="legend">{legend}</div>{tip}<div class="disc">{esc(s.get('note', ''))}</div></div>"""
     elif k == "calendar":
         on = set(s["months"])
         cells = "".join(f'<div class="mo {"on" if m in on else ""}">{m}월{"<small>배당</small>" if m in on else ""}</div>' for m in range(1, 13))

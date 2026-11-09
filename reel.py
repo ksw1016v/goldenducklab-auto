@@ -11,6 +11,7 @@ from playwright.sync_api import sync_playwright
 from render import CSS, THEMES, esc, uri
 from reel_anim import ANIM_JS, scenes, cover, scenes_income, cover_income
 from econ.brief import scenes_brief, cover_brief, BRIEF_REEL, kday
+from etf.special_reel import scenes_special, cover_special
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
@@ -83,7 +84,8 @@ INCOME_REEL = """
 def page(ep, inner, dur):
     theme = THEMES.get(ep.get("theme", ""), "")
     extra = {"etf": ETF_REEL, "income": INCOME_REEL, "brief": BRIEF_REEL}.get(ep.get("theme"), "")
-    tag = f"{ep['series']} · {kday(ep['date_us'])}" if ep.get("kind") == "brief" else f"{ep['series']} #{ep['no']:02d}"
+    tag = (f"{ep['series']} · {kday(ep['date_us'])}" if ep.get("kind") == "brief"
+           else f"{ep['series']} · 특별편" if ep.get("special_id") else f"{ep['series']} #{ep['no']:02d}")
     return f"""<html><head><meta charset="utf-8"><style>{CSS}{theme}{REEL_CSS}{extra}</style>{ANIM_JS}</head><body data-dur="{dur}">
 <div class="frame"><div class="top"><span class="tag">{esc(tag)}</span><span class="page"></span></div>{inner}
 <div class="foot"><span>@golden_duck_lab</span><span>저장하고 다시 보기</span></div></div></body></html>"""
@@ -149,8 +151,8 @@ def build(path):
     out_dir.mkdir(parents=True, exist_ok=True)
     kind = ep.get("kind")
     income = kind == "income"
-    sc = {"income": scenes_income, "brief": scenes_brief}.get(kind, scenes)(ep)
-    cov = {"income": cover_income, "brief": cover_brief}.get(kind, cover)
+    sc = {"income": scenes_income, "brief": scenes_brief, "special_calendar": scenes_special}.get(kind, scenes)(ep)
+    cov = {"income": cover_income, "brief": cover_brief, "special_calendar": cover_special}.get(kind, cover)
     total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
