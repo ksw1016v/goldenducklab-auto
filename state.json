@@ -209,6 +209,14 @@
    "slug": "etf-06",
    "media_id": "18014614412991310",
    "at": "2026-11-09 12:00:04"
+  },
+  {
+   "no": 6,
+   "slug": "etf-06",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18358587508268003",
+   "at": "2026-11-09 12:00:48"
   }
  ],
  "etf_published": [
@@ -223,7 +231,8 @@
   "QQQ",
   "SCHD",
   "360750",
-  "VOO"
+  "VOO",
+  "133690"
  ],
  "income_published": [
   "PG",
