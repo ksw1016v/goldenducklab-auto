@@ -145,7 +145,9 @@ def next_in_queue():
     sp = specials(done)
     due = [ep for d, ep in sp if d <= today]
     if due:
-        path = build_special(due[0], len(done) + 1, hook_title(todo[0]) if todo else "")
+        rest = [ep for d, ep in sp if ep is not due[0] and d <= today + datetime.timedelta(days=1)]
+        nxt = rest[0]["teaser"] if rest else (hook_title(todo[0]) if todo else "")
+        path = build_special(due[0], len(done) + 1, nxt)
         print(path.relative_to(ROOT), due[0]["special_id"])
         return
     if not todo:

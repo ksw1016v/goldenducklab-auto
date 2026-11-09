@@ -40,57 +40,68 @@ def cal(groups, lit_start=1.0, step=0.18, per_group_gap=0.5, zero=False):
 
 def scenes_special(ep):
     g = ep["groups"]
-    total = ep["total"]
+    R = {"total": 55000000, "hook1": "매달 <mark>10만원</mark> 배당,", "hook2": "얼마 있으면 될까?",
+         "hook_sub": "세 종목으로 12달을 채우면<br>매달 세후 약 10만원", "problem": True,
+         "sol1": "지급 달이 다른", "sol2": "<mark>세 종목</mark>으로 12달", "sol_zero": False,
+         "total_text": "합계 약 <b>5,500만원</b>", "need_title": "<mark>필요한 원금</mark>",
+         "alt_index": 1, "alt_title": "<mark>다른 조합</mark>도 있어요",
+         "end_title": "나만의 배당 달력,<br>저장해 두세요", "cover_title": "매달 <mark>10만원</mark><br>배당 달력",
+         "cover_tot": "세 종목 · 합계 약 <b>5,500만원</b>"}
+    R.update(ep.get("reel", {}))
     out = []
     duck = f'<img class="duck" data-pop="{{}}" src="{uri("duck.png")}">'
     # 1) 결론 먼저
     out.append((SP_CSS + f'''<div class="main">
-<div class="h1" data-in="0.3">매달 <mark>10만원</mark> 배당,</div>
-<div class="h1" data-in="0.6">얼마 있으면 될까?</div>
-<div class="big2" style="margin-top:70px" data-in="1.1"><span data-count="1.1,1.3" data-from="0" data-to="55000000" data-fmt="won">0만원</span></div>
-<div class="subt" data-in="2.3" style="font-size:52px">세 종목으로 12달을 채우면<br>매달 세후 약 10만원</div></div>{duck.format(2.6)}''', 4.8))
+<div class="h1" data-in="0.3">{R["hook1"]}</div>
+<div class="h1" data-in="0.6">{R["hook2"]}</div>
+<div class="big2" style="margin-top:70px" data-in="1.1"><span data-count="1.1,1.3" data-from="0" data-to="{R["total"]}" data-fmt="won">0만원</span></div>
+<div class="subt" data-in="2.3" style="font-size:52px">{R["hook_sub"]}</div></div>{duck.format(2.6)}''', 4.8))
     # 2) 문제: 배당 ETF는 3·6·9·12월에 몰림
     schd = [x for x in g if x["label"] == "SCHD"]
-    c, t = cal(schd, lit_start=1.0, step=0.25, zero=True)
-    out.append((SP_CSS + f'''<div class="main"><div class="h2" data-in="0.1">배당 ETF만 모으면</div>
+    c, t = cal(schd or [{"label": "SCHD", "months": [3, 6, 9, 12], "color": "#1E3A5F"}], lit_start=1.0, step=0.25, zero=True)
+    if R["problem"]:
+        out.append((SP_CSS + f'''<div class="main"><div class="h2" data-in="0.1">배당 ETF만 모으면</div>
 <div class="h2" data-in="0.4"><mark>4달만</mark> 들어와요</div>{c}
 <div class="lead" data-in="{t + 0.1:.2f}" style="font-size:44px">SCHD·VYM·DGRO 모두 3·6·9·12월<br>나머지 8달은 0원</div></div>''', t + 2.4))
     # 3) 해결: 세 종목으로 12달
     order = [x for x in g if x["label"] != "SCHD"] + schd
-    c, t = cal(order, lit_start=1.0, step=0.16, per_group_gap=0.45)
+    c, t = cal(order, lit_start=1.0, step=0.16, per_group_gap=0.45, zero=R["sol_zero"])
     lg = "".join(f'<div class="lgd" data-in="{t + 0.2 + 0.25 * i:.2f}"><span style="background:{x["color"]}"></span><b>{esc(x["label"])}</b> {esc(x["desc"])}</div>' for i, x in enumerate(order))
-    out.append((SP_CSS + f'''<div class="main"><div class="h2" data-in="0.1">지급 달이 다른</div>
-<div class="h2" data-in="0.4"><mark>세 종목</mark>으로 12달</div>{c}{lg}</div>''', t + 2.6))
+    out.append((SP_CSS + f'''<div class="main"><div class="h2" data-in="0.1">{R["sol1"]}</div>
+<div class="h2" data-in="0.4">{R["sol2"]}</div>{c}{lg}</div>''', t + 2.6))
     # 4) 필요 원금
     rows, at = "", 0.8
     for x in order:
         rows += (f'<div class="drow" data-in="{at:.2f}"><div class="dy" style="font-size:34px;background:{x["color"]}">{esc(x["label"])}</div>'
-                 f'<div class="dv"><div class="dpr">{"·".join(map(str, x["months"]))}월 · 연 {x["yield"]:.1f}%</div>'
+                 f'<div class="dv"><div class="dpr">{"매달" if len(x["months"]) == 12 else "·".join(map(str, x["months"])) + "월"} · 연 {x["yield"]:.1f}%</div>'
                  f'<div class="dval" data-count="{at:.2f},1.0" data-from="0" data-to="{x["need"]}" data-fmt="won">0만원</div></div></div>')
         at += 1.1
     out.append((SP_CSS + f'''<div class="main"><div class="h2" data-in="0.1">매달 세후 10만원</div>
-<div class="h2" data-in="0.35"><mark>필요한 원금</mark></div>{rows}
-<div class="tot" data-pop="{at + 0.2:.2f}">합계 약 <b>5,500만원</b></div>
+<div class="h2" data-in="0.35">{R["need_title"]}</div>{rows}
+<div class="tot" data-pop="{at + 0.2:.2f}">{R["total_text"]}</div>
 <div class="disc" data-in="0.6">11/6 종가·최근 1년 배당·환율 1,356원 · 세금 15.4% 반영 · 과거 수익률은 미래 수익을 보장하지 않음 · 특정 종목 추천 아님</div></div>''', at + 2.6))
     # 5) 다른 조합
-    alts = [x for x in ep["slides"] if x["type"] == "list"][1]["items"]
+    alts = [x for x in ep["slides"] if x["type"] == "list"][R["alt_index"]]["items"]
     items = "".join(f'<div class="item" data-in="{0.7 + 0.7 * j:.2f}"><div class="num">{j + 1}</div><div><div class="it">{esc(a)}</div><div class="id">{esc(b)}</div></div></div>'
                     for j, (a, b) in enumerate(alts))
-    out.append((f'<div class="main"><div class="h2" data-in="0.1"><mark>다른 조합</mark>도 있어요</div>{items}</div>', 4.6))
+    out.append((f'<div class="main"><div class="h2" data-in="0.1">{R["alt_title"]}</div>{items}</div>', 3.2 + 0.7 * len(alts)))
     # 6) 마무리
     out.append((f'''<div class="main end2"><img data-zoom="0.1" src="{uri("logo.png")}">
-<div class="h2" data-in="0.7" style="margin-bottom:16px">나만의 배당 달력,<br>저장해 두세요</div>
+<div class="h2" data-in="0.7" style="margin-bottom:16px">{R["end_title"]}</div>
 <div data-in="1.2" style="margin-top:40px"><span class="cta">@golden_duck_lab 팔로우</span></div></div>''', 3.6))
     return out
 
 
 def cover_special(ep):
+    R = {"cover_title": "매달 <mark>10만원</mark><br>배당 달력", "cover_tot": "세 종목 · 합계 약 <b>5,500만원</b>"}
+    R.update(ep.get("reel", {}))
     cells = ""
     mg = {m: x for x in ep["groups"] for m in x["months"]}
     for m in range(1, 13):
-        x = mg[m]
-        cells += f'<div class="c"><div class="l" style="background:{x["color"]}">{m}월<small>{esc(x["label"])}</small></div></div>'
+        x = mg.get(m)
+        cells += (f'<div class="c"><div class="l" style="background:{x["color"]}">{m}월<small>{esc(x["label"])}</small></div></div>' if x
+                  else f'<div class="c"><div class="b">{m}월<small>0원</small></div></div>')
     return SP_CSS + f'''<div class="main cov">
-<div class="h1">매달 <mark>10만원</mark><br>배당 달력</div>
+<div class="h1">{R["cover_title"]}</div>
 <div class="spc" style="margin-top:40px">{cells}</div>
-<div class="tot">세 종목 · 합계 약 <b>5,500만원</b></div></div>'''
+<div class="tot">{R["cover_tot"]}</div></div>'''
