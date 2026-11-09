@@ -14,6 +14,8 @@ jobs:
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: |
+          # 통합 로그인(시스템 사용자) 토큰은 만료가 없어 연장할 필요가 없어요
+          case "$IG_TOKEN" in IG*) ;; *) echo "만료 없는 토큰이라 연장 생략"; exit 0;; esac
           code=$(curl -s -o /tmp/r.json -w "%{http_code}" \
             "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${IG_TOKEN}")
           python3 -c "import json;d=json.load(open('/tmp/r.json'));print('만료까지(초):',d.get('expires_in'), d.get('error',''))"

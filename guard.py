@@ -18,7 +18,8 @@ today = (now - shift).date()
 skip = 0
 for e in log:
     slug = str(e.get("slug", ""))
-    k = "brief" if slug.startswith("brief-") else ("etf" if slug.startswith("etf-") else ("income" if slug.startswith("inc-") else "basic"))
+    k = ("brief" if slug.startswith("brief-") else "etf" if slug.startswith("etf-") else "income" if slug.startswith("inc-")
+         else "toon" if slug.startswith("toon-") else "basic")
     if (e.get("type") == "reel" and k != "brief") or e.get("repost"):
         continue  # 릴스·재게시 기록은 하루 1편 계산에서 빼요(브리핑은 릴스가 본편)
     if k != kind:
