@@ -195,6 +195,14 @@
    "slug": "inc-02",
    "media_id": "18413908198088407",
    "at": "2026-11-09 10:29:50"
+  },
+  {
+   "no": 2,
+   "slug": "inc-02",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18023816420936709",
+   "at": "2026-11-09 10:31:15"
   }
  ],
  "etf_published": [
@@ -215,7 +223,8 @@
   "SCHD"
  ],
  "income_reels": [
-  "PG"
+  "PG",
+  "SCHD"
  ],
  "toon_published": [
   "toon-00",
