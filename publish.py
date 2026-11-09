@@ -10,6 +10,7 @@
   python publish.py post <no>   -> 해당 편 게시 후 state.json 갱신
 """
 import json, os, sys, time, pathlib, urllib.request, urllib.parse
+import caption_check
 
 ROOT = pathlib.Path(__file__).parent
 STATE = ROOT / "state.json"
@@ -69,6 +70,7 @@ def post(path, state_key="published", state_val=None):
     base = os.environ["IMAGE_BASE"].rstrip("/")
     urls = [f"{base}/out/{slug}/golden_duck_lab_{slug}_{i:02d}.jpg" for i in range(1, n + 1)]
     caption = ep["caption"]
+    caption_check.warn_only(path)  # 규칙 위반은 경고만 남기고 게시는 계속
     if os.environ.get("DRY_RUN"):
         print("DRY RUN", no, *urls, caption[:80], sep="\n")
         return
@@ -98,6 +100,8 @@ def post_reel(path, state_val, repost=False):
     video = f"{base}/out/{slug}/reel.mp4"
     cover = f"{base}/out/{slug}/cover.jpg"
     has_cover = (ROOT / "out" / slug / "cover.jpg").exists()
+    if not repost:
+        caption_check.warn_only(path)
     if os.environ.get("DRY_RUN"):
         print("DRY RUN reel", video)
         return
