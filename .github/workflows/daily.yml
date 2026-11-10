@@ -23,6 +23,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5   # 러너 기본 파이썬(3.14)에서 playwright 설치가 깨져서 3.12로 고정
+        with:
+          python-version: "3.12"
 
       - name: 오늘 이미 올렸는지 확인
         id: guard
