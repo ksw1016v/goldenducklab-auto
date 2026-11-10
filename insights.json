@@ -1,10 +1,10 @@
 {
- "fetched_at": "2026-11-09 23:48:25 UTC",
+ "fetched_at": "2026-11-10 21:21:40 UTC",
  "account": {
   "id": "17841465585453824",
-  "followers_count": 218,
-  "follows_count": 162,
-  "media_count": 29,
+  "followers_count": 253,
+  "follows_count": 161,
+  "media_count": 33,
   "username": "golden_duck_lab"
  },
  "account_daily": {
@@ -15,12 +15,12 @@
     "period": "day",
     "values": [
      {
-      "value": 1943,
-      "end_time": "2026-11-08T08:00:00+0000"
+      "value": 1168,
+      "end_time": "2026-11-09T08:00:00+0000"
      },
      {
-      "value": 794,
-      "end_time": "2026-11-09T08:00:00+0000"
+      "value": 1297,
+      "end_time": "2026-11-10T08:00:00+0000"
      }
     ],
     "title": "도달",
@@ -32,12 +32,12 @@
     "period": "day",
     "values": [
      {
-      "value": 0,
-      "end_time": "2026-11-08T08:00:00+0000"
+      "value": 58,
+      "end_time": "2026-11-09T08:00:00+0000"
      },
      {
       "value": 0,
-      "end_time": "2026-11-09T08:00:00+0000"
+      "end_time": "2026-11-10T08:00:00+0000"
      }
     ],
     "title": "팔로워 수",
@@ -45,8 +45,8 @@
    }
   ],
   "paging": {
-   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1793922503&until=1794095303",
-   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794268105&until=1794440905"
+   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794000098&until=1794172898",
+   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794345700&until=1794518500"
   }
  },
  "account_totals_today": {
@@ -58,7 +58,7 @@
     "title": "프로필 방문",
     "description": "사람들이 회원님의 프로필을 방문한 횟수.",
     "total_value": {
-     "value": 49
+     "value": 28
     }
    },
    {
@@ -78,7 +78,7 @@
     "title": "참여한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠에 반응을 보인 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함되며, 반응에는 좋아요, 저장, 댓글, 공유 또는 답장 등의 활동이 포함됩니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 24
+     "value": 27
     }
    },
    {
@@ -88,7 +88,7 @@
     "title": "콘텐츠 상호 작용",
     "description": "홍보 콘텐츠의 모든 반응을 포함하여 게시물 반응, 스토리 반응, 릴스 반응, 동영상 반응 및 라이브 방송 반응의 총 수.",
     "total_value": {
-     "value": 75
+     "value": 74
     }
    },
    {
@@ -98,7 +98,7 @@
     "title": "조회수",
     "description": "콘텐츠가 재생되거나 표시된 횟수. 콘텐츠에는 릴스, 게시물, 스토리가 포함됩니다.",
     "total_value": {
-     "value": 3461
+     "value": 3007
     }
    },
    {
@@ -108,93 +108,155 @@
     "title": "도달한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠를 1회 이상 조회한 고유 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함됩니다. 도달은 같은 계정에서 콘텐츠를 여러 번 본 횟수까지 집계하는 노출과는 다른 개념입니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 2645
+     "value": 2431
     }
    }
   ],
   "paging": {
-   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1793922504&until=1794095304",
-   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794268106&until=1794440906"
+   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794000098&until=1794172898",
+   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794345700&until=1794518500"
   }
  },
  "media": [
+  {
+   "id": "18132289273691835",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "timestamp": "2026-11-10T12:00:45+0000",
+   "like_count": 4,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/reel/Dfj20OKDO7x/",
+   "title": "매달 10만원 배당, 얼마 있으면 될까요? 🥚",
+   "reach": 1098,
+   "saved": 11,
+   "shares": 1,
+   "total_interactions": 17,
+   "views": 1237,
+   "ig_reels_avg_watch_time": 5989
+  },
+  {
+   "id": "17874640803645240",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-10T12:00:07+0000",
+   "like_count": 0,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/Dfj2xi6Fypq/",
+   "title": "매달 10만원 배당, 얼마 있으면 될까요? 🥚",
+   "reach": 2,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 0,
+   "views": 9
+  },
+  {
+   "id": "17971637517178973",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "timestamp": "2026-11-10T10:48:11+0000",
+   "like_count": 1,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/reel/Dfjufcdmajr/",
+   "title": "코카콜라로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
+   "reach": 105,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 1,
+   "views": 109,
+   "ig_reels_avg_watch_time": 5305
+  },
+  {
+   "id": "17972714921962200",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-10T10:47:21+0000",
+   "like_count": 0,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/Dfjuck8Fz3D/",
+   "title": "코카콜라로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
+   "reach": 1,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 0,
+   "views": 3
+  },
   {
    "id": "17977057677146534",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-09T21:58:34+0000",
-   "like_count": 2,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfiWbVxEr9c/",
    "title": "코스피 하루 새 6.0% 급락 📉",
-   "reach": 109,
+   "reach": 122,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 2,
-   "views": 115,
-   "ig_reels_avg_watch_time": 1999
+   "total_interactions": 4,
+   "views": 130,
+   "ig_reels_avg_watch_time": 2597
   },
   {
    "id": "18358587508268003",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-09T12:00:42+0000",
-   "like_count": 1,
+   "like_count": 2,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfhSAkUlaYS/",
    "title": "TIGER 미국나스닥100, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 256,
-   "saved": 0,
+   "reach": 704,
+   "saved": 3,
    "shares": 0,
-   "total_interactions": 1,
-   "views": 293,
-   "ig_reels_avg_watch_time": 5531
+   "total_interactions": 5,
+   "views": 796,
+   "ig_reels_avg_watch_time": 6138
   },
   {
    "id": "18014614412991310",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-09T12:00:00+0000",
-   "like_count": 1,
+   "like_count": 2,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfhR-fCF-aj/",
    "title": "TIGER 미국나스닥100, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 4,
+   "reach": 5,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 1,
-   "views": 17
+   "total_interactions": 2,
+   "views": 20
   },
   {
    "id": "18023816420936709",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-09T10:31:08+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfhHww3jLwC/",
    "title": "SCHD로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 153,
+   "reach": 169,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 169,
-   "ig_reels_avg_watch_time": 4804
+   "total_interactions": 4,
+   "views": 188,
+   "ig_reels_avg_watch_time": 5293
   },
   {
    "id": "18413908198088407",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-09T10:29:46+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfhHpFvF25t/",
    "title": "SCHD로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 5,
+   "reach": 7,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 11
+   "total_interactions": 4,
+   "views": 18
   },
   {
    "id": "18146595133607055",
@@ -205,27 +267,27 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfg2PSSkZe8/",
    "title": "월급은 그대로인데, 왜 점점 가난해지는 기분일까요?",
-   "reach": 120,
+   "reach": 124,
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
-   "views": 135,
-   "ig_reels_avg_watch_time": 2266
+   "views": 141,
+   "ig_reels_avg_watch_time": 2283
   },
   {
    "id": "18013080252005664",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-09T07:57:21+0000",
-   "like_count": 5,
+   "like_count": 6,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfg2Mlpk16F/",
    "title": "월급은 그대로인데, 왜 점점 가난해지는 기분일까요?",
-   "reach": 12,
+   "reach": 13,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 5,
-   "views": 32
+   "total_interactions": 6,
+   "views": 36
   },
   {
    "id": "18114549266141116",
@@ -236,12 +298,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfg19I-isO_/",
    "title": "돈 얘기가 어렵게만 느껴졌다면, 오늘부터 골든튠!",
-   "reach": 99,
+   "reach": 100,
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 114,
-   "ig_reels_avg_watch_time": 1460
+   "views": 116,
+   "ig_reels_avg_watch_time": 1471
   },
   {
    "id": "18506631565100243",
@@ -252,11 +314,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfg1zTxFChy/",
    "title": "돈 얘기가 어렵게만 느껴졌다면, 오늘부터 골든튠!",
-   "reach": 7,
+   "reach": 8,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 18
+   "views": 20
   },
   {
    "id": "18651655732010125",
@@ -267,27 +329,27 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dff_h1RD7Zn/",
    "title": "국민연금만 믿고 계신가요? 🥚",
-   "reach": 10,
+   "reach": 12,
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
-   "views": 29
+   "views": 34
   },
   {
    "id": "18132886477838197",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-08T12:00:57+0000",
-   "like_count": 5,
+   "like_count": 6,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfetPoGnNRt/",
    "title": "VOO, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 1345,
+   "reach": 1353,
    "saved": 7,
    "shares": 0,
-   "total_interactions": 12,
-   "views": 1492,
-   "ig_reels_avg_watch_time": 5263
+   "total_interactions": 13,
+   "views": 1499,
+   "ig_reels_avg_watch_time": 5287
   },
   {
    "id": "18435063865196590",
@@ -298,11 +360,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfetNIWIE7D/",
    "title": "VOO, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 6,
+   "reach": 7,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 19
+   "views": 20
   },
   {
    "id": "18153180862558224",
@@ -355,16 +417,16 @@
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-07T17:03:09+0000",
-   "like_count": 4,
+   "like_count": 3,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfcrCOzlZBp/",
    "title": "TIGER 미국S&P500, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 690,
+   "reach": 692,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 4,
-   "views": 760,
-   "ig_reels_avg_watch_time": 4314
+   "total_interactions": 3,
+   "views": 763,
+   "ig_reels_avg_watch_time": 4303
   },
   {
    "id": "18146735170590906",
@@ -390,11 +452,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfbTxclDv0C/",
    "title": "같은 돈인데 왜 누구는 2배, 누구는 그대로일까요? 🥚",
-   "reach": 8,
+   "reach": 9,
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
-   "views": 14
+   "views": 15
   },
   {
    "id": "18120831200471919",
@@ -405,12 +467,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfa7fGcGRtR/",
    "title": "SCHD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 2580,
+   "reach": 2584,
    "saved": 17,
    "shares": 1,
    "total_interactions": 28,
-   "views": 2968,
-   "ig_reels_avg_watch_time": 9046
+   "views": 2972,
+   "ig_reels_avg_watch_time": 9055
   },
   {
    "id": "17873765601645383",
