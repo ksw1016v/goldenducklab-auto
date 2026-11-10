@@ -252,6 +252,14 @@
    "slug": "etf-07",
    "media_id": "17874640803645240",
    "at": "2026-11-10 12:00:11"
+  },
+  {
+   "no": 7,
+   "slug": "etf-07",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18132289273691835",
+   "at": "2026-11-10 12:00:53"
   }
  ],
  "etf_published": [
@@ -268,7 +276,8 @@
   "SCHD",
   "360750",
   "VOO",
-  "133690"
+  "133690",
+  "SPECIAL-CAL10"
  ],
  "income_published": [
   "PG",
