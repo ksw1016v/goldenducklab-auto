@@ -309,6 +309,14 @@
    "slug": "etf-08",
    "media_id": "18121285901515950",
    "at": "2026-11-11 12:00:13"
+  },
+  {
+   "no": 8,
+   "slug": "etf-08",
+   "type": "reel",
+   "repost": false,
+   "media_id": "17975784756167739",
+   "at": "2026-11-11 12:01:02"
   }
  ],
  "etf_published": [
@@ -327,7 +335,8 @@
   "360750",
   "VOO",
   "133690",
-  "SPECIAL-CAL10"
+  "SPECIAL-CAL10",
+  "SPECIAL-CAL10-2"
  ],
  "income_published": [
   "PG",
