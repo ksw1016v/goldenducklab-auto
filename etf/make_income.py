@@ -116,7 +116,8 @@ def build(t, no, nxt):
          "sub": f"배당수익률 연 {y:.1f}% 기준<br>{asof[:4]}.{asof[5:7]} 데이터로 계산해 봐요"},
         {"type": "etf_info", "ticker": name, "name": (f"티커 {e['ticker']} · " if name != e["ticker"] else "") + (e.get("yahoo_name") or "") if us else e["ticker"],
          "category": e["category"], "desc": e["desc"], "rows": rows},
-        {"type": "health", "title": f"{word}, <mark>믿을 만할까?</mark>", "badge": f"건전성 점검 통과 · 위험도 {e['risk']}",
+        {"type": "health", "title": f"{word}, <mark>믿을 만할까?</mark>", "badge": (f"건전성 점검 통과 · 위험도 {e['risk']}" if e.get("pass")
+                   else f"기준 미달 {sum(c['ok'] is False for c in e['checks'])}개 · 위험도 {e['risk']}"),
          "rows": hrows, "note": f"{asof} 기준 · 골든덕랩 자체 점검 기준이며 투자 권유가 아니에요"},
         {"type": "need", "title": "매달 <mark>이만큼</mark> 받으려면<br>얼마가 필요할까?", "rows": need_rows,
          "note": DISC + f" · {asof} 기준"},
@@ -133,6 +134,9 @@ def build(t, no, nxt):
     ]
     tag = (e["ticker"] if us else e["name"]).replace(" ", "").replace("(", "").replace(")", "").replace("&", "")
     ok_list = "\n".join(f"· {c['name']} {c['value']}" for c in e["checks"] if c["ok"])
+    bad = [c for c in e["checks"] if c["ok"] is False]
+    if bad:   # 인지도가 높아 다루지만 골든덕랩 점검 기준에 못 미친 항목은 숨기지 않고 알려요
+        ok_list += "\n" + "\n".join(f"⚠️ {c['name']} {c['value']} (기준: {c['rule']})" for c in bad)
     cap = (f"{name}{josa(name)} 매달 100만원 받으려면 얼마가 필요할까요? 🥚\n{e['desc']}.\n\n"
            f"오늘의 황금알은 '현금흐름 만들기 · {name}'예요.\n\n"
            f"✔ 배당 정보\n연 {y:.1f}% (최근 1년) · {e['freq']} 지급 · {e['years_paid']}년 연속 {word}\n\n"
@@ -157,13 +161,15 @@ def build(t, no, nxt):
 
 
 def passed():
+    """다룰 수 있는 종목: 데이터가 정상인 미국 주식·미국 ETF (국내 제외).
+    2026-11-11부터 건전성 점검 미달·위험도 높은 종목도 인지도가 높으면 다뤄요. 미달 항목은 원고에 그대로 표시."""
     d = json.loads((ROOT / "etf" / "income.json").read_text(encoding="utf-8"))
-    # 국내 종목은 다루지 않음(미국 주식·미국 ETF만)
-    return {x["ticker"]: x for x in d["etfs"] if x.get("status") == "ok" and x.get("pass") and x["market"] == "US"}
+    return {x["ticker"]: x for x in d["etfs"] if x.get("status") == "ok" and x["market"] == "US"}
 
 
 def make_queue():
-    """통과한 미국 종목을 주식 → ETF 순으로 번갈아 배치 (후보 파일 순서 = 인지도 순)"""
+    """미국 종목을 주식 → ETF 순으로 번갈아 배치 (후보 파일 순서 = 인지도 순)
+    주의: income_queue.txt 는 2026-11-11에 인지도 순으로 직접 정렬했어요. 다시 만들면 그 순서가 사라져요."""
     ok = passed()
     b = {"US주식": [], "USETF": []}
     for t, e in ok.items():
@@ -174,7 +180,7 @@ def make_queue():
         for k in order:
             if b[k]:
                 q.append(b[k].pop(0))
-    lines = ["# 현금흐름 황금알 발행 순서 (매일 12:00 KST, 건전성 점검 통과 종목만 · make_income.py queue 로 재생성)"]
+    lines = ["# 현금흐름 황금알 발행 순서 (화·목 21:00 KST · make_income.py queue 로 재생성)"]
     lines += [f"{t}  # {ok[t]['name']}" for t in q]
     (ROOT / "etf" / "income_queue.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(len(q), "종목")

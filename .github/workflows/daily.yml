@@ -2,14 +2,14 @@ name: daily-post
 
 on:
   schedule:
-    # 목표 09:00 KST · 예비 실행(정시 실행은 Claude 예약 작업이 08:56에 시작)
-    - cron: "47 23 * * *"
-    - cron: "53 23 * * *"
-    - cron: "7 0 * * *"
-    - cron: "23 0 * * *"
-    - cron: "47 0 * * *"
-    - cron: "17 1 * * *"
-    - cron: "47 1 * * *"
+    # 목표 12:10 KST 화·목·토 · 예비 실행(정시 실행은 Claude 예약 작업이 12:06에 시작)
+    - cron: "57 2 * * 2,4,6"
+    - cron: "7 3 * * 2,4,6"
+    - cron: "17 3 * * 2,4,6"
+    - cron: "37 3 * * 2,4,6"
+    - cron: "7 4 * * 2,4,6"
+    - cron: "37 4 * * 2,4,6"
+    - cron: "17 5 * * 2,4,6"
   workflow_dispatch:       # 수동 실행 버튼
 
 permissions:

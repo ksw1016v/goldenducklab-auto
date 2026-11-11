@@ -58,6 +58,7 @@ def build(t, no, nxt):
     if us:
         notes = notes[:2] + [US_NOTE]
 
+    risky = e["category"] in ("레버리지", "인버스")
     slides = [
         {"type": "cover", "kicker": f"ETF 황금알 · {e['category']}", "title": f"<mark>{cover_name}</mark><br>{hook}", "sub": f"{e['invests']}에 투자하는 ETF<br>{asof[:4]}.{asof[5:7]} 기준 숫자로 알아봐요"},
         {"type": "etf_info", "ticker": e["ticker"], "name": e["name"], "category": e["category"], "desc": e["desc"], "rows": rows},
@@ -66,7 +67,8 @@ def build(t, no, nxt):
         slides.append({"type": "dca", "title": f"매달 <mark>{amt}만원씩</mark><br>모았다면 지금은?", "rows": dca(amt), "note": DISC + f" · {asof} 기준"})
     slides.append({"type": "list", "title": f"{title_name}<br><mark>알아둘 점</mark>", "items": notes})
     best = e.get(f"v{longest}y_50") if longest else None
-    slides.append({"type": "list", "title": "오늘의 <mark>황금알</mark> 요약", "items": [[f"{e['invests']}에 분산투자", ""], [f"월 50만원 {longest}년 → {won(best)}" if best else "아직 장기 기록이 짧아요", ""], ["숫자보다 꾸준함이 핵심", ""]], "tip": "과거 수익률은 <mark>미래를 보장하지 않아요</mark>"})
+    slides.append({"type": "list", "title": "오늘의 <mark>황금알</mark> 요약", "items": [[f"{e['invests']}에 분산투자", ""], [f"월 50만원 {longest}년 → {won(best)}" if best else "아직 장기 기록이 짧아요", ""], ["숫자보다 꾸준함이 핵심", ""]], "tip": ("하루 수익률의 배수를 추구해서 <mark>손실도 몇 배로 커질 수 있어요</mark>" if risky
+                                 else "과거 수익률은 <mark>미래를 보장하지 않아요</mark>")})
     slides.append({"type": "end", "title": "오늘의 황금알,<br>저장해 두세요", "sub": "매일 새 황금알 하나씩", "cta": "@golden_duck_lab 팔로우", "next": f"다음 편 예고 · {nxt}" if nxt else "다음 ETF도 기대해 주세요"})
 
     def line(amt):
@@ -83,7 +85,9 @@ def build(t, no, nxt):
            f"✔ 월 10만원씩\n{line(10)}\n\n✔ 월 30만원씩\n{line(30)}\n\n✔ 월 50만원씩\n{line(50)}\n\n"
            f"📌 {asof} 기준, 매달 첫 거래일 적립·분배금 재투자 가정"
            + (", 원달러 환율 반영" if us else "") + ". 세금·수수료는 빼지 않았어요.\n"
-           "과거 수익률은 미래 수익을 보장하지 않으며, 특정 종목 추천이 아닌 정보 제공이에요.\n\n"
+           "과거 수익률은 미래 수익을 보장하지 않으며, 특정 종목 추천이 아닌 정보 제공이에요.\n"
+           + ("⚠️ 레버리지·인버스 ETF는 하루 수익률의 배수를 추구해요. 오래 보유하면 지수와 다르게 움직이고, "
+              "하락장에선 손실이 몇 배로 커질 수 있어요.\n" if risky else "") + "\n"
            "여러분이 모으고 있는 ETF는 무엇인가요? 댓글로 알려주세요 👇\n\n"
            "🦆 골든덕랩은 매일 황금알 하나씩,\n기초부터 차근차근 돈 공부를 함께해요.\n\n"
            "💛 저장해두고 하나씩 따라 해보세요\n🐥 팔로우하면 매일 새 황금알이 도착해요\n\n"

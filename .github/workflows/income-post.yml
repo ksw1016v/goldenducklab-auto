@@ -2,14 +2,14 @@ name: income-post
 
 on:
   schedule:
-    # 목표 12:10 KST · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
-    - cron: "57 2 * * *"
-    - cron: "7 3 * * *"
-    - cron: "17 3 * * *"
-    - cron: "37 3 * * *"
-    - cron: "7 4 * * *"
-    - cron: "37 4 * * *"
-    - cron: "17 5 * * *"
+    # 목표 21:00 KST 화·목 · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
+    - cron: "47 11 * * 2,4"
+    - cron: "53 11 * * 2,4"
+    - cron: "7 12 * * 2,4"
+    - cron: "23 12 * * 2,4"
+    - cron: "47 12 * * 2,4"
+    - cron: "17 13 * * 2,4"
+    - cron: "47 13 * * 2,4"
   workflow_dispatch:
 
 permissions:

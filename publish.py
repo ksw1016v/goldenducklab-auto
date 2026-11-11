@@ -146,6 +146,8 @@ def post_reel(path, state_val, repost=False):
         key = ("income_reels" if slug.startswith("inc-") else "brief_published" if slug.startswith("brief-")
                else "toon_reels" if slug.startswith("toon-") else "etf_reels")
         st.setdefault(key, []).append(state_val)
+        if slug.startswith("toon-") and state_val not in st.get("toon_published", []):
+            st.setdefault("toon_published", []).append(state_val)   # 골든튠은 릴스가 본편
     st.setdefault("log", []).append({"no": ep["no"], "slug": slug, "type": "reel", "repost": repost, "media_id": res["id"], "at": time.strftime("%Y-%m-%d %H:%M:%S")})
     STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
 

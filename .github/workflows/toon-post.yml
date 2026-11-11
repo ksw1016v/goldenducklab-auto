@@ -1,6 +1,6 @@
 name: toon-post
 
-# 골든튠(인스타툰) 게시: 피드(만화 캐러셀) + 릴스를 함께 올린다.
+# 골든튠(인스타툰) 게시: 릴스로만 올린다(2026-11-11부터, 월·수·금 10:00 KST · Claude 예약 작업이 실행).
 # 이미지·영상은 미리 out/<slug>/ 에 올려 두고, 실행할 때 원고 번호를 넣는다.
 on:
   workflow_dispatch:
@@ -74,25 +74,14 @@ jobs:
           else echo "::error::이미지 공개 주소 준비 실패"; exit 1; fi
           sleep 20
 
-      - name: 피드(캐러셀) 게시
-        if: steps.pick.outputs.skip != '1'
-        env:
-          IG_TOKEN: ${{ secrets.IG_TOKEN }}
-        run: |
-          python3 publish.py post ${{ steps.pick.outputs.path }} toon_published ${{ steps.pick.outputs.slug }}
-          git config user.name "goldenducklab-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add state.json
-          git commit -m "published toon ${{ steps.pick.outputs.slug }}"
-          git pull --rebase
-          git push
-
       - name: 릴스 게시
         if: steps.pick.outputs.skip != '1'
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: |
           python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.slug }}
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
           git add state.json
           git commit -m "published toon reel ${{ steps.pick.outputs.slug }}"
           git pull --rebase

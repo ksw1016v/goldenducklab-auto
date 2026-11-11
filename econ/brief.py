@@ -2,9 +2,12 @@
 
 후킹: 데이터에서 '오늘 가장 눈에 띄는 움직임'을 점수로 골라 첫 장면 제목으로 쓴다.
   - 평소 변동폭 대비 큰 움직임(z), 사상 최고·52주 최고/최저, 둥근 숫자 돌파, 연속 상승·하락, 한 달 누적 변화
-사용법: python econ/brief.py            (원고 만들고 경로 출력)
+주말 모드: 일요일(KST)은 '이번 주 경제 정리'(최근 5거래일), 월요일은 '한 달 경제 정리'(최근 한 달).
+  주말·월요일 아침엔 새 거래일 데이터가 없어서, 같은 데이터를 기간을 바꿔 다시 본다.
+사용법: python econ/brief.py            (원고 만들고 경로 출력, 요일에 따라 모드 자동)
+        BRIEF_MODE=day|week|month python econ/brief.py   (모드 지정)
 """
-import json, sys, math, pathlib, datetime
+import json, os, sys, math, pathlib, datetime
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -14,6 +17,43 @@ WD = "월화수목금토일"
 WEIGHT = {"kospi": 1.4, "kosdaq": 1.15, "usdkrw": 1.4, "spx": 1.2, "ndx": 1.2, "dji": 0.9, "sox": 0.9,
           "jpykrw": 0.9, "eurkrw": 0.7, "dxy": 0.8, "us10y": 0.9, "wti": 0.9, "gold": 1.0, "btc": 1.0, "vix": 0.8}
 DISC = "전 거래일 종가 기준 · 정보 제공 목적이며 투자 권유가 아니에요"
+
+# 모드별 문구: 기간(거래일 수), 시리즈 이름, '하루 새' 같은 기간 표현, 포인트 제목, 면책 문구
+MODES = {
+    "day": {"n": 1, "series": "오늘의 경제 브리핑", "span": "하루 새", "pt": "오늘의", "cap": "오늘의 경제 브리핑이에요",
+            "disc": DISC},
+    "week": {"n": 5, "series": "이번 주 경제 정리", "span": "한 주 새", "pt": "이번 주", "cap": "이번 주 경제 정리예요",
+             "disc": "최근 5거래일 종가 기준 · 정보 제공 목적이며 투자 권유가 아니에요"},
+    "month": {"n": 21, "series": "한 달 경제 정리", "span": "한 달 새", "pt": "한 달", "cap": "최근 한 달 경제 정리예요",
+              "disc": "최근 한 달 종가 기준 · 정보 제공 목적이며 투자 권유가 아니에요"},
+}
+MODE = MODES["day"]
+
+
+def pick_mode():
+    m = os.environ.get("BRIEF_MODE")
+    if m in MODES:
+        return m
+    wd = (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9)).weekday()
+    return {6: "week", 0: "month"}.get(wd, "day")
+
+
+def period(d, n):
+    """일간 데이터(m1 = 최근 한 달 종가)를 n거래일 변화로 바꾼다. 연속 상승·하락은 기간 모드에서 쓰지 않는다."""
+    out = dict(d, markets={})
+    for k, m in d["markets"].items():
+        s = m.get("m1") or []
+        m = dict(m)
+        if len(s) >= 2:
+            prev = s[0] if len(s) <= n else s[-1 - n]
+            chg = m["last"] - prev
+            pct = chg / prev * 100 if prev else 0
+            vol = m.get("vol_1y") or 0
+            m.update(prev=prev, chg=chg, pct=pct, z=pct / (vol * math.sqrt(n)) if vol else 0, streak=0)
+            if n >= 21:
+                m["chg_1m_pct"] = 0   # 한 달 모드에선 '한 달 새' 이벤트가 본 움직임과 겹치니 끔
+        out["markets"][k] = m
+    return out
 
 
 # ---------- 숫자 표기 ----------
@@ -75,7 +115,7 @@ def events(d):
                 amt = f"{abs(p):.1f}%"
             bonus = 25 if (m["group"] in ("kr", "us") and abs(p) >= 3) else 0
             ev.append({"key": k, "type": "move", "score": (z * 10 + bonus) * w,
-                       "name": nm, "phrase": f"하루 새 {amt} {word}", "line": f"{nm} 하루 새 {amt} {word}"})
+                       "name": nm, "phrase": f"{MODE['span']} {amt} {word}", "line": f"{nm} {MODE['span']} {amt} {word}"})
         # 신고가·신저가
         if m["is_ath"] and up:
             ev.append({"key": k, "type": "ath", "score": 40 * w, "name": nm, "phrase": "사상 최고치", "line": f"{nm} 사상 최고치 경신"})
@@ -124,20 +164,34 @@ def pick(ev):
     return hook, pts, extra
 
 
+def when(ep):
+    """표지·캡션의 기준 시점 표기: 평일 편은 '11/10(화) 마감', 주말 편은 '11/14(금)까지 한 주'."""
+    m = ep.get("mode", "day")
+    d = kday(ep["date_us"])
+    return {"week": f"{d}까지 한 주", "month": f"{d}까지 한 달"}.get(m, f"{d} 마감")
+
+
 def kday(s):
     d = datetime.date.fromisoformat(s)
     return f"{d.month}/{d.day}({WD[d.weekday()]})"
 
 
 # ---------- 원고 ----------
-def build():
+def build(mode=None):
+    global MODE
+    mode = mode or pick_mode()
+    MODE = MODES[mode]
     d = json.loads((ROOT / "econ" / "data.json").read_text(encoding="utf-8"))
+    if MODE["n"] > 1:
+        d = period(d, MODE["n"])
     M = d["markets"]
     ev = events(d)
     hook, pts, extra = pick(ev)
     us_date = M["spx"]["date"]
     kr_date = M["kospi"]["date"]
     slug_date = max(us_date, kr_date).replace("-", "")
+    if mode != "day":   # 주말 편은 게시하는 날(KST)로 이름을 붙여 평일 편과 겹치지 않게
+        slug_date = f"{mode}-" + (datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9)).strftime("%Y%m%d")
     hm = M[hook["key"]] if hook else M["spx"]
     sub = [extra[0]["line"]] if extra else []
     for e in pts[1:]:
@@ -170,7 +224,7 @@ def build():
     if man.get("bok_rate"):
         macro.append(["한국 기준금리", f"{man['bok_rate']:.2f}%", f"{kday(man['bok_rate_date'])} 결정"])
 
-    ep = {"series": "오늘의 경제 브리핑", "theme": "brief", "kind": "brief", "no": 0, "slug": f"brief-{slug_date}",
+    ep = {"series": MODE["series"], "mode": mode, "theme": "brief", "kind": "brief", "no": 0, "slug": f"brief-{slug_date}",
           "date_us": us_date, "date_kr": kr_date,
           "hook": {"key": hook["key"] if hook else "spx", "name": hook["name"] if hook else "S&P 500",
                    "phrase": hook["phrase"] if hook else "오늘의 시장", "value": fmt(hm), "last": hm["last"], "dec": hm["dec"],
@@ -192,7 +246,7 @@ def build():
 def caption(ep, M):
     h = ep["hook"]
     em = "📉" if h["dir"] == "down" else "📈"
-    L = [f"{h['name']} {h['phrase']} {em}", f"{kday(ep['date_us'])} 마감 기준, 오늘의 경제 브리핑이에요 🦆", ""]
+    L = [f"{h['name']} {h['phrase']} {em}", f"{when(ep)} 기준, {MODES[ep.get('mode', 'day')]['cap']} 🦆", ""]
     def block(title, rows):
         L.append(title)
         for r in rows:
@@ -209,9 +263,9 @@ def caption(ep, M):
         L.append("📌 경제지표")
         L += [f"{a} {b} ({c})" for a, b, c in ep["macro"]]
         L.append("")
-    L.append("✔ 오늘의 포인트")
+    L.append(f"✔ {MODES[ep.get('mode', 'day')]['pt']} 포인트")
     L += [f"· {p}" for p in ep["points"]]
-    L += ["", f"📌 {DISC}. 지표는 미국 노동통계국·한국은행·연준 발표 기준이에요.", "",
+    L += ["", f"📌 {MODES[ep.get('mode', 'day')]['disc']}. 지표는 미국 노동통계국·한국은행·연준 발표 기준이에요.", "",
           "시장 흐름을 한눈에 정리해 드려요. 저장해 두고 다시 확인하세요 💛", "",
           "#경제브리핑 #환율 #코스피 #미국증시 #나스닥 #재테크 #골든덕랩"]
     return "\n".join(L)
@@ -302,7 +356,7 @@ def scenes_brief(ep):
     suf = "원" if h["key"] in ("usdkrw", "jpykrw", "eurkrw") else ("%" if h["key"] == "us10y" else "")
     base = h["last"] * (1.04 if h["dir"] == "down" else 0.96)
     subs = "".join(f'<div data-in="{2.4 + 0.45 * i:.2f}">{esc(s)}</div>' for i, s in enumerate(h["sub"]))
-    out.append((f'''<div class="main"><div class="kick" data-in="0.15">{kday(ep["date_us"])} 마감 · 오늘의 경제 브리핑</div>
+    out.append((f'''<div class="main"><div class="kick" data-in="0.15">{when(ep)} · {esc(ep["series"])}</div>
 <div class="hookname" data-in="0.4">{esc(h["name"])}</div>
 <div class="hookphrase {h["dir"]}" data-pop="0.8">{esc(h["phrase"])}</div>
 <div class="hookval" data-in="1.3"><span data-count="1.3,1.0" data-from="{base}" data-to="{h["last"]}" data-fmt="num" data-dec="{dec}" data-pre="{pre}" data-suf="{suf}">{esc(h["value"])}</span></div>
@@ -333,7 +387,7 @@ def scenes_brief(ep):
                     2.8 + 0.3 * len(ep["macro"])))
     # 7) 오늘의 포인트
     pts = "".join(f'<div class="pt" data-in="{0.7 + 0.6 * i:.2f}"><div class="n">{i + 1}</div><div class="t">{esc(p)}</div></div>' for i, p in enumerate(ep["points"]))
-    out.append((f'<div class="main"><div class="sec" data-in="0.1" style="margin-bottom:50px">오늘의 <mark>포인트</mark></div>{pts}<div class="disc" data-in="0.5">{DISC}</div></div>',
+    out.append((f'<div class="main"><div class="sec" data-in="0.1" style="margin-bottom:50px">{MODES[ep.get("mode", "day")]["pt"]} <mark>포인트</mark></div>{pts}<div class="disc" data-in="0.5">{MODES[ep.get("mode", "day")]["disc"]}</div></div>',
                 2.8 + 0.6 * len(ep["points"])))
     # 8) 마무리
     out.append((f'''<div class="main end2"><img data-zoom="0.1" src="{uri("logo.png")}">
@@ -349,7 +403,7 @@ def cover_brief(ep):
     tiles = "".join(f'<div class="ct"><div class="ctn">{esc(r["name"])}</div><div class="ctv">{esc(r["value"])}</div>'
                     f'<div class="ctc {r["dir"]}">{esc(r["chg"].split(" (")[0])}</div></div>' for r in rows)
     return f'''<div class="main cov2">
-<div class="covtitle">{kday(ep["date_us"])} 마감<br>오늘의 경제 브리핑</div>
+<div class="covtitle">{when(ep)}<br>{esc(ep["series"])}</div>
 <div class="covhook"><div class="hookname">{esc(h["name"])}</div><div class="hookphrase {h["dir"]}">{esc(h["phrase"])}</div>
 <div class="covval"><span>{esc(h["value"])}</span><b class="{h["dir"]}">{esc(h["chg"])}</b></div></div>
 <div class="ctrow">{tiles}</div></div><img class="duck covduck2" src="{uri("duck.png")}">'''

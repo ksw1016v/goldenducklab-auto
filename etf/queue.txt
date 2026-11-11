@@ -1,88 +1,97 @@
-# ETF 황금알 카드뉴스 발행 순서 (매일 19:00 KST에 위에서부터 하나씩)
-# 레버리지·인버스 ETF와 상장 5년 미만 ETF는 카드뉴스에서 제외 (데이터표에는 포함)
-SPY
-QQQ
-SCHD
-360750
-VOO
-133690
-VTI
-SMH
-069500
-JEPI
-VT
-091160
-DIA
-VIG
-IVV
-379800
-VGT
-GLD
-TLT
-EWY
-XLK
-381180
-SOXX
-VYM
-IWM
-161510
-QQQM
-DGRO
-VUG
-379810
-SCHG
-HDV
-XLF
-102110
-XLV
-NOBL
-XLE
-132030
-VEA
-VWO
-368590
-BND
-AGG
-091170
-SPYD
-DIVO
-QYLD
-XYLD
-381170
-MGK
-XLY
-XLP
-XLI
-XLU
-VNQ
-XLC
-148070
-IEF
-SHY
-LQD
-HYG
-TIP
-153130
-BIL
-IAU
-SLV
-USO
-DBC
-229200
-EFA
-EEM
-ACWI
-RSP
-ARKK
-LIT
-ICLN
-URA
-BOTZ
-305720
-305540
-EWJ
-MCHI
-INDA
-261240
-304940
-371460
+# ETF 황금알 발행 순서 (월·수·금 21:00 KST에 위에서부터 하나씩) · 2026-11-11 인지도 순으로 다시 정렬
+# 위쪽: 서학개미 보관금액 상위(한국예탁결제원 2026.10.1 기준)와 국내 개인 순매수 상위 ETF를 먼저 배치
+# 레버리지·인버스·상장 5년 미만 ETF도 인지도가 높으면 포함 (위험 안내 문구는 make_episode.py가 자동으로 넣음)
+SOXL  # Direxion Daily Semiconductor Bull 3X Shares
+TQQQ  # ProShares UltraPro QQQ
+069500  # KODEX 200
+QQQM  # Invesco NASDAQ 100 ETF
+379810  # KODEX 미국나스닥100TR
+458730  # TIGER 미국배당다우존스
+QLD  # ProShares Ultra QQQ
+JEPQ  # JPMorgan Nasdaq Equity Premium Income ETF
+379800  # KODEX 미국S&P500TR
+233740  # KODEX 코스닥150레버리지
+SOXX  # iShares Semiconductor ETF
+122630  # KODEX 레버리지
+UPRO  # ProShares UltraPro S&P500
+SMH  # VanEck Semiconductor ETF
+JEPI  # JPMorgan Equity Premium Income ETF
+IVV  # iShares Core S&P 500 ETF
+381180  # TIGER 미국필라델피아반도체나스닥
+102110  # TIGER 200
+229200  # KODEX 코스닥150
+252670  # KODEX 200선물인버스2X
+091160  # KODEX 반도체
+GLD  # SPDR Gold Shares
+381170  # TIGER 미국테크TOP10 INDXX
+QYLD  # Global X NASDAQ 100 Covered Call ETF
+VTI  # Vanguard Total Stock Market ETF
+VT  # Vanguard Total World Stock ETF
+DIA  # SPDR Dow Jones Industrial Average ETF
+VIG  # Vanguard Dividend Appreciation ETF
+VGT  # Vanguard Information Technology ETF
+TLT  # iShares 20+ Year Treasury Bond ETF
+EWY  # iShares MSCI South Korea ETF
+XLK  # Technology Select Sector SPDR Fund
+VYM  # Vanguard High Dividend Yield ETF
+IWM  # iShares Russell 2000 ETF
+161510  # PLUS 고배당주
+DGRO  # iShares Core Dividend Growth ETF
+VUG  # Vanguard Growth ETF
+SCHG  # Schwab US Large-Cap Growth ETF
+HDV  # iShares Core High Dividend ETF
+XLF  # Financial Select Sector SPDR Fund
+XLV  # Health Care Select Sector SPDR Fund
+NOBL  # ProShares S&P 500 Dividend Aristocrats ETF
+XLE  # Energy Select Sector SPDR Fund
+132030  # KODEX 골드선물(H)
+VEA  # Vanguard FTSE Developed Markets ETF
+VWO  # Vanguard FTSE Emerging Markets ETF
+368590  # RISE 미국나스닥100
+BND  # Vanguard Total Bond Market ETF
+AGG  # iShares Core US Aggregate Bond ETF
+091170  # KODEX 은행
+SPYD  # SPDR Portfolio S&P 500 High Dividend ETF
+DIVO  # Amplify CWP Enhanced Dividend Income ETF
+XYLD  # Global X S&P 500 Covered Call ETF
+MGK  # Vanguard Mega Cap Growth ETF
+XLY  # Consumer Discretionary Select Sector SPDR Fund
+XLP  # Consumer Staples Select Sector SPDR Fund
+XLI  # Industrial Select Sector SPDR Fund
+XLU  # Utilities Select Sector SPDR Fund
+VNQ  # Vanguard Real Estate ETF
+XLC  # Communication Services Select Sector SPDR Fund
+148070  # KOSEF 국고채10년
+IEF  # iShares 7-10 Year Treasury Bond ETF
+SHY  # iShares 1-3 Year Treasury Bond ETF
+LQD  # iShares iBoxx $ Investment Grade Corporate Bond ETF
+HYG  # iShares iBoxx $ High Yield Corporate Bond ETF
+TIP  # iShares TIPS Bond ETF
+153130  # KODEX 단기채권
+BIL  # SPDR Bloomberg 1-3 Month T-Bill ETF
+IAU  # iShares Gold Trust
+SLV  # iShares Silver Trust
+USO  # United States Oil Fund
+DBC  # Invesco DB Commodity Index Tracking Fund
+EFA  # iShares MSCI EAFE ETF
+EEM  # iShares MSCI Emerging Markets ETF
+ACWI  # iShares MSCI ACWI ETF
+RSP  # Invesco S&P 500 Equal Weight ETF
+ARKK  # ARK Innovation ETF
+LIT  # Global X Lithium & Battery Tech ETF
+ICLN  # iShares Global Clean Energy ETF
+URA  # Global X Uranium ETF
+BOTZ  # Global X Robotics & Artificial Intelligence ETF
+305720  # KODEX 2차전지산업
+305540  # TIGER 2차전지테마
+EWJ  # iShares MSCI Japan ETF
+MCHI  # iShares MSCI China ETF
+INDA  # iShares MSCI India ETF
+261240  # KODEX 미국달러선물
+304940  # KODEX 미국나스닥100선물(H)
+371460  # TIGER 차이나전기차SOLACTIVE
+114800  # KODEX 인버스
+446720  # SOL 미국배당다우존스
+357870  # TIGER CD금리투자KIS(합성)
+423160  # KODEX KOFR금리액티브(합성)
+453810  # KODEX 인도Nifty50
