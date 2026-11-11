@@ -51,6 +51,36 @@ def call(method, path, **params):
         raise SystemExit(f"API 오류 {e.code} {path}: {e.read().decode()}")
 
 
+def raw_base(base):
+    """jsDelivr 주소 → GitHub raw 주소 (인스타가 jsDelivr 이미지를 못 가져올 때 대체)"""
+    pre = "https://cdn.jsdelivr.net/gh/"
+    if not base.startswith(pre) or "@" not in base:
+        return None
+    repo, sha = base[len(pre):].split("@", 1)
+    return f"https://raw.githubusercontent.com/{repo}/{sha}"
+
+
+def create_media(uid, base, rel, **params):
+    """미디어 컨테이너 생성. 인스타가 URL에서 파일을 못 받아 오면(9004) 잠시 뒤 재시도 → raw 주소로 대체."""
+    key = "video_url" if rel.endswith(".mp4") else "image_url"
+    tries = [base, base, raw_base(base)]
+    last = None
+    for i, b in enumerate(t for t in tries if t):
+        if i:
+            print(f"::warning::미디어 주소를 못 가져와 다시 시도 ({b.split('/')[2]}) {rel}")
+            time.sleep(15)
+        extra = dict(params)
+        if "cover_url" in extra:
+            extra["cover_url"] = f"{b}/{extra['cover_url']}"
+        try:
+            return call("POST", f"{uid}/media", **{key: f"{b}/{rel}"}, **extra)["id"]
+        except SystemExit as e:
+            last = e
+            if "9004" not in str(e) and "2207052" not in str(e):
+                raise
+    raise last
+
+
 def wait_ready(cid, tries=30):
     for _ in range(tries):
         st = call("GET", cid, fields="status_code")["status_code"]
@@ -77,8 +107,8 @@ def post(path, state_key="published", state_val=None):
     uid = IG_USER_ID
     print("계정:", call("GET", uid, fields="username").get("username"))
     children = []
-    for u in urls:
-        c = call("POST", f"{uid}/media", image_url=u, is_carousel_item="true")["id"]
+    for i in range(1, n + 1):
+        c = create_media(uid, base, f"out/{slug}/golden_duck_lab_{slug}_{i:02d}.jpg", is_carousel_item="true")
         children.append(c)
     for c in children:
         wait_ready(c)
@@ -106,8 +136,8 @@ def post_reel(path, state_val, repost=False):
         print("DRY RUN reel", video)
         return
     uid = IG_USER_ID
-    extra = {"cover_url": cover} if has_cover else {"thumb_offset": "3500"}
-    cid = call("POST", f"{uid}/media", media_type="REELS", video_url=video, caption=ep["caption"], share_to_feed="true", **extra)["id"]
+    extra = {"cover_url": f"out/{slug}/cover.jpg"} if has_cover else {"thumb_offset": "3500"}
+    cid = create_media(uid, base, f"out/{slug}/reel.mp4", media_type="REELS", caption=ep["caption"], share_to_feed="true", **extra)
     wait_ready(cid, tries=72)
     res = call("POST", f"{uid}/media_publish", creation_id=cid)
     print("릴스 게시 완료 media id:", res["id"])
