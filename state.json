@@ -289,6 +289,12 @@
    "repost": false,
    "media_id": "18102286811418140",
    "at": "2026-11-11 00:59:39"
+  },
+  {
+   "no": 4,
+   "slug": "inc-04",
+   "media_id": "18286545907291149",
+   "at": "2026-11-11 03:17:50"
   }
  ],
  "etf_published": [
@@ -311,7 +317,8 @@
  "income_published": [
   "PG",
   "SCHD",
-  "KO"
+  "KO",
+  "VYM"
  ],
  "income_reels": [
   "PG",
