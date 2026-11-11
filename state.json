@@ -281,6 +281,14 @@
    "slug": "toon-02",
    "media_id": "17932041003422699",
    "at": "2026-11-11 00:58:26"
+  },
+  {
+   "no": 2,
+   "slug": "toon-02",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18102286811418140",
+   "at": "2026-11-11 00:59:39"
   }
  ],
  "etf_published": [
@@ -317,7 +325,8 @@
  ],
  "toon_reels": [
   "toon-00",
-  "toon-01"
+  "toon-01",
+  "toon-02"
  ],
  "brief_published": [
   "brief-20261109",
