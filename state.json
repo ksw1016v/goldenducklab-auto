@@ -317,6 +317,14 @@
    "repost": false,
    "media_id": "17975784756167739",
    "at": "2026-11-11 12:01:02"
+  },
+  {
+   "no": 0,
+   "slug": "brief-20261111",
+   "type": "reel",
+   "repost": false,
+   "media_id": "17971081539198138",
+   "at": "2026-11-11 22:00:01"
   }
  ],
  "etf_published": [
@@ -362,6 +370,7 @@
  ],
  "brief_published": [
   "brief-20261109",
-  "brief-20261110"
+  "brief-20261110",
+  "brief-20261111"
  ]
 }
