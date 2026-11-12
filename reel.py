@@ -12,6 +12,7 @@ from render import CSS, THEMES, esc, uri
 from reel_anim import ANIM_JS, scenes, cover, scenes_income, cover_income
 from econ.brief import scenes_brief, cover_brief, BRIEF_REEL, kday
 from etf.special_reel import scenes_special, cover_special
+from quiz.quiz_reel import scenes_quiz, cover_quiz
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
@@ -151,8 +152,8 @@ def build(path):
     out_dir.mkdir(parents=True, exist_ok=True)
     kind = ep.get("kind")
     income = kind == "income"
-    sc = {"income": scenes_income, "brief": scenes_brief, "special_calendar": scenes_special}.get(kind, scenes)(ep)
-    cov = {"income": cover_income, "brief": cover_brief, "special_calendar": cover_special}.get(kind, cover)
+    sc = {"income": scenes_income, "brief": scenes_brief, "special_calendar": scenes_special, "quiz": scenes_quiz}.get(kind, scenes)(ep)
+    cov = {"income": cover_income, "brief": cover_brief, "special_calendar": cover_special, "quiz": cover_quiz}.get(kind, cover)
     total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
