@@ -48,7 +48,7 @@ def build(t, no):
     q = ep["q"]
     ep["caption"] = (
         f"월 10만원씩 10년, {won(inv)}이 {won(val)}이 된 ETF는? 🥚\n"
-        f"정답이 궁금하면 팔로우하고 댓글에 '{KEYWORD}'이라고 남겨 주세요.\n\n"
+        f"팔로우 후 댓글에 '{KEYWORD}' 남기면 정답 DM 📩\n\n"
         "오늘의 황금알 퀴즈예요.\n\n"
         "✔ 힌트\n" + "\n".join(f"{i + 1}. {h}" for i, h in enumerate(q["hints"])) + "\n\n"
         f"✔ 결과\n넣은 돈 {won(inv)} → 지금 {won(val)} (수익률 {q['ret']:+.0f}%)\n\n"
