@@ -55,7 +55,7 @@ def main():
     sent = 0
     for media_id, ep_path in targets(st).items():
         ep = json.loads((ROOT / ep_path).read_text(encoding="utf-8"))
-        kw = norm(ep.get("keyword", "정답"))
+        kw = norm(ep.get("keyword", "골든덕"))
         res, err = safe("GET", f"{media_id}/comments", fields="id,text,username,timestamp", limit=50)
         if err:
             print("::warning::댓글 읽기 실패", media_id, err)

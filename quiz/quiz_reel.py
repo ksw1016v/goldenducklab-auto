@@ -45,7 +45,7 @@ def scenes_quiz(ep):
                 1.6 + 0.9 * len(q["hints"]) + 1.6))
     # 3) 정답 받는 법
     out.append((Q_CSS + f'''<div class="main"><div class="lock" data-in="0.1">정답은 <mark>DM</mark>으로 📩</div>
-<div class="step" data-in="0.6"><div class="n">1</div><div class="t">@golden_duck_lab<br>팔로우<small>팔로우한 분께만 보내드려요</small></div></div>
+<div class="step" data-in="0.6"><div class="n">1</div><div class="t">@golden_duck_lab<br>팔로우<small>다음 퀴즈 정답도 먼저 받아요</small></div></div>
 <div class="step" data-in="1.3"><div class="n">2</div><div class="t">댓글에 '{esc(kw)}'<small>자동으로 DM이 도착해요</small></div></div>
 <div class="disc" data-in="1.8">{esc(ep["asof"])} 기준 · 배당 재투자 · 원달러 환율 반영 · 과거 수익률은 미래 수익을 보장하지 않음 · 특정 종목 추천 아님</div></div>{duck.format(2.2)}''', 5.2))
     return out

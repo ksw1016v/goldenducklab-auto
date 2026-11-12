@@ -6,7 +6,7 @@
 import json, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-KEYWORD = "정답"
+KEYWORD = "골든덕"
 DISC = "과거 수익률은 미래 수익을 보장하지 않아요 · 특정 종목 추천이 아닌 정보 제공 · 세금·수수료 미반영"
 
 
@@ -48,11 +48,11 @@ def build(t, no):
     q = ep["q"]
     ep["caption"] = (
         f"월 10만원씩 10년, {won(inv)}이 {won(val)}이 된 ETF는? 🥚\n"
-        f"정답이 궁금하면 댓글에 '{KEYWORD}'이라고 남겨 주세요.\n\n"
+        f"정답이 궁금하면 팔로우하고 댓글에 '{KEYWORD}'이라고 남겨 주세요.\n\n"
         "오늘의 황금알 퀴즈예요.\n\n"
         "✔ 힌트\n" + "\n".join(f"{i + 1}. {h}" for i, h in enumerate(q["hints"])) + "\n\n"
         f"✔ 결과\n넣은 돈 {won(inv)} → 지금 {won(val)} (수익률 {q['ret']:+.0f}%)\n\n"
-        f"✔ 정답 받는 법\n1. @golden_duck_lab 팔로우\n2. 댓글에 '{KEYWORD}' 남기기\n→ 팔로우 확인 후 DM으로 정답을 보내드려요 📩\n\n"
+        f"✔ 정답 받는 법\n1. @golden_duck_lab 팔로우\n2. 댓글에 '{KEYWORD}' 남기기\n→ DM으로 정답을 보내드려요 📩\n\n"
         f"📌 {asof} 기준, 매달 같은 날 10만원씩 사고 배당은 다시 투자했다고 계산했어요"
         + (". 원달러 환율을 반영했어요" if e["market"] == "US" else "") + ". 세금·수수료는 빼지 않았어요.\n"
         "과거 수익률은 미래 수익을 보장하지 않으며, 특정 종목 추천이 아닌 정보 제공이에요.\n\n"
