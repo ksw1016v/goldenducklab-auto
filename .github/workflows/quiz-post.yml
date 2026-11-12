@@ -30,6 +30,7 @@ jobs:
         if: steps.guard.outputs.skip != '1'
         id: pick
         run: |
+          if grep -v '^#' quiz/queue.txt | grep -qx "trap:.*"; then pip install -q yfinance pandas && python3 quiz/fetch_quiz.py || echo "::warning::퀴즈 데이터 갱신 실패, 이전 데이터 사용"; fi
           OUT=$(python3 quiz/make_quiz.py next)
           echo "다음 퀴즈: $OUT"
           if [ -z "$OUT" ]; then echo "::warning::퀴즈 대기열이 비었어요(quiz/queue.txt)"; exit 0; fi
@@ -51,7 +52,7 @@ jobs:
           python3 reel.py ${{ steps.pick.outputs.path }}
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add quiz/episodes out/${{ steps.pick.outputs.slug }}
+          git add quiz/episodes quiz/quiz_data.json out/${{ steps.pick.outputs.slug }}
           git commit -m "render ${{ steps.pick.outputs.slug }}" || true
           git pull --rebase
           git push
