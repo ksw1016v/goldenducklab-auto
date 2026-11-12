@@ -1,0 +1,44 @@
+name: quiz-dm
+
+# 황금알 퀴즈 댓글 확인 → 자동 대댓글 + 정답 DM
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "시험 모드(최근 게시물 전체에서 키워드 댓글 찾기) 1/0"
+        default: "0"
+
+permissions:
+  contents: write
+
+concurrency: quiz-dm
+
+jobs:
+  dm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 퀴즈가 있을 때만 실행
+        id: chk
+        run: |
+          git pull -q origin main
+          n=$(python3 -c "import json;print(len(json.load(open('state.json')).get('quiz_media',{})))")
+          if [ "$n" = "0" ] && [ "${{ inputs.test }}" != "1" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; fi
+      - name: 댓글 확인·대댓글·DM
+        if: steps.chk.outputs.skip != '1'
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          TEST: ${{ inputs.test }}
+        run: |
+          python3 quiz/dm_bot.py
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state.json
+          git commit -m "quiz dm" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

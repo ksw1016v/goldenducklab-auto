@@ -60,22 +60,11 @@ def build(t, no):
         "🦆 골든덕랩은 매일 황금알 하나씩,\n기초부터 차근차근 돈 공부를 함께해요.\n\n"
         "💛 저장해두고 하나씩 따라 해보세요\n🐥 팔로우하면 매일 새 황금알이 도착해요\n\n"
         "#ETF #ETF투자 #적립식투자 #재테크퀴즈 #미국ETF #재테크 #골든덕랩")
-    a = ep["answer"]
     ep["dm"] = {
-        "comment_replies": ["DM 보내드렸어요 📩 확인해 주세요!", "정답 DM으로 보냈어요 🥚 메시지함 확인해 주세요!",
-                            "보내드렸어요! 팔로우 확인 버튼만 눌러 주세요 🦆", "DM 확인해 주세요 📩 정답이 기다려요!",
-                            "메시지 보냈어요 🥚 버튼 하나만 눌러 주시면 돼요!"],
-        "first": ("댓글 고마워요 🥚 퀴즈 정답 바로 알려 드릴게요!\n"
-                  "골든덕랩을 팔로우하신 분께만 보내드리고 있어요.\n"
-                  "팔로우하셨다면 아래 버튼을 눌러 주세요 👇"),
-        "button": "팔로우했어요, 정답 보기",
-        "answer": (f"정답은 {a['ticker']} ({a['name']}) 예요 🎉\n"
-                   f"{a['desc']}.\n"
-                   f"월 10만원씩 10년, {won(q['invested'])}이 {won(q['value'])}이 됐어요 ({asof} 기준).\n"
-                   "과거 수익률은 미래를 보장하지 않고, 특정 종목 추천이 아닌 정보예요.\n"
-                   "다음 퀴즈도 맞혀 보실래요? 생각한 정답이 맞았는지 답장으로 알려 주세요 🦆"),
-        "not_following": ("아직 팔로우가 확인되지 않았어요 🥲\n"
-                          "@golden_duck_lab 팔로우 후 아래 버튼을 한 번 더 눌러 주세요!"),
+        "comment_replies": ["DM으로 정답 보내드렸어요 📩 메시지함 확인해 주세요!", "정답 DM 보냈어요 🥚 맞히셨는지 확인해 보세요!",
+                            "보내드렸어요 📩 요청함(메시지 요청)도 한 번 봐 주세요!", "DM 확인해 주세요 🦆 정답이 기다리고 있어요!",
+                            "메시지 보냈어요 🥚 다음 퀴즈도 기대해 주세요!"],
+        "answer": answer_dm(ep, e),
     }
     dd = ROOT / "quiz" / "episodes"
     dd.mkdir(exist_ok=True)
@@ -85,14 +74,40 @@ def build(t, no):
     return path
 
 
+RISK = {
+    "기술·성장": "기술주에 몰려 있어 오를 때도 크게, 내릴 때도 크게 움직여요",
+    "섹터": "한 업종에 몰려 있어 그 업종 경기에 따라 크게 흔들릴 수 있어요",
+    "국가": "한 나라에 몰려 있어 그 나라 경기와 환율에 크게 영향을 받아요",
+    "미국 대표지수": "넓게 나눠 담았지만 미국 시장 전체가 내리면 함께 내려요",
+}
+
+
+def answer_dm(ep, e):
+    q = ep["q"]
+    rows = []
+    for y in (5, 10, 20):
+        v = e.get(f"v{y}y_10")
+        m = e.get(f"invest{y}y_months")
+        if v and m:
+            rows.append(f"· {y}년: {won(m * 100_000)} → {won(v)} ({e[f'ret{y}y_pct']:+,.0f}%)")
+    fee = f" · 보수 연 {e['expense_ratio_pct']:.2f}%" if e.get("expense_ratio_pct") else ""
+    d = ep["asof"]
+    return (f"🥚 황금알 퀴즈 #{ep['no']:02d} 정답 공개!\n\n"
+            f"정답은 {e['ticker']} ({e['name']}) 예요 🎉\n\n"
+            f"📌 어떤 ETF?\n{e['desc']}.\n{e['first_date'][:4]}년 상장{fee}\n\n"
+            "📈 월 10만원씩 모았다면 (배당 재투자·환율 반영)\n" + "\n".join(rows) + "\n\n"
+            f"⚠️ 알아둘 점\n{RISK.get(e['category'], '한쪽에 몰린 상품일수록 오르내림이 커요')}.\n\n"
+            f"※ {d[:4]}.{int(d[5:7])}.{int(d[8:])} 기준 · 세금·수수료 미반영 · 과거 수익률은 미래 수익을 보장하지 않아요 · 특정 종목 추천이 아닌 정보예요.\n\n"
+            "생각하신 정답, 맞히셨나요? 답장으로 알려 주세요 🦆\n"
+            "다음 퀴즈 정답도 받고 싶다면 @golden_duck_lab 팔로우해 두세요!")
+
+
 def dm_sheet(ep):
     d = ep["dm"]
-    return (f"[황금알 퀴즈 #{ep['no']:02d} · 정답 {ep['ticker']}] 자동화 도구 세팅표\n\n"
+    return (f"[황금알 퀴즈 #{ep['no']:02d} · 정답 {ep['ticker']}] 자동 대댓글·DM 문구\n\n"
             f"■ 키워드: {ep['keyword']}\n\n"
-            "■ [댓글이 달리면] 자동 대댓글 (돌려쓰기)\n" + "\n".join(f"- {r}" for r in d["comment_replies"]) + "\n\n"
-            f"■ [댓글 직후] 첫 DM\n{d['first']}\n(버튼: {d['button']})\n\n"
-            f"■ [버튼 클릭 · 팔로우 확인됨] 정답 DM\n{d['answer']}\n\n"
-            f"■ [버튼 클릭 · 팔로우 아님] 안내 DM\n{d['not_following']}\n")
+            "■ 자동 대댓글 (돌려쓰기)\n" + "\n".join(f"- {r}" for r in d["comment_replies"]) + "\n\n"
+            f"■ 정답 DM\n{d['answer']}\n")
 
 
 def next_in_queue():
