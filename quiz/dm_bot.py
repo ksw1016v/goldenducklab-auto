@@ -68,6 +68,7 @@ def main():
                 continue  # 인스타 규정: 7일 지난 댓글엔 DM 불가
             reply = random.choice(ep["dm"]["comment_replies"])
             dm, dm_err = send_dm(c["id"], ep["dm"]["answer"])
+            print("DM 응답", dm, dm_err)
             rp, rp_err = safe("POST", f"{c['id']}/replies", message=reply if not dm_err else "댓글 고마워요 🥚 정답은 곧 DM으로 보내드릴게요!")
             rec = {"comment": c["id"], "media": media_id, "user": c.get("username"), "quiz": ep.get("no"),
                    "dm": "ok" if not dm_err else "fail", "reply": "ok" if not rp_err else "fail",

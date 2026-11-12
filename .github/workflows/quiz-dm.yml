@@ -29,13 +29,14 @@ jobs:
         run: |
           git pull -q origin main
           n=$(python3 -c "import json;print(len(json.load(open('state.json')).get('quiz_media',{})))")
-          if [ "$n" = "0" ] && [ "${{ inputs.test }}" != "1" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; fi
+          if [ "$n" = "0" ] && [ "${{ inputs.test }}" != "1" ] && [ "${{ inputs.test }}" != "check" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; fi
       - name: 댓글 확인·대댓글·DM
         if: steps.chk.outputs.skip != '1'
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           TEST: ${{ inputs.test }}
         run: |
+          if [ "${{ inputs.test }}" = "check" ]; then python3 quiz/dm_check.py; exit 0; fi
           python3 quiz/dm_bot.py
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
