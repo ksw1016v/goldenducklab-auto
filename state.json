@@ -346,6 +346,14 @@
    "repost": false,
    "media_id": "18121758550999560",
    "at": "2026-11-12 12:21:34"
+  },
+  {
+   "no": 1,
+   "slug": "quiz-01",
+   "type": "reel",
+   "repost": false,
+   "media_id": "17875890930636919",
+   "at": "2026-11-12 14:17:07"
   }
  ],
  "etf_published": [
@@ -419,5 +427,11 @@
  "quiz_dm_done": [
   "18174829981419453",
   "18222705616351367"
- ]
+ ],
+ "quiz_published": [
+  "SMH"
+ ],
+ "quiz_media": {
+  "17875890930636919": "quiz/episodes/01.json"
+ }
 }
