@@ -154,8 +154,10 @@ def post_reel(path, state_val, repost=False):
     st = load_state()
     if not repost:
         key = ("income_reels" if slug.startswith("inc-") else "brief_published" if slug.startswith("brief-")
-               else "toon_reels" if slug.startswith("toon-") else "etf_reels")
+               else "toon_reels" if slug.startswith("toon-") else "quiz_published" if slug.startswith("quiz-") else "etf_reels")
         st.setdefault(key, []).append(state_val)
+        if slug.startswith("quiz-"):
+            st.setdefault("quiz_media", {})[res["id"]] = str(pathlib.Path(path))   # 댓글 DM 봇이 이 게시물의 정답을 찾는 표
         if slug.startswith("toon-") and state_val not in st.get("toon_published", []):
             st.setdefault("toon_published", []).append(state_val)   # 골든튠은 릴스가 본편
     st.setdefault("log", []).append({"no": ep["no"], "slug": slug, "type": "reel", "repost": repost, "media_id": res["id"], "at": time.strftime("%Y-%m-%d %H:%M:%S")})

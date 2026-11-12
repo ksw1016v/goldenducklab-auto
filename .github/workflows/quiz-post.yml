@@ -1,0 +1,70 @@
+name: quiz-post
+
+# 황금알 퀴즈: 종목을 숨긴 릴스만 게시 (정답은 quiz-dm 이 댓글 단 사람에게 DM)
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: instagram-post
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 오늘 이미 올렸는지 확인
+        id: guard
+        run: |
+          git pull -q origin main
+          python3 guard.py quiz >> "$GITHUB_OUTPUT"
+
+      - name: 다음 퀴즈 원고
+        if: steps.guard.outputs.skip != '1'
+        id: pick
+        run: |
+          OUT=$(python3 quiz/make_quiz.py next)
+          echo "다음 퀴즈: $OUT"
+          if [ -z "$OUT" ]; then echo "::warning::퀴즈 대기열이 비었어요(quiz/queue.txt)"; exit 0; fi
+          P=$(echo $OUT | cut -d' ' -f1)
+          echo "path=$P" >> "$GITHUB_OUTPUT"
+          echo "ticker=$(echo $OUT | cut -d' ' -f2)" >> "$GITHUB_OUTPUT"
+          echo "slug=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" $P)" >> "$GITHUB_OUTPUT"
+
+      - name: 한글 폰트와 브라우저
+        if: steps.pick.outputs.path != ''
+        run: |
+          mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
+          pip install -q playwright==1.48.0 numpy imageio-ffmpeg
+          if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
+
+      - name: 릴스 만들고 저장소에 올리기
+        if: steps.pick.outputs.path != ''
+        run: |
+          python3 reel.py ${{ steps.pick.outputs.path }}
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add quiz/episodes out/${{ steps.pick.outputs.slug }}
+          git commit -m "render ${{ steps.pick.outputs.slug }}" || true
+          git pull --rebase
+          git push
+          echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: 릴스 게시
+        if: steps.pick.outputs.path != ''
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 45
+          python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.ticker }}
+          git add state.json
+          git commit -m "published quiz ${{ steps.pick.outputs.ticker }}"
+          git pull --rebase
+          git push

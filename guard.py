@@ -9,7 +9,7 @@ GitHub 예약 실행은 늦거나 겹칠 수 있어 목표 시간 앞뒤로 여�
 """
 import json, os, sys, pathlib, datetime
 
-TARGET = {"brief": (7, 0), "basic": (12, 10), "income": (21, 0), "etf": (21, 0), "toon": (10, 0)}
+TARGET = {"quiz": (19, 0), "brief": (7, 0), "basic": (12, 10), "income": (21, 0), "etf": (21, 0), "toon": (10, 0)}
 # 게시 요일 (월=0 … 일=6). 여기에 없는 요일엔 예약 실행이 올리지 않아요(수동 실행은 요일 무시)
 DAYS = {"brief": {0, 1, 2, 3, 4, 5, 6}, "basic": {1, 3, 5}, "income": {1, 3}, "etf": {0, 2, 4}, "toon": {0, 2, 4}}
 LATE = {"brief": (10, 30)}   # 아침 브리핑은 이 시각이 지나면 그날은 건너뜀(예약 실행만)   # 한국 시간 게시 목표
@@ -26,7 +26,7 @@ skip = 0
 for e in log:
     slug = str(e.get("slug", ""))
     k = ("brief" if slug.startswith("brief-") else "etf" if slug.startswith("etf-") else "income" if slug.startswith("inc-")
-         else "toon" if slug.startswith("toon-") else "basic")
+         else "toon" if slug.startswith("toon-") else "quiz" if slug.startswith("quiz-") else "basic")
     if (e.get("type") == "reel" and k not in ("brief", "toon")) or e.get("repost"):
         continue  # 릴스·재게시 기록은 하루 1편 계산에서 빼요(브리핑·골든튠은 릴스가 본편)
     if k != kind:
