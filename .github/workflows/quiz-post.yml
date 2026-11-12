@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency: instagram-post
 
@@ -68,3 +69,9 @@ jobs:
           git commit -m "published quiz ${{ steps.pick.outputs.ticker }}"
           git pull --rebase
           git push
+
+      - name: 댓글 DM 확인 시작(3일간 5분 간격)
+        if: steps.pick.outputs.path != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run quiz-dm.yml -R ${{ github.repository }} -f test=0

@@ -1,45 +1,60 @@
 name: quiz-dm
 
-# 황금알 퀴즈 댓글 확인 → 자동 대댓글 + 정답 DM
+# 황금알 퀴즈 댓글 확인 → 자동 대댓글 + 게시물별 정답 DM
+# 퀴즈가 올라가면 시작해서 5분마다 확인, 약 5시간 50분 돌고 나면 스스로 다시 시작해
+# 마지막 퀴즈를 올린 뒤 3일이 지날 때까지 이어감 (GitHub 예약 기능을 쓰지 않아 밀리지 않음)
 on:
-  schedule:
-    - cron: "7,37 * * * *"
   workflow_dispatch:
     inputs:
       test:
-        description: "시험 모드(최근 게시물 전체에서 키워드 댓글 찾기) 1/0"
+        description: "1=시험(최근 게시물 전체에서 키워드 댓글 찾기, 한 번만) / check=대화 목록 진단 / 0=평소"
         default: "0"
 
 permissions:
   contents: write
+  actions: write
 
 concurrency: quiz-dm
 
 jobs:
   dm:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 358
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: 퀴즈가 있을 때만 실행
-        id: chk
-        run: |
-          git pull -q origin main
-          n=$(python3 -c "import json;print(len(json.load(open('state.json')).get('quiz_media',{})))")
-          if [ "$n" = "0" ] && [ "${{ inputs.test }}" != "1" ] && [ "${{ inputs.test }}" != "check" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; fi
-      - name: 댓글 확인·대댓글·DM
-        if: steps.chk.outputs.skip != '1'
+      - name: 댓글 확인 반복(5분 간격)
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           TEST: ${{ inputs.test }}
         run: |
-          if [ "${{ inputs.test }}" = "check" ]; then python3 quiz/dm_check.py; exit 0; fi
-          python3 quiz/dm_bot.py
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add state.json
-          git commit -m "quiz dm" || exit 0
-          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+          git pull -q origin main
+          if [ "$TEST" = "check" ]; then python3 quiz/dm_check.py; exit 0; fi
+          if [ "$TEST" = "1" ]; then
+            python3 quiz/dm_bot.py
+            git add state.json; git commit -qm "quiz dm test" && for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done
+            exit 0
+          fi
+          end=$(( $(date +%s) + 350*60 ))
+          while [ $(date +%s) -lt $end ]; do
+            git pull -q --rebase origin main || true
+            if [ "$(python3 quiz/active.py)" != "1" ]; then echo "3일 안에 올린 퀴즈가 없어 종료"; exit 0; fi
+            python3 quiz/dm_bot.py || echo "::warning::이번 확인 실패, 5분 뒤 다시"
+            if ! git diff --quiet state.json; then
+              git add state.json; git commit -qm "quiz dm"
+              for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done
+            fi
+            sleep 300
+          done
+          echo "RESTART=1" >> "$GITHUB_ENV"
+      - name: 다음 6시간 이어가기
+        if: env.RESTART == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git pull -q origin main
+          if [ "$(python3 quiz/active.py)" = "1" ]; then gh workflow run quiz-dm.yml -R ${{ github.repository }} -f test=0; echo "다시 시작 요청"; fi
