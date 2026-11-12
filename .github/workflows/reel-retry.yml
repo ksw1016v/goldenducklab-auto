@@ -1,0 +1,42 @@
+name: reel-retry
+
+# 실패한 릴스만 다시 올리기 (카드뉴스는 이미 올라간 경우)
+on:
+  workflow_dispatch:
+    inputs:
+      episode:
+        description: "원고 경로 (예: etf/income_episodes/05.json)"
+        required: true
+      value:
+        description: "기록값 (예: JEPQ)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency: instagram-post
+
+jobs:
+  reel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 릴스 게시
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          git pull -q origin main
+          SLUG=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" "${{ inputs.episode }}")
+          test -f "out/$SLUG/reel.mp4"
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@$(git log -n1 --format=%H -- out/$SLUG/reel.mp4)"
+          python3 publish.py reel "${{ inputs.episode }}" "${{ inputs.value }}"
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state.json
+          git commit -m "published reel retry ${{ inputs.value }}"
+          git pull --rebase
+          git push

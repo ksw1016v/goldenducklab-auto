@@ -83,11 +83,12 @@ def create_media(uid, base, rel, **params):
 
 def wait_ready(cid, tries=30):
     for _ in range(tries):
-        st = call("GET", cid, fields="status_code")["status_code"]
+        r = call("GET", cid, fields="status_code,status")
+        st = r["status_code"]
         if st == "FINISHED":
             return
         if st in ("ERROR", "EXPIRED"):
-            raise SystemExit(f"컨테이너 {cid} 상태 {st}")
+            raise SystemExit(f"컨테이너 {cid} 상태 {st} {r.get('status', '')}")
         time.sleep(5)
     raise SystemExit(f"컨테이너 {cid} 준비 시간 초과")
 
@@ -137,8 +138,17 @@ def post_reel(path, state_val, repost=False):
         return
     uid = IG_USER_ID
     extra = {"cover_url": f"out/{slug}/cover.jpg"} if has_cover else {"thumb_offset": "3500"}
-    cid = create_media(uid, base, f"out/{slug}/reel.mp4", media_type="REELS", caption=ep["caption"], share_to_feed="true", **extra)
-    wait_ready(cid, tries=72)
+    # CDN이 방금 올린 영상을 아직 못 줄 때가 있어(컨테이너 ERROR) 1분 간격으로 3번까지 다시 시도
+    for attempt in range(3):
+        cid = create_media(uid, base, f"out/{slug}/reel.mp4", media_type="REELS", caption=ep["caption"], share_to_feed="true", **extra)
+        try:
+            wait_ready(cid, tries=72)
+            break
+        except SystemExit as ex:
+            print(f"::warning::릴스 준비 실패({attempt + 1}/3): {ex}")
+            if attempt == 2:
+                raise
+            time.sleep(60)
     res = call("POST", f"{uid}/media_publish", creation_id=cid)
     print("릴스 게시 완료 media id:", res["id"])
     st = load_state()
