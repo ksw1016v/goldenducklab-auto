@@ -42,6 +42,21 @@ window.setT = (t) => {
   document.querySelectorAll('[data-zoom]').forEach(el => {
     const p = clamp((t - +el.dataset.zoom) / 0.6);
     el.style.opacity = clamp(p * 2) * out; el.style.transform = `scale(${0.6 + 0.4 * ease(p)})`; });
+  // 긴장감 효과: 흔들림 / 정해진 구간에만 보이기(카운트다운) / 줄어드는 타이머 막대 / 깜빡임
+  document.querySelectorAll('[data-shake]').forEach(el => {
+    const [s, d, a] = el.dataset.shake.split(',').map(Number);
+    const on = t >= s && t <= s + d, k = on ? (a || 10) * (1 - (t - s) / d * 0.5) : 0;
+    el.style.transform = on ? `translate(${Math.sin(t * 91) * k}px, ${Math.cos(t * 77) * k * 0.6}px)` : 'none'; });
+  document.querySelectorAll('[data-win]').forEach(el => {
+    const [s, e] = el.dataset.win.split(',').map(Number);
+    const p = clamp((t - s) / 0.25), vis = t >= s && t < e;
+    el.style.opacity = vis ? clamp(p * 2) * out : 0; el.style.transform = `scale(${vis ? 1.6 - 0.6 * ease(p) : 1})`; });
+  document.querySelectorAll('[data-bar]').forEach(el => {
+    const [s, d] = el.dataset.bar.split(',').map(Number);
+    el.style.transform = `scaleX(${1 - clamp((t - s) / d)})`; });
+  document.querySelectorAll('[data-blink]').forEach(el => {
+    const s = +el.dataset.blink;
+    el.style.opacity = t < s ? 0 : (0.35 + 0.65 * Math.abs(Math.sin((t - s) * 4))) * out; });
 };
 </script>
 """

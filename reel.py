@@ -145,6 +145,46 @@ def music(path, seconds, sr=48000):
         w.writeframes((st * 32767).astype("<i2").tobytes())
 
 
+def music_tense(path, seconds, sr=48000):
+    """퀴즈용 긴장감 배경음: 낮은 단조 드론 + 심장박동 킥(점점 빨라짐) + 째깍 소리 + 끝부분 상승음."""
+    n = int(seconds * sr)
+    t = np.arange(n) / sr
+    f = lambda m: 440.0 * 2 ** ((m - 69) / 12)
+    out = np.zeros(n)
+    for m, a in ((45, 0.10), (52, 0.06), (57, 0.04), (60, 0.025)):          # A2 E3 A3 C4 (A 단조)
+        out += a * np.sin(2 * np.pi * f(m) * t + 0.3 * np.sin(2 * np.pi * 0.2 * t))
+    out *= 0.7 + 0.3 * np.sin(2 * np.pi * 0.5 * t) ** 2
+    kl = int(0.22 * sr)
+    tk = np.arange(kl) / sr
+    kick = np.sin(2 * np.pi * (45 + 60 * np.exp(-tk * 30)) * tk) * np.exp(-tk * 14) * 0.5
+    tick_l = int(0.02 * sr)
+    tick = np.sin(2 * np.pi * 3200 * np.arange(tick_l) / sr) * np.exp(-np.arange(tick_l) / sr * 250) * 0.08
+    x = 0.0
+    while x < seconds - 0.3:
+        bpm = 72 + 48 * (x / seconds)                                         # 72 → 120 BPM 점점 빨라짐
+        beat = 60 / bpm
+        for off, g in ((0, 1.0), (0.22, 0.6)):                               # 쿵-쿵(심장박동)
+            p = int((x + off) * sr)
+            if p + kl < n:
+                out[p:p + kl] += kick * g
+        p = int((x + beat / 2) * sr)
+        if p + tick_l < n:
+            out[p:p + tick_l] += tick
+        x += beat
+    rs = max(0.0, seconds - 6.5)                                             # 마지막 장면 직전 상승음
+    m = (t >= rs) & (t < seconds - 4.5)
+    tr = t[m] - rs
+    out[m] += 0.08 * np.sin(2 * np.pi * (200 * tr + 300 * tr ** 2)) * (tr / 2)
+    out[:int(0.3 * sr)] *= np.linspace(0, 1, int(0.3 * sr))
+    fade = int(1.2 * sr)
+    out[-fade:] *= np.linspace(1, 0, fade)
+    out = out / (np.max(np.abs(out)) + 1e-9) * 0.6
+    st = np.stack([out, out], axis=1)
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(2); w.setsampwidth(2); w.setframerate(sr)
+        w.writeframes((st * 32767).astype("<i2").tobytes())
+
+
 def build(path):
     ep = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
     slug = ep.get("slug") or f"{ep['no']:02d}"
@@ -157,7 +197,7 @@ def build(path):
     total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
-        music(td / "bgm.wav", total + 0.2)
+        (music_tense if kind == "quiz" else music)(td / "bgm.wav", total + 0.2)
         enc = subprocess.Popen([FFMPEG, "-y", "-v", "error", "-f", "image2pipe", "-c:v", "mjpeg", "-framerate", str(FPS), "-i", "-",
                                 "-i", str(td / "bgm.wav"), "-map", "0:v", "-map", "1:a",
                                 "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
