@@ -65,7 +65,7 @@ def base(no, qtype, ticker, asof):
 
 def build(spec, no):
     qtype, _, t = spec.partition(":") if ":" in spec else ("dca", "", spec)
-    return {"dca": build_dca, "coffee": build_coffee, "trap": build_trap}[qtype](t, no)
+    return {"dca": build_dca, "coffee": build_coffee, "trap": build_trap, "gift": build_gift}[qtype](t, no)
 
 
 def build_dca(t, no):
@@ -93,7 +93,9 @@ def build_dca(t, no):
 
 
 def build_coffee(t, no):
-    """매일 커피 한 잔(5,000원) = 월 15만원 적립으로 10년"""
+    """매일 커피 한 잔(5,000원) = 월 15만원 적립으로 10년. 'QQQ/SCHD' 처럼 쓰면 A/B 선택형."""
+    if "/" in t:
+        return build_coffee_ab(t, no)
     e = load(t)
     k = 1.5                                   # 월 10만원 결과 × 1.5 = 월 15만원 (적립식은 금액에 비례)
     inv = int(e["invest10y_months"] * 150_000)
@@ -173,6 +175,116 @@ def build_trap(t, no):
     return save(ep)
 
 
+AB_REPLIES = ["정답 DM 보냈어요 📩 안 보이면 '메시지 요청함'을 확인해 주세요!",
+              "골라 주셔서 고마워요 🥚 결과는 DM으로! 요청함도 한 번 봐 주세요",
+              "DM 확인해 주세요 🦆 받은 편지함에 없으면 '요청'을 눌러 보세요!",
+              "정답과 두 ETF 비교 보내드렸어요 📩 요청함(숨겨진 요청 포함)도 확인!",
+              "보냈어요 🥚 팔로우하시면 다음 퀴즈 DM은 받은 편지함으로 바로 가요!"]
+
+
+def build_coffee_ab(t, no):
+    """A/B 선택형: 보기 두 개 중 고르면 끝. 댓글에 A 또는 B만 쓰면 돼서 참여 문턱이 낮다."""
+    right, wrong = t.split("/")
+    er, ew = load(right), load(wrong)
+    k = 1.5
+    inv = int(er["invest10y_months"] * 150_000)
+    val = {x["ticker"]: int(x["v10y_10"] * k) for x in (er, ew)}
+    akey = "A" if no % 2 else "B"                      # 정답 위치를 편마다 바꿈
+    order = [er, ew] if akey == "A" else [ew, er]
+    asof = er["last_date"]
+    ep = base(no, "coffee", er["ticker"], asof)
+    ep["ab"] = True
+    ep["choices"] = [{"key": kk, "ticker": x["ticker"], "name": x["name"], "invests": x["invests"]} for kk, x in zip("AB", order)]
+    ep["answer_key"] = akey
+    ep["q"] = {"months": er["invest10y_months"], "invested": inv, "value": val[er["ticker"]], "ret": er["ret10y_pct"],
+               "hints": [], "category": er["category"], "daily": 5000, "monthly": 150_000}
+    ep["answer"] = {"ticker": er["ticker"], "name": er["name"], "desc": er["desc"], "invests": er["invests"]}
+    ch = ep["choices"]
+    ep["caption"] = (
+        f"커피값 10년 모았더니 {won(val[er['ticker']])} ☕ A일까 B일까?\n"
+        f"댓글에 A 또는 B만 남기면 정답 DM 📩\n\n"
+        "오늘의 황금알 퀴즈예요.\n\n"
+        "✔ 계산법\n하루 5,000원 × 30일 = 매달 15만원을 10년 동안 넣었다면?\n\n"
+        f"✔ 보기\nA. {ch[0]['ticker']} ({ch[0]['invests']})\nB. {ch[1]['ticker']} ({ch[1]['invests']})\n\n"
+        f"✔ 결과\n넣은 돈 {won(inv)} → 지금 {won(val[er['ticker']])}\n\n"
+        "✔ 참여 방법\n댓글에 A 또는 B\n→ 정답과 '다른 쪽을 골랐다면 얼마였는지'까지 DM으로 보내드려요 📩\n"
+        "(DM이 안 보이면 '메시지 요청함'을 확인해 주세요. 팔로우하면 받은 편지함으로 바로 와요)\n\n"
+        f"📌 {asof} 기준, 매달 같은 날 15만원씩 사고 배당은 다시 투자했다고 계산했어요. 원달러 환율을 반영했어요. 세금·수수료는 빼지 않았어요.\n"
+        "과거 수익률은 미래 수익을 보장하지 않으며, 특정 종목 추천이 아닌 정보 제공이에요.\n\n"
+        "🦆 골든덕랩은 매일 황금알 하나씩,\n기초부터 차근차근 돈 공부를 함께해요.\n\n"
+        "💛 저장해두고 하나씩 따라 해보세요\n🐥 팔로우하면 매일 새 황금알이 도착해요\n\n"
+        "#커피값 #ETF #적립식투자 #재테크퀴즈 #미국ETF #재테크 #골든덕랩")
+
+    def rows(x):
+        out = []
+        for y in (5, 10, 20):
+            v, m = x.get(f"v{y}y_10"), x.get(f"invest{y}y_months")
+            if v and m:
+                out.append(f"· {y}년: {won(m * 150_000)} → {won(v * k)} ({x[f'ret{y}y_pct']:+,.0f}%)")
+        return "\n".join(out)
+
+    body = (f"정답은 {akey}. {er['ticker']} ({er['name']}) 예요.\n\n"
+            f"☕ 매일 커피값(월 15만원)을 10년 모았다면\n"
+            f"· {er['ticker']}: {won(inv)} → {won(val[er['ticker']])}\n"
+            f"· {ew['ticker']}: {won(inv)} → {won(val[ew['ticker']])}\n"
+            f"차이는 약 {won(abs(val[er['ticker']] - val[ew['ticker']]))}\n\n"
+            f"📌 {er['ticker']}\n{er['desc']}.\n" + rows(er) + "\n\n"
+            f"📌 {ew['ticker']}\n{ew['desc']}.\n" + rows(ew) + "\n\n"
+            "⚠️ 알아둘 점\n10년 결과가 더 좋았던 쪽도 하락장에서는 더 크게 흔들릴 수 있어요. 수익률만 보지 말고, 떨어질 때 버틸 수 있는지도 함께 보세요.\n\n"
+            f"※ {fdate(asof)} 기준 · 배당 재투자·환율 반영 · 세금·수수료 미반영 · 과거 수익률은 미래 수익을 보장하지 않아요 · 특정 종목 추천이 아닌 정보예요.\n\n"
+            "다음엔 어떤 ETF끼리 붙여 볼까요? 답장으로 알려 주세요 🦆")
+    ep["dm"] = {"comment_replies": AB_REPLIES,
+                "answer_by": {akey: f"🎉 정답이에요! 황금알 퀴즈 #{no:02d}\n\n" + body,
+                              ("B" if akey == "A" else "A"): f"아쉬워요! 황금알 퀴즈 #{no:02d} 😅\n\n" + body},
+                "answer": f"☕ 황금알 퀴즈 #{no:02d} 정답 공개!\n\n" + body}
+    return save(ep)
+
+
+GIFT_URL = "https://cdn.jsdelivr.net/gh/ksw1016v/goldenducklab-auto@SHA/gifts/dividend-calendar.jpg"
+
+
+def build_gift(t, no):
+    """선물형: 저장 가치가 큰 정리표를 댓글 단 사람에게 DM으로 준다 (정답 맞히기 아님)."""
+    import subprocess
+    sha = subprocess.run(["git", "log", "-1", "--format=%H", "--", "gifts/dividend-calendar.jpg"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    cs = []
+    for f in ["", "-2", "-3", "-4"]:
+        cs.append(json.loads((ROOT / f"etf/specials/dividend-calendar{f}.json").read_text(encoding="utf-8")))
+    asof = cs[0]["asof"]
+    ep = base(no, "gift", "GIFT", asof)
+    ep["series"] = "황금알 선물"
+    ep["gift"] = {"image": "gifts/dividend-calendar.jpg", "url": GIFT_URL.replace("SHA", sha),
+                  "totals": [c["total"] for c in cs]}
+    ep["answer"] = {"ticker": "GIFT"}
+    nm = ["① 3종목 분산", "② 원금 줄이기", "③ 월배당 ETF 하나", "④ SCHD 하나만"]
+    lines = "\n".join(f"{n} · {won(c['total'])}  ({' + '.join(g['label'] for g in c['groups'])})" for n, c in zip(nm, cs))
+    ep["caption"] = (
+        "매달 10만원 배당 달력, 조합 4가지를 한 장으로 정리했어요 📄\n"
+        f"댓글에 '{KEYWORD}' 남기면 정리표를 DM으로 보내드려요 📩\n\n"
+        "분기배당 ETF만 모으면 3·6·9·12월에만 돈이 들어와요.\n"
+        "지급 달이 다른 종목을 섞으면 12달을 채울 수 있어요.\n\n"
+        "✔ 정리표에 담긴 것\n· 조합 4가지와 필요한 원금\n· 달마다 어떤 종목에서 들어오는지 색으로 표시\n· 조합별 특징 한 줄\n\n"
+        f"✔ 받는 법\n댓글에 '{KEYWORD}'\n→ DM으로 정리표를 보내드려요 📩\n"
+        "(DM이 안 보이면 '메시지 요청함'을 확인해 주세요. 팔로우하면 받은 편지함으로 바로 와요)\n\n"
+        f"📌 {asof} 기준, 최근 1년 배당이 이어진다고 가정하고 배당소득세 15.4%를 뺀 금액이에요.\n"
+        "배당은 확정된 금액이 아니고, 과거 실적이 미래를 보장하지 않으며, 특정 종목 추천이 아닌 정보 제공이에요.\n\n"
+        "🦆 골든덕랩은 매일 황금알 하나씩,\n기초부터 차근차근 돈 공부를 함께해요.\n\n"
+        "💛 저장해두고 하나씩 따라 해보세요\n🐥 팔로우하면 매일 새 황금알이 도착해요\n\n"
+        "#배당달력 #월배당 #배당투자 #미국배당주 #SCHD #재테크 #골든덕랩")
+    ep["dm"] = {"comment_replies": ["정리표 DM으로 보냈어요 📩 안 보이면 '메시지 요청함'을 확인해 주세요!",
+                                    "보내드렸어요 🥚 저장해 두고 보세요! 요청함도 한 번 확인해 주세요",
+                                    "DM 확인해 주세요 🦆 받은 편지함에 없으면 '요청'을 눌러 보세요!",
+                                    "정리표 보냈어요 📄 요청함(숨겨진 요청 포함)에 있을 수 있어요!",
+                                    "보냈어요 🥚 팔로우하시면 다음 선물은 받은 편지함으로 바로 가요!"],
+                "answer": ("📄 약속한 '매달 10만원 배당 달력' 정리표예요!\n\n"
+                           f"👉 정리표 보기(이미지): {ep['gift']['url']}\n\n"
+                           f"한눈에 요약하면\n{lines}\n\n"
+                           "· 칸 색 = 그 달에 배당이 들어오는 종목\n· 금액 = 세후 월 10만원에 필요한 원금\n\n"
+                           f"※ {fdate(asof)} 기준 · 최근 1년 배당 유지 가정 · 세금 15.4% 반영 · 배당은 확정 금액이 아님 · 특정 종목 추천이 아닌 정보예요.\n\n"
+                           "지금 매달 받고 싶은 배당은 얼마쯤이에요? 답장으로 알려 주세요 🦆")}
+    return save(ep)
+
+
 RISK = {
     "기술·성장": "기술주에 몰려 있어 오를 때도 크게, 내릴 때도 크게 움직여요",
     "섹터": "한 업종에 몰려 있어 그 업종 경기에 따라 크게 흔들릴 수 있어요",
@@ -204,9 +316,10 @@ def answer_dm(ep, e):
 def dm_sheet(ep):
     d = ep["dm"]
     return (f"[황금알 퀴즈 #{ep['no']:02d} · {ep.get('qtype', 'dca')} · 정답 {ep['ticker']}] 자동 대댓글·DM 문구\n\n"
-            f"■ 키워드: {ep['keyword']}\n\n"
+            f"■ 키워드: {'A 또는 B (보기 티커나 ' + repr(ep['keyword']) + '도 인식)' if ep.get('ab') else ep['keyword']}\n\n"
             "■ 자동 대댓글 (돌려쓰기)\n" + "\n".join(f"- {r}" for r in d["comment_replies"]) + "\n\n"
-            f"■ 정답 DM\n{d['answer']}\n")
+            + "".join(f"■ '{k}' 고른 사람에게 보내는 DM\n{v}\n\n" for k, v in d.get("answer_by", {}).items())
+            + f"■ {'A/B 없이 키워드만 남긴 사람에게 보내는 DM' if d.get('answer_by') else 'DM'}\n{d['answer']}\n")
 
 
 def next_in_queue():

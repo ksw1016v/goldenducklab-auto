@@ -1,7 +1,8 @@
-# 황금알 퀴즈 대기열 · 유형:티커 (유형 없으면 dca=월 10만원 10년 / coffee=매일 커피값 / trap=월 100만원 함정, AUTO=필요 원금이 가장 적은 초고배당)
+# 황금알 퀴즈 대기열 · 유형:티커 (유형 없으면 dca=월 10만원 10년 / coffee=매일 커피값, "정답/오답"이면 A·B 선택형 / trap=월 100만원 함정 / gift=정리표 선물)
 # 토·일 19:00 게시
 SMH
-coffee:QQQ
+coffee:QQQ/SCHD
+gift:calendar
 trap:AUTO
 XLK
 SOXX

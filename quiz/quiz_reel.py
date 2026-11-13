@@ -1,7 +1,9 @@
 """황금알 퀴즈 릴스 장면 (긴장감 버전).
 숫자가 흔들리며 불어남 → 가려진 정답 + 줄어드는 타이머 + 힌트 → 3·2·1 카운트다운 → 정답은 DM으로.
 """
+import base64, pathlib
 from render import esc, uri
+ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 Q_CSS = """<style>
 .qbig{font-size:150px;font-weight:900;letter-spacing:-4px;color:#1B2A41;line-height:1.05}
@@ -26,6 +28,19 @@ Q_CSS = """<style>
 .step .n{flex:none;width:100px;height:100px;border-radius:50%;background:#F5B800;color:#1E3A5F;font-size:54px;font-weight:900;display:flex;align-items:center;justify-content:center}
 .step .t{font-size:56px;font-weight:900;line-height:1.25}.step .t small{display:block;font-size:36px;font-weight:700;color:#C9D7E6;margin-top:6px}
 .lock{font-size:64px;font-weight:900;color:#1B2A41;margin:10px 0 40px}
+.chs{display:flex;flex-direction:column;gap:30px;margin-bottom:10px}
+.ch{display:flex;align-items:center;gap:34px;background:#fff;border:6px solid #C9D7E6;border-radius:40px;padding:40px 44px}
+.ch .k{flex:none;width:150px;height:150px;border-radius:32px;background:#1E3A5F;color:#F5B800;font-size:110px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.ch .tk{font-size:92px;font-weight:900;letter-spacing:-2px;color:#1B2A41;line-height:1}
+.ch .iv{font-size:40px;font-weight:700;color:#3E5674;margin-top:10px}
+.vs{text-align:center;font-size:54px;font-weight:900;color:#E5383B;margin:-6px 0}
+.sheet{position:relative;border-radius:30px;overflow:hidden;box-shadow:0 18px 50px rgba(30,58,95,.25);height:980px}
+.sheet img{width:100%;display:block;filter:blur(9px);transform:scale(1.04)}
+.sheet .lk{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:rgba(255,246,224,.35)}
+.sheet .lk b{font-size:150px}.sheet .lk span{background:#1E3A5F;color:#fff;font-size:50px;font-weight:900;padding:18px 44px;border-radius:999px}
+.tot{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+.tot div{background:#fff;border:4px solid #C9D7E6;border-radius:28px;padding:24px 28px;font-size:40px;font-weight:900;color:#1B2A41}
+.tot small{display:block;font-size:30px;color:#3E5674;font-weight:700}
 </style>"""
 
 
@@ -44,6 +59,8 @@ def redacted(ep):
 
 
 def scenes_quiz(ep):
+    if ep.get("qtype") == "gift":
+        return scenes_gift(ep)
     q = ep["q"]
     kw = ep["keyword"]
     out = []
@@ -54,7 +71,7 @@ def scenes_quiz(ep):
 <div class="qline" data-in="0.6">하루 <b>5,000원</b> × 30일 = 월 <b>15만원</b></div>
 <div class="qrow" data-in="1.0">10년 동안 넣은 돈 <b>{won(q["invested"])}</b></div>
 <div data-shake="2.5,0.7,14"><div class="qbig" style="margin-top:40px" data-in="1.4"><span data-count="1.4,1.2" data-from="{q["invested"]}" data-to="{q["value"]}" data-fmt="won">{won(q["invested"])}</span></div></div>
-<div class="h1" style="margin-top:50px" data-in="3.0">이 ETF, <mark>맞힐 수 있어요?</mark></div></div>''', 4.8))
+<div class="h1" style="margin-top:50px" data-in="3.0">{"<mark>A일까, B일까?</mark>" if ep.get("ab") else "이 ETF, <mark>맞힐 수 있어요?</mark>"}</div></div>''', 4.8))
     elif qt == "trap":
         out.append((Q_CSS + f'''<div class="main"><div class="warn" data-blink="0.1">⚠️ 함정 퀴즈</div>
 <div class="h1" data-in="0.3">매달 <mark>100만원</mark> 배당 받으려면?</div>
@@ -70,6 +87,25 @@ def scenes_quiz(ep):
 <div data-shake="2.0,0.7,14"><div class="qbig" style="margin-top:46px" data-in="0.9"><span data-count="0.9,1.2" data-from="{q["invested"]}" data-to="{q["value"]}" data-fmt="won">{won(q["invested"])}</span></div></div>
 <div data-pop="2.3"><span class="qret">수익률 {q["ret"]:+,.0f}%</span></div>
 <div class="h1" style="margin-top:56px" data-in="3.0">이 ETF, <mark>맞힐 수 있어요?</mark></div></div>''', 4.6))
+    if qt == "gift":
+        return scenes_gift(ep)
+    if ep.get("ab"):
+        c = ep["choices"]
+        out.append((Q_CSS + f'''<div class="main"><div class="hlabel" data-in="0.1" style="font-size:56px;color:#1B2A41">10년 뒤 {won(q["value"])}, 어느 쪽일까요?</div>
+<div class="timer" data-in="0.2"><div class="tb" data-bar="0.3,4.2"></div></div>
+<div class="chs"><div class="ch" data-pop="0.5"><div class="k">A</div><div><div class="tk">{esc(c[0]["ticker"])}</div><div class="iv">{esc(c[0]["invests"])}</div></div></div>
+<div class="vs" data-pop="1.1">VS</div>
+<div class="ch" data-pop="1.4"><div class="k">B</div><div><div class="tk">{esc(c[1]["ticker"])}</div><div class="iv">{esc(c[1]["invests"])}</div></div></div></div>
+<div class="h1" style="margin-top:40px" data-in="2.4">댓글에 <mark>A 또는 B</mark>만!</div></div>''', 4.6))
+        out.append((Q_CSS + f'''<div class="main" style="text-align:center"><div class="h1" data-in="0.1">정답 공개까지</div>
+<div class="cnt"><span data-win="0.4,1.2">3</span><span data-win="1.2,2.0">2</span><span data-win="2.0,2.8">1</span><span data-win="2.8,9">🔒</span></div>
+<div class="h1" data-in="3.0">정답과 차이는 <mark>DM으로</mark> 공개!</div></div>''', 4.0))
+        out.append((Q_CSS + f'''<div class="main"><div class="lock" data-in="0.1">참여 방법 📩</div>
+<div class="step" data-pop="0.4"><div class="n">1</div><div class="t">댓글에 A 또는 B<small>정답 + 두 ETF 차이를 DM으로 보내드려요</small></div></div>
+<div class="step" data-pop="1.0"><div class="n">2</div><div class="t">DM이 안 보이면<br>'메시지 요청함'<small>@golden_duck_lab 팔로우하면 받은 편지함으로 바로 와요</small></div></div>
+<div class="disc" data-in="1.5">{esc(ep["asof"])} 기준 · 배당 재투자 · 원달러 환율 반영 · 과거 수익률은 미래 수익을 보장하지 않음 · 특정 종목 추천 아님</div></div>
+<img class="duck" data-pop="1.8" src="{uri("duck.png")}">''', 4.6))
+        return out
     # 2) 가려진 정답 + 줄어드는 타이머 + 힌트
     hs = "".join(f'<div class="hint" data-pop="{0.9 + 1.2 * i:.2f}"><div class="n">{i + 1}</div><div class="t">{esc(h)}</div></div>'
                  for i, h in enumerate(q["hints"]))
@@ -91,8 +127,20 @@ def scenes_quiz(ep):
 
 
 def cover_quiz(ep):
+    if ep.get("qtype") == "gift":
+        return cover_gift(ep)
     q = ep["q"]
     qt = ep.get("qtype", "dca")
+    if qt == "gift":
+        return cover_gift(ep)
+    if ep.get("ab"):
+        c = ep["choices"]
+        return Q_CSS + f'''<div class="main cov"><div class="warn">⚠️ 황금알 퀴즈</div>
+<div class="h1">매일 커피 한 잔 ☕<br>10년 모았더니</div>
+<div class="qbig" style="margin-top:20px">{won(q["value"])}</div>
+<div class="chs" style="margin-top:36px"><div class="ch"><div class="k">A</div><div class="tk">{esc(c[0]["ticker"])}</div></div>
+<div class="ch"><div class="k">B</div><div class="tk">{esc(c[1]["ticker"])}</div></div></div>
+<div class="h1" style="margin-top:30px">댓글에 <mark>A 또는 B</mark></div></div>'''
     if qt == "coffee":
         return Q_CSS + f'''<div class="main cov"><div class="warn">⚠️ 황금알 퀴즈</div>
 <div class="h1">매일 커피 한 잔 ☕<br>10년 모았더니</div>
@@ -113,3 +161,37 @@ def cover_quiz(ep):
 <div><span class="qret">수익률 {q["ret"]:+,.0f}%</span></div>
 <div class="ansbox" style="margin-top:44px"><span class="al">정답</span><div class="rds">{redacted(ep)}</div></div>
 <div class="h1">이 ETF는 <mark>뭘까요?</mark></div></div>'''
+
+
+def sheet_uri(ep):
+    return "data:image/jpeg;base64," + base64.b64encode((ROOT / ep["gift"]["image"]).read_bytes()).decode()
+
+
+NM = ["① 3종목 분산", "② 원금 줄이기", "③ 월배당 ETF 하나", "④ SCHD 하나만"]
+
+
+def scenes_gift(ep):
+    t = ep["gift"]["totals"]
+    lo = min(t)
+    tots = "".join(f'<div data-pop="{1.2 + 0.35 * i:.2f}"><small>{n}</small>{won(v)}</div>' for i, (n, v) in enumerate(zip(NM, t)))
+    return [
+        (Q_CSS + f'''<div class="main"><div class="warn" data-blink="0.1" style="background:#1E3A5F">🎁 무료 정리표</div>
+<div class="h1" data-in="0.3">분기배당 ETF만 모으면</div>
+<div class="qline" data-in="0.7">돈이 <b>3·6·9·12월</b>에만 들어와요</div>
+<div class="h1" style="margin-top:60px" data-in="1.5">매달 <mark>10만원</mark> 받는 조합</div>
+<div class="qbig" style="margin-top:20px" data-in="2.0"><span data-count="2.0,1.0" data-from="0" data-to="4" data-fmt="num" data-suf="가지">0가지</span></div>
+<div class="h1" style="margin-top:30px" data-in="3.1">한 장으로 정리했어요 📄</div></div>''', 4.6),
+        (Q_CSS + f'''<div class="main"><div class="sheet" data-zoom="0.1"><img src="{sheet_uri(ep)}"><div class="lk"><b data-pop="0.6">🔒</b><span data-pop="0.9">댓글 '{esc(ep["keyword"])}' → DM</span></div></div>
+<div class="tot">{tots}</div></div>''', 4.6),
+        (Q_CSS + f'''<div class="main"><div class="lock" data-in="0.1">정리표 받는 법 📩</div>
+<div class="step" data-pop="0.4"><div class="n">1</div><div class="t">댓글에 '{esc(ep["keyword"])}'<small>정리표 이미지를 DM으로 보내드려요</small></div></div>
+<div class="step" data-pop="1.0"><div class="n">2</div><div class="t">DM이 안 보이면<br>'메시지 요청함'<small>@golden_duck_lab 팔로우하면 받은 편지함으로 바로 와요</small></div></div>
+<div class="disc" data-in="1.5">{esc(ep["asof"])} 기준 · 최근 1년 배당 유지 가정 · 세금 15.4% 반영 · 배당은 확정 금액이 아님 · 특정 종목 추천 아님</div></div>
+<img class="duck" data-pop="1.8" src="{uri("duck.png")}">''', 4.4),
+    ]
+
+
+def cover_gift(ep):
+    return Q_CSS + f'''<div class="main cov"><div class="warn" style="background:#1E3A5F">🎁 무료 정리표</div>
+<div class="h1">매달 <mark>10만원</mark> 배당<br>조합 4가지,<br>한 장으로 정리</div>
+<div class="sheet" style="height:760px;margin-top:36px"><img src="{sheet_uri(ep)}"><div class="lk"><b>🔒</b><span>댓글 '{esc(ep["keyword"])}' → DM</span></div></div></div>'''

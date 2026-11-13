@@ -17,6 +17,22 @@ def norm(t):
     return re.sub(r"[\s!~.?·]", "", t or "")
 
 
+AB_RE = re.compile(r"^(정답은?|저는|나는)?([AB])(번|요|입니다|이요|일듯|같아요|인듯|겠죠|ㅎ+|ㅋ+)*$")
+
+
+def match(ep, text):
+    """댓글이 이 게시물에 대한 응답인지 판단. 반환: None(무시) / 'A' / 'B' / 'kw'(키워드만)."""
+    if ep.get("ab"):
+        t = re.sub(r"[^0-9A-Za-z가-힣ㅋㅎ]", "", text or "").upper().replace(norm(ep.get("keyword", "골든덕")).upper(), "")
+        m = AB_RE.match(t)
+        if m:
+            return m.group(2)
+        hits = [c["key"] for c in ep.get("choices", []) if c["ticker"].upper() in t]
+        if len(hits) == 1:
+            return hits[0]
+    return "kw" if norm(ep.get("keyword", "골든덕")) in norm(text) else None
+
+
 def safe(method, path, **p):
     try:
         return call(method, path, **p), None
@@ -55,22 +71,23 @@ def main():
     sent = 0
     for media_id, ep_path in targets(st).items():
         ep = json.loads((ROOT / ep_path).read_text(encoding="utf-8"))
-        kw = norm(ep.get("keyword", "골든덕"))
         res, err = safe("GET", f"{media_id}/comments", fields="id,text,username,timestamp", limit=50)
         if err:
             print("::warning::댓글 읽기 실패", media_id, err)
             continue
         for c in res.get("data", []):
-            if c["id"] in done or c.get("username") == OWN or kw not in norm(c.get("text")):
+            pick = match(ep, c.get("text"))
+            if c["id"] in done or c.get("username") == OWN or not pick:
                 continue
             ts = datetime.datetime.strptime(c["timestamp"], "%Y-%m-%dT%H:%M:%S%z")
             if now - ts > datetime.timedelta(days=6, hours=20):
                 continue  # 인스타 규정: 7일 지난 댓글엔 DM 불가
             reply = random.choice(ep["dm"]["comment_replies"])
-            dm, dm_err = send_dm(c["id"], ep["dm"]["answer"])
+            text = ep["dm"].get("answer_by", {}).get(pick, ep["dm"]["answer"])
+            dm, dm_err = send_dm(c["id"], text)
             print("DM 응답", dm, dm_err)
             rp, rp_err = safe("POST", f"{c['id']}/replies", message=reply if not dm_err else "댓글 고마워요 🥚 정답은 곧 DM으로 보내드릴게요!")
-            rec = {"comment": c["id"], "media": media_id, "user": c.get("username"), "quiz": ep.get("no"),
+            rec = {"comment": c["id"], "media": media_id, "user": c.get("username"), "quiz": ep.get("no"), "pick": pick,
                    "dm": "ok" if not dm_err else "fail", "reply": "ok" if not rp_err else "fail",
                    "at": time.strftime("%Y-%m-%d %H:%M:%S")}
             if dm_err:
