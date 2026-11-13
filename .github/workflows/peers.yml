@@ -1,0 +1,26 @@
+name: peers
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: 다른 계정 공개 성과 읽기
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python3 peers/fetch_peers.py
+      - name: 저장
+        run: |
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add peers/peers.json
+          git commit -m "peers $(date -u +%F)" || true
+          git pull --rebase
+          git push
