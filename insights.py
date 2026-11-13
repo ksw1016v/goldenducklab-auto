@@ -1,5 +1,5 @@
 """계정·게시물 성과를 읽어서 insights.json 으로 저장 (읽기 전용, 게시·수정 없음)."""
-import json, os, time, pathlib, urllib.request, urllib.parse
+import json, os, re, time, pathlib, urllib.request, urllib.parse
 from publish import api_base, IG_USER_ID
 
 ROOT = pathlib.Path(__file__).parent
@@ -10,7 +10,9 @@ def get(path, **p):
     url = f"{api_base()}/{path}?" + urllib.parse.urlencode(p)
     try:
         with urllib.request.urlopen(url, timeout=60) as r:
-            return json.loads(r.read())
+            d = json.loads(r.read())
+            d.pop("paging", None)  # 다음 페이지 주소에 토큰이 들어 있어 저장하면 안 됨
+            return d
     except urllib.error.HTTPError as e:
         return {"error": e.read().decode()[:300]}
 
@@ -30,5 +32,8 @@ for m in media.get("data", []):
 day = get(f"{IG_USER_ID}/insights", metric="reach,follower_count", period="day")
 total = get(f"{IG_USER_ID}/insights", metric="profile_views,profile_links_taps,accounts_engaged,total_interactions,views,reach", period="day", metric_type="total_value")
 out = {"fetched_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime()), "account": acct, "account_daily": day, "account_totals_today": total, "media": items}
-(ROOT / "insights.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+text = json.dumps(out, ensure_ascii=False, indent=1)
+text = re.sub(r"access_token=[^&\"\s]+", "access_token=REDACTED", text)
+assert os.environ["IG_TOKEN"] not in text
+(ROOT / "insights.json").write_text(text, encoding="utf-8")
 print(json.dumps(acct, ensure_ascii=False), len(items), "media")

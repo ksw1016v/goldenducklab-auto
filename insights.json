@@ -45,8 +45,8 @@
    }
   ],
   "paging": {
-   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794174782&until=1794347582",
-   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794520384&until=1794693184"
+   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=REDACTED&since=1794174782&until=1794347582",
+   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=reach%2Cfollower_count&period=day&access_token=REDACTED&since=1794520384&until=1794693184"
   }
  },
  "account_totals_today": {
@@ -113,8 +113,8 @@
    }
   ],
   "paging": {
-   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794174783&until=1794347583",
-   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=EAAcXPed8FPYBSyfEK6z68U79pDACZB2W0vDTGnOdSaGntGvnDQDIRcocSUM03QqZBhgcaR20U4POXvuL9jy7GTjZAl5VUfkWxSZB1zdygjHMwY12bQ1fEZAMrCIDsKIGHj1RRuTzLm6i5bQYnZBsrKPylZCQwaQKk3onK92OzWIeKk44OxBeCeJpcZBXJZCrH5GQeW3RPapGiZBy13ZBpu6OZCjdftxq48beZC2yIRcJINY5DWP0X6miE4KUk2QZDZD&since=1794520385&until=1794693185"
+   "previous": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=REDACTED&since=1794174783&until=1794347583",
+   "next": "https://graph.facebook.com/v26.0/17841465585453824/insights?metric=profile_views%2Cprofile_links_taps%2Caccounts_engaged%2Ctotal_interactions%2Cviews%2Creach&period=day&metric_type=total_value&access_token=REDACTED&since=1794520385&until=1794693185"
   }
  },
  "media": [
