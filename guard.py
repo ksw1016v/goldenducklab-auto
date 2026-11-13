@@ -11,7 +11,7 @@ import json, os, sys, pathlib, datetime
 
 TARGET = {"quiz": (19, 0), "brief": (7, 0), "basic": (12, 10), "income": (21, 0), "etf": (21, 0), "toon": (10, 0)}
 # 게시 요일 (월=0 … 일=6). 여기에 없는 요일엔 예약 실행이 올리지 않아요(수동 실행은 요일 무시)
-DAYS = {"brief": {0, 1, 2, 3, 4, 5, 6}, "basic": {1, 3, 5}, "income": {1, 3}, "etf": {0, 2, 4}, "toon": {0, 2, 4}}
+DAYS = {"quiz": {5, 6}, "brief": {0, 1, 2, 3, 4, 5, 6}, "basic": {1, 3, 5}, "income": {1, 3}, "etf": {0, 2, 4}, "toon": {0, 2, 4}}
 LATE = {"brief": (10, 30)}   # 아침 브리핑은 이 시각이 지나면 그날은 건너뜀(예약 실행만)   # 한국 시간 게시 목표
 EARLY = datetime.timedelta(minutes=15)                             # 목표보다 이만큼까지만 먼저 올려도 됨
 
