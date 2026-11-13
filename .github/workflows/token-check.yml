@@ -22,3 +22,9 @@ jobs:
           if [ "${{ inputs.revoke }}" = "1" ]; then OLD="$OLD" python3 .github/scripts/token_revoke.py; sleep 10; fi
           OLD="$OLD" python3 .github/scripts/token_info.py
           curl -s "https://graph.facebook.com/v23.0/17841465585453824?fields=username,followers_count&access_token=$IG_TOKEN" | python3 -c "import json,sys;d=json.load(sys.stdin);print('새 토큰으로 인스타 계정 읽기:',d.get('username'),d.get('followers_count'),d.get('error',{}).get('message',''))"
+      - name: 게시 준비 시험 (업로드만, 공개 안 함)
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          URL="https://cdn.jsdelivr.net/gh/ksw1016v/goldenducklab-auto@c77ea2a37dafca88e96354263f78c1315ed55e26/gifts/dividend-calendar.jpg"
+          curl -s -X POST "https://graph.facebook.com/v23.0/17841465585453824/media" --data-urlencode "image_url=$URL" --data-urlencode "access_token=$IG_TOKEN" -d "is_carousel_item=true" | python3 -c "import json,sys;d=json.load(sys.stdin);print('게시 준비 결과:', '성공' if d.get('id') else '실패', d.get('error',{}).get('message',''))"
