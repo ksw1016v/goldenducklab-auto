@@ -1,8 +1,8 @@
 {
- "fetched_at": "2026-11-13 04:26:00 UTC",
+ "fetched_at": "2026-11-13 09:22:16 UTC",
  "account": {
   "id": "17841465585453824",
-  "followers_count": 290,
+  "followers_count": 297,
   "follows_count": 201,
   "media_count": 48,
   "username": "golden_duck_lab"
@@ -15,12 +15,12 @@
     "period": "day",
     "values": [
      {
-      "value": 451,
-      "end_time": "2026-11-11T08:00:00+0000"
+      "value": 579,
+      "end_time": "2026-11-12T08:00:00+0000"
      },
      {
-      "value": 508,
-      "end_time": "2026-11-12T08:00:00+0000"
+      "value": 24,
+      "end_time": "2026-11-13T08:00:00+0000"
      }
     ],
     "title": "도달",
@@ -32,12 +32,12 @@
     "period": "day",
     "values": [
      {
-      "value": 13,
-      "end_time": "2026-11-11T08:00:00+0000"
+      "value": 0,
+      "end_time": "2026-11-12T08:00:00+0000"
      },
      {
       "value": 0,
-      "end_time": "2026-11-12T08:00:00+0000"
+      "end_time": "2026-11-13T08:00:00+0000"
      }
     ],
     "title": "팔로워 수",
@@ -54,7 +54,7 @@
     "title": "프로필 방문",
     "description": "사람들이 회원님의 프로필을 방문한 횟수.",
     "total_value": {
-     "value": 21
+     "value": 15
     }
    },
    {
@@ -74,7 +74,7 @@
     "title": "참여한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠에 반응을 보인 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함되며, 반응에는 좋아요, 저장, 댓글, 공유 또는 답장 등의 활동이 포함됩니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 16
+     "value": 13
     }
    },
    {
@@ -84,7 +84,7 @@
     "title": "콘텐츠 상호 작용",
     "description": "홍보 콘텐츠의 모든 반응을 포함하여 게시물 반응, 스토리 반응, 릴스 반응, 동영상 반응 및 라이브 방송 반응의 총 수.",
     "total_value": {
-     "value": 73
+     "value": 69
     }
    },
    {
@@ -94,7 +94,7 @@
     "title": "조회수",
     "description": "콘텐츠가 재생되거나 표시된 횟수. 콘텐츠에는 릴스, 게시물, 스토리가 포함됩니다.",
     "total_value": {
-     "value": 1273
+     "value": 822
     }
    },
    {
@@ -104,7 +104,7 @@
     "title": "도달한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠를 1회 이상 조회한 고유 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함됩니다. 도달은 같은 계정에서 콘텐츠를 여러 번 본 횟수까지 집계하는 노출과는 다른 개념입니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 937
+     "value": 607
     }
    }
   ]
@@ -115,16 +115,16 @@
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-13T00:58:31+0000",
-   "like_count": 2,
+   "like_count": 3,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfqZZ__Aqkx/",
    "title": "ETF 사고 싶은데, 어디서부터 시작해야 할지 막막하셨죠?",
-   "reach": 109,
+   "reach": 116,
    "saved": 1,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 120,
-   "ig_reels_avg_watch_time": 2423
+   "total_interactions": 4,
+   "views": 128,
+   "ig_reels_avg_watch_time": 2489
   },
   {
    "id": "18122522822318502",
@@ -135,12 +135,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfqFBqDjK8S/",
    "title": "코스닥 하루 새 5.6% 급등 📈",
-   "reach": 105,
+   "reach": 106,
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 120,
-   "ig_reels_avg_watch_time": 2948
+   "views": 123,
+   "ig_reels_avg_watch_time": 2982
   },
   {
    "id": "17875890930636919",
@@ -151,12 +151,12 @@
    "comments_count": 4,
    "permalink": "https://www.instagram.com/reel/DfpQAJ2n_A8/",
    "title": "월 10만원씩 10년, 1,200만원이 8,132만원이 된 ETF는? 🥚",
-   "reach": 129,
+   "reach": 135,
    "saved": 0,
    "shares": 0,
    "total_interactions": 9,
-   "views": 147,
-   "ig_reels_avg_watch_time": 4304
+   "views": 153,
+   "ig_reels_avg_watch_time": 4396
   },
   {
    "id": "18121758550999560",
@@ -167,12 +167,12 @@
    "comments_count": 2,
    "permalink": "https://www.instagram.com/reel/DfpCu0_itvT/",
    "title": "JEPQ로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 170,
+   "reach": 250,
    "saved": 1,
    "shares": 9,
    "total_interactions": 18,
-   "views": 183,
-   "ig_reels_avg_watch_time": 4981
+   "views": 280,
+   "ig_reels_avg_watch_time": 6057
   },
   {
    "id": "18116057414615269",
@@ -183,11 +183,11 @@
    "comments_count": 2,
    "permalink": "https://www.instagram.com/p/DfpAcNwjbT6/",
    "title": "JEPQ로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 13,
+   "reach": 14,
    "saved": 0,
    "shares": 0,
    "total_interactions": 7,
-   "views": 35
+   "views": 36
   },
   {
    "id": "18077656382737530",
@@ -198,27 +198,27 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfoDij1FQ3S/",
    "title": "신용카드랑 체크카드, 연말정산에선 뭐가 유리할까요? 🥚",
-   "reach": 11,
+   "reach": 13,
    "saved": 0,
    "shares": 0,
    "total_interactions": 7,
-   "views": 27
+   "views": 29
   },
   {
    "id": "17971081539198138",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-11T21:59:53+0000",
-   "like_count": 4,
+   "like_count": 5,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfngK-VlMaN/",
    "title": "코스피 하루 새 4.4% 급등 📈",
-   "reach": 114,
+   "reach": 115,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 4,
+   "total_interactions": 5,
    "views": 128,
-   "ig_reels_avg_watch_time": 2863
+   "ig_reels_avg_watch_time": 2847
   },
   {
    "id": "17975784756167739",
@@ -229,12 +229,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfmbntTlMYz/",
    "title": "매달 10만원 배당, 4,450만원으로도 될까요? 🥚",
-   "reach": 155,
+   "reach": 156,
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
    "views": 166,
-   "ig_reels_avg_watch_time": 3694
+   "ig_reels_avg_watch_time": 3680
   },
   {
    "id": "18121285901515950",
@@ -280,7 +280,7 @@
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 9
+   "views": 10
   },
   {
    "id": "18102286811418140",
@@ -307,11 +307,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DflP2CgAOTI/",
    "title": "뉴스에 매일 나오는 S&P500, 사실 무슨 뜻인지 모르셨죠?",
-   "reach": 10,
+   "reach": 11,
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 28
+   "views": 29
   },
   {
    "id": "18118573499009791",
@@ -493,12 +493,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfg2PSSkZe8/",
    "title": "월급은 그대로인데, 왜 점점 가난해지는 기분일까요?",
-   "reach": 127,
+   "reach": 128,
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
-   "views": 144,
-   "ig_reels_avg_watch_time": 2259
+   "views": 145,
+   "ig_reels_avg_watch_time": 2251
   },
   {
    "id": "18013080252005664",
@@ -540,11 +540,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfg1zTxFChy/",
    "title": "돈 얘기가 어렵게만 느껴졌다면, 오늘부터 골든튠!",
-   "reach": 9,
+   "reach": 10,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 21
+   "views": 25
   },
   {
    "id": "18651655732010125",
@@ -845,11 +845,11 @@
    "comments_count": 1,
    "permalink": "https://www.instagram.com/p/DfRSr9Jn655/",
    "title": "월급은 들어오는데, 왜 통장엔 안 남을까요? 🥚",
-   "reach": 12,
+   "reach": 13,
    "saved": 0,
    "shares": 0,
    "total_interactions": 5,
-   "views": 21
+   "views": 22
   }
  ]
 }
