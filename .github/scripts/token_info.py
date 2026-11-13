@@ -11,4 +11,5 @@ for nm, t in (("옛", old), ("새", new)):
     me = get("me", fields="id,name", access_token=t)
     d = get("debug_token", input_token=t, access_token=new).get("data", {})
     f = lambda k: time.strftime("%Y-%m-%d %H:%M", time.gmtime(d[k])) if d.get(k) else "없음"
+    print(f"{nm} 토큰 권한: {sorted(s for s in d.get('scopes', []) if 'instagram' in s)}")
     print(f"{nm} 토큰: 주인={me.get('name')} ({me.get('id')}) 오류={me.get('error', {}).get('message', '-')[:60]} | 종류={d.get('type')} 앱={d.get('application')} 유효={d.get('is_valid')} 발급={f('issued_at')} 만료={f('expires_at')}")
