@@ -1,0 +1,22 @@
+name: token-check
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: 새 토큰과 옛 토큰 비교 (값은 출력하지 않음)
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          OLD=$(git show fb933a9:insights.json | grep -o 'access_token=EAA[^&"]*' | head -1 | cut -d= -f2)
+          echo "::add-mask::$OLD"
+          NEW_FP=$(printf 'access_token=%s\n' "$IG_TOKEN" | sha256sum | cut -c1-8)
+          echo "지금 시크릿 지문: $NEW_FP (노출된 토큰 지문 bf1d37e6)"
+          [ "$OLD" = "$IG_TOKEN" ] && echo "결과: 시크릿이 아직 옛 토큰" || echo "결과: 시크릿이 새 토큰으로 바뀜"
+          code() { curl -s -o /tmp/r.json -w "%{http_code}" "https://graph.facebook.com/v23.0/me?fields=id&access_token=$1"; }
+          echo "새 토큰 작동: $(code "$IG_TOKEN")"
+          echo "옛 토큰 작동: $(code "$OLD") $(python3 -c "import json;d=json.load(open('/tmp/r.json'));print(d.get('error',{}).get('message','유효')[:80])")"
