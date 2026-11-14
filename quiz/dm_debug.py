@@ -13,3 +13,9 @@ for mid, p in st.get("quiz_media", {}).items():
     print("  댓글 API 오류:", err) if err else None
     for c in (res or {}).get("data", []):
         print("  ", c.get("timestamp"), c.get("username"), c.get("from"), repr(c.get("text")), "→", match(ep, c.get("text")), "처리됨" if c["id"] in done else "")
+print("--- 오늘 퀴즈 다른 방식으로 읽기")
+for mid in list(st.get("quiz_media", {}))[-1:]:
+    for kw in [dict(fields="comments.limit(50){id,text,username,hidden,timestamp}"),
+               dict(fields="comments_count,comments{id,text,hidden}")]:
+        r, e = safe("GET", mid, **kw); print("  ", kw["fields"][:30], r, e)
+    r, e = safe("GET", f"{mid}/comments", fields="id,text,username,hidden"); print("   edge", r, e)
