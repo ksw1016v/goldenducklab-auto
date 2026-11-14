@@ -1,10 +1,10 @@
 {
- "fetched_at": "2026-11-13 21:28:57 UTC",
+ "fetched_at": "2026-11-14 19:58:34 UTC",
  "account": {
   "id": "17841465585453824",
-  "followers_count": 298,
-  "follows_count": 201,
-  "media_count": 50,
+  "followers_count": 325,
+  "follows_count": 263,
+  "media_count": 53,
   "username": "golden_duck_lab"
  },
  "account_daily": {
@@ -15,12 +15,12 @@
     "period": "day",
     "values": [
      {
-      "value": 579,
-      "end_time": "2026-11-12T08:00:00+0000"
+      "value": 280,
+      "end_time": "2026-11-13T08:00:00+0000"
      },
      {
-      "value": 159,
-      "end_time": "2026-11-13T08:00:00+0000"
+      "value": 215,
+      "end_time": "2026-11-14T08:00:00+0000"
      }
     ],
     "title": "도달",
@@ -32,12 +32,12 @@
     "period": "day",
     "values": [
      {
-      "value": 16,
-      "end_time": "2026-11-12T08:00:00+0000"
+      "value": 26,
+      "end_time": "2026-11-13T08:00:00+0000"
      },
      {
       "value": 0,
-      "end_time": "2026-11-13T08:00:00+0000"
+      "end_time": "2026-11-14T08:00:00+0000"
      }
     ],
     "title": "팔로워 수",
@@ -54,7 +54,7 @@
     "title": "프로필 방문",
     "description": "사람들이 회원님의 프로필을 방문한 횟수.",
     "total_value": {
-     "value": 16
+     "value": 8
     }
    },
    {
@@ -74,7 +74,7 @@
     "title": "참여한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠에 반응을 보인 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함되며, 반응에는 좋아요, 저장, 댓글, 공유 또는 답장 등의 활동이 포함됩니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 13
+     "value": 6
     }
    },
    {
@@ -84,7 +84,7 @@
     "title": "콘텐츠 상호 작용",
     "description": "홍보 콘텐츠의 모든 반응을 포함하여 게시물 반응, 스토리 반응, 릴스 반응, 동영상 반응 및 라이브 방송 반응의 총 수.",
     "total_value": {
-     "value": 72
+     "value": 29
     }
    },
    {
@@ -94,7 +94,7 @@
     "title": "조회수",
     "description": "콘텐츠가 재생되거나 표시된 횟수. 콘텐츠에는 릴스, 게시물, 스토리가 포함됩니다.",
     "total_value": {
-     "value": 1025
+     "value": 710
     }
    },
    {
@@ -104,58 +104,105 @@
     "title": "도달한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠를 1회 이상 조회한 고유 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함됩니다. 도달은 같은 계정에서 콘텐츠를 여러 번 본 횟수까지 집계하는 노출과는 다른 개념입니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 723
+     "value": 480
     }
    }
   ]
  },
  "media": [
   {
+   "id": "18108084476459015",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "timestamp": "2026-11-14T10:01:45+0000",
+   "like_count": 2,
+   "comments_count": 1,
+   "permalink": "https://www.instagram.com/reel/Dft8YL2jSF3/",
+   "title": "커피값 10년 모았더니 5,450만원 ☕ A일까 B일까?",
+   "reach": 204,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 3,
+   "views": 220,
+   "ig_reels_avg_watch_time": 3306
+  },
+  {
+   "id": "18136031170708824",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "timestamp": "2026-11-14T03:08:32+0000",
+   "like_count": 3,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/p/DftNIQ4CdQv/",
+   "title": "월세, 병원비, 학원비… 연말정산에서 챙기셨나요? 🥚",
+   "reach": 7,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 3,
+   "views": 11
+  },
+  {
+   "id": "17866478655694218",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "timestamp": "2026-11-13T22:00:25+0000",
+   "like_count": 6,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/reel/DfspyWQlG7Y/",
+   "title": "반도체지수 하루 새 3.4% 급락 📉",
+   "reach": 129,
+   "saved": 0,
+   "shares": 0,
+   "total_interactions": 6,
+   "views": 136,
+   "ig_reels_avg_watch_time": 2511
+  },
+  {
    "id": "17994033135060357",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-13T12:00:35+0000",
-   "like_count": 1,
+   "like_count": 2,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfrlLL9kQTS/",
    "title": "ETF 하나로 매달 10만원 배당, 가능할까요? 🥚",
-   "reach": 109,
+   "reach": 125,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 1,
-   "views": 114,
-   "ig_reels_avg_watch_time": 2191
+   "total_interactions": 2,
+   "views": 132,
+   "ig_reels_avg_watch_time": 2713
   },
   {
    "id": "18110613125257914",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-13T11:59:49+0000",
-   "like_count": 1,
+   "like_count": 2,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfrlIi8jXxD/",
    "title": "ETF 하나로 매달 10만원 배당, 가능할까요? 🥚",
-   "reach": 7,
+   "reach": 12,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 1,
-   "views": 12
+   "total_interactions": 2,
+   "views": 19
   },
   {
    "id": "18108884771253840",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-13T00:58:31+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfqZZ__Aqkx/",
    "title": "ETF 사고 싶은데, 어디서부터 시작해야 할지 막막하셨죠?",
-   "reach": 123,
+   "reach": 128,
    "saved": 1,
    "shares": 0,
-   "total_interactions": 4,
-   "views": 135,
-   "ig_reels_avg_watch_time": 2437
+   "total_interactions": 5,
+   "views": 141,
+   "ig_reels_avg_watch_time": 2533
   },
   {
    "id": "18122522822318502",
@@ -166,12 +213,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfqFBqDjK8S/",
    "title": "코스닥 하루 새 5.6% 급등 📈",
-   "reach": 107,
+   "reach": 109,
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 124,
-   "ig_reels_avg_watch_time": 2961
+   "views": 126,
+   "ig_reels_avg_watch_time": 2949
   },
   {
    "id": "17875890930636919",
@@ -187,7 +234,7 @@
    "shares": 0,
    "total_interactions": 9,
    "views": 158,
-   "ig_reels_avg_watch_time": 4312
+   "ig_reels_avg_watch_time": 4301
   },
   {
    "id": "18121758550999560",
@@ -198,12 +245,12 @@
    "comments_count": 2,
    "permalink": "https://www.instagram.com/reel/DfpCu0_itvT/",
    "title": "JEPQ로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 269,
+   "reach": 270,
    "saved": 1,
    "shares": 9,
    "total_interactions": 18,
-   "views": 301,
-   "ig_reels_avg_watch_time": 5982
+   "views": 302,
+   "ig_reels_avg_watch_time": 5963
   },
   {
    "id": "18116057414615269",
@@ -214,7 +261,7 @@
    "comments_count": 2,
    "permalink": "https://www.instagram.com/p/DfpAcNwjbT6/",
    "title": "JEPQ로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 15,
+   "reach": 16,
    "saved": 0,
    "shares": 0,
    "total_interactions": 7,
@@ -244,7 +291,7 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfngK-VlMaN/",
    "title": "코스피 하루 새 4.4% 급등 📈",
-   "reach": 115,
+   "reach": 116,
    "saved": 0,
    "shares": 0,
    "total_interactions": 5,
@@ -260,12 +307,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfmbntTlMYz/",
    "title": "매달 10만원 배당, 4,450만원으로도 될까요? 🥚",
-   "reach": 156,
+   "reach": 157,
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
-   "views": 166,
-   "ig_reels_avg_watch_time": 3680
+   "views": 167,
+   "ig_reels_avg_watch_time": 3661
   },
   {
    "id": "18121285901515950",
@@ -276,27 +323,27 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfmbkeVoOwF/",
    "title": "매달 10만원 배당, 4,450만원으로도 될까요? 🥚",
-   "reach": 7,
+   "reach": 8,
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 15
+   "views": 16
   },
   {
    "id": "18029112188862239",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-11T03:18:25+0000",
-   "like_count": 1,
+   "like_count": 2,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dflf1GQDbGA/",
    "title": "VYM으로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 342,
+   "reach": 343,
    "saved": 3,
    "shares": 0,
-   "total_interactions": 4,
-   "views": 377,
-   "ig_reels_avg_watch_time": 4337
+   "total_interactions": 5,
+   "views": 379,
+   "ig_reels_avg_watch_time": 4464
   },
   {
    "id": "18286545907291149",
@@ -311,53 +358,53 @@
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 12
+   "views": 13
   },
   {
    "id": "18102286811418140",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-11T00:59:31+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DflP7w0Eekm/",
    "title": "뉴스에 매일 나오는 S&P500, 사실 무슨 뜻인지 모르셨죠?",
-   "reach": 136,
+   "reach": 139,
    "saved": 1,
    "shares": 0,
-   "total_interactions": 4,
-   "views": 148,
-   "ig_reels_avg_watch_time": 2886
+   "total_interactions": 5,
+   "views": 151,
+   "ig_reels_avg_watch_time": 2981
   },
   {
    "id": "17932041003422699",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-11T00:58:22+0000",
-   "like_count": 2,
+   "like_count": 3,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DflP2CgAOTI/",
    "title": "뉴스에 매일 나오는 S&P500, 사실 무슨 뜻인지 모르셨죠?",
-   "reach": 11,
+   "reach": 13,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 2,
-   "views": 29
+   "total_interactions": 3,
+   "views": 35
   },
   {
    "id": "18118573499009791",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-10T23:58:46+0000",
-   "like_count": 2,
+   "like_count": 3,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DflJBAulGkC/",
    "title": "연말정산, 누구는 돌려받고 누구는 더 낼까요? 🥚",
-   "reach": 12,
+   "reach": 13,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 2,
-   "views": 16
+   "total_interactions": 3,
+   "views": 19
   },
   {
    "id": "17977120638173519",
@@ -368,12 +415,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfk7YhagR8z/",
    "title": "원/달러 환율 1,350원 아래로 📉",
-   "reach": 131,
+   "reach": 132,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 145,
-   "ig_reels_avg_watch_time": 2663
+   "views": 146,
+   "ig_reels_avg_watch_time": 2782
   },
   {
    "id": "18132289273691835",
@@ -388,8 +435,8 @@
    "saved": 11,
    "shares": 1,
    "total_interactions": 19,
-   "views": 1436,
-   "ig_reels_avg_watch_time": 5887
+   "views": 1437,
+   "ig_reels_avg_watch_time": 5883
   },
   {
    "id": "17874640803645240",
@@ -404,7 +451,7 @@
    "saved": 0,
    "shares": 0,
    "total_interactions": 1,
-   "views": 17
+   "views": 21
   },
   {
    "id": "17971637517178973",
@@ -415,12 +462,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfjufcdmajr/",
    "title": "코카콜라로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 118,
+   "reach": 119,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 134,
-   "ig_reels_avg_watch_time": 7043
+   "views": 135,
+   "ig_reels_avg_watch_time": 6992
   },
   {
    "id": "17972714921962200",
@@ -474,15 +521,15 @@
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-09T12:00:00+0000",
-   "like_count": 2,
+   "like_count": 3,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfhR-fCF-aj/",
    "title": "TIGER 미국나스닥100, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 6,
+   "reach": 7,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 2,
-   "views": 23
+   "total_interactions": 3,
+   "views": 25
   },
   {
    "id": "18023816420936709",
@@ -493,7 +540,7 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfhHww3jLwC/",
    "title": "SCHD로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 173,
+   "reach": 174,
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
@@ -520,31 +567,31 @@
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-09T07:58:06+0000",
-   "like_count": 4,
+   "like_count": 5,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfg2PSSkZe8/",
    "title": "월급은 그대로인데, 왜 점점 가난해지는 기분일까요?",
-   "reach": 129,
+   "reach": 130,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 4,
-   "views": 146,
-   "ig_reels_avg_watch_time": 2241
+   "total_interactions": 5,
+   "views": 148,
+   "ig_reels_avg_watch_time": 2444
   },
   {
    "id": "18013080252005664",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-09T07:57:21+0000",
-   "like_count": 7,
+   "like_count": 8,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfg2Mlpk16F/",
    "title": "월급은 그대로인데, 왜 점점 가난해지는 기분일까요?",
-   "reach": 16,
+   "reach": 18,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 7,
-   "views": 42
+   "total_interactions": 8,
+   "views": 43
   },
   {
    "id": "18114549266141116",
@@ -555,27 +602,27 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfg19I-isO_/",
    "title": "돈 얘기가 어렵게만 느껴졌다면, 오늘부터 골든튠!",
-   "reach": 105,
+   "reach": 106,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 121,
-   "ig_reels_avg_watch_time": 1484
+   "views": 122,
+   "ig_reels_avg_watch_time": 1544
   },
   {
    "id": "18506631565100243",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-09T07:53:55+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfg1zTxFChy/",
    "title": "돈 얘기가 어렵게만 느껴졌다면, 오늘부터 골든튠!",
-   "reach": 10,
+   "reach": 11,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 25
+   "total_interactions": 4,
+   "views": 28
   },
   {
    "id": "18651655732010125",
@@ -605,23 +652,23 @@
    "saved": 7,
    "shares": 0,
    "total_interactions": 13,
-   "views": 1503,
-   "ig_reels_avg_watch_time": 5291
+   "views": 1504,
+   "ig_reels_avg_watch_time": 5289
   },
   {
    "id": "18435063865196590",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-08T12:00:14+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfetNIWIE7D/",
    "title": "VOO, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 7,
+   "reach": 9,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 20
+   "total_interactions": 4,
+   "views": 24
   },
   {
    "id": "18153180862558224",
@@ -694,11 +741,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfcq_bXl1rw/",
    "title": "TIGER 미국S&P500, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 11,
+   "reach": 12,
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 19
+   "views": 22
   },
   {
    "id": "18132207886876092",
@@ -724,42 +771,42 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Dfa7fGcGRtR/",
    "title": "SCHD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 2591,
+   "reach": 2601,
    "saved": 17,
    "shares": 1,
    "total_interactions": 28,
-   "views": 2978,
-   "ig_reels_avg_watch_time": 9090
+   "views": 2983,
+   "ig_reels_avg_watch_time": 9076
   },
   {
    "id": "17873765601645383",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-06T17:18:03+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfaH_TVkilp/",
    "title": "SCHD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 12,
+   "reach": 14,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 22
+   "total_interactions": 4,
+   "views": 24
   },
   {
    "id": "18060771512559422",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-06T04:51:20+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfYyhQNDw4k/",
    "title": "연 4% 적금, 이자가 생각보다 적어서 놀라신 적 있나요? 🥚",
-   "reach": 15,
+   "reach": 16,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 28
+   "total_interactions": 4,
+   "views": 33
   },
   {
    "id": "17977310595149352",
@@ -774,8 +821,8 @@
    "saved": 9,
    "shares": 4,
    "total_interactions": 19,
-   "views": 2150,
-   "ig_reels_avg_watch_time": 6969
+   "views": 2152,
+   "ig_reels_avg_watch_time": 6966
   },
   {
    "id": "17915188911500189",
@@ -820,7 +867,7 @@
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 31
+   "views": 33
   },
   {
    "id": "17909833536665264",
