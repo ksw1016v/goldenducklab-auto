@@ -399,6 +399,14 @@
    "slug": "13",
    "media_id": "18136031170708824",
    "at": "2026-11-14 03:08:36"
+  },
+  {
+   "no": 2,
+   "slug": "quiz-02",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18108084476459015",
+   "at": "2026-11-14 10:01:52"
   }
  ],
  "etf_published": [
@@ -500,9 +508,11 @@
   "18222705616351367"
  ],
  "quiz_published": [
-  "SMH"
+  "SMH",
+  "coffee:QQQ/SCHD"
  ],
  "quiz_media": {
-  "17875890930636919": "quiz/episodes/01.json"
+  "17875890930636919": "quiz/episodes/01.json",
+  "18108084476459015": "quiz/episodes/02.json"
  }
 }
