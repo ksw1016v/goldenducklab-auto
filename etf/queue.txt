@@ -1,38 +1,39 @@
-# ETF 황금알 발행 순서 (월·수·금 21:00 KST에 위에서부터 하나씩) · 2026-11-11 인지도 순으로 다시 정렬
-# 위쪽: 서학개미 보관금액 상위(한국예탁결제원 2026.10.1 기준)와 국내 개인 순매수 상위 ETF를 먼저 배치
-# 레버리지·인버스·상장 5년 미만 ETF도 인지도가 높으면 포함 (위험 안내 문구는 make_episode.py가 자동으로 넣음)
+# ETF 황금알 발행 순서 (매일 21:00 KST, 릴스로 위에서부터 하나씩) · 2026-11-15 다시 정렬
+# 기준: 성과 분석에서 '유명 티커 + 큰 결과 숫자' 릴스가 도달 1~4위(SCHD 2,601 · QQQ 1,850 · VOO 1,357)
+# → 국내 투자자 매수 순위가 높고 10년 결과 숫자가 강한 종목을 앞으로. 레버리지·인버스 포함(위험 안내 자동 삽입)
+# 서학개미 보관금액 상위(예탁결제원 2026.10.1)·국내 개인 순매수 상위를 함께 반영
 SOXL  # Direxion Daily Semiconductor Bull 3X Shares
 TQQQ  # ProShares UltraPro QQQ
-069500  # KODEX 200
-QQQM  # Invesco NASDAQ 100 ETF
-379810  # KODEX 미국나스닥100TR
-458730  # TIGER 미국배당다우존스
-QLD  # ProShares Ultra QQQ
-JEPQ  # JPMorgan Nasdaq Equity Premium Income ETF
-379800  # KODEX 미국S&P500TR
-233740  # KODEX 코스닥150레버리지
-SOXX  # iShares Semiconductor ETF
-122630  # KODEX 레버리지
-UPRO  # ProShares UltraPro S&P500
 SMH  # VanEck Semiconductor ETF
+122630  # KODEX 레버리지
+069500  # KODEX 200
+QLD  # ProShares Ultra QQQ
+SOXX  # iShares Semiconductor ETF
+091160  # KODEX 반도체
+UPRO  # ProShares UltraPro S&P500
+381180  # TIGER 미국필라델피아반도체나스닥
+233740  # KODEX 코스닥150레버리지
+102110  # TIGER 200
+379810  # KODEX 미국나스닥100TR
+QQQM  # Invesco NASDAQ 100 ETF
+252670  # KODEX 200선물인버스2X
+JEPQ  # JPMorgan Nasdaq Equity Premium Income ETF
+458730  # TIGER 미국배당다우존스
+VGT  # Vanguard Information Technology ETF
+XLK  # Technology Select Sector SPDR Fund
+379800  # KODEX 미국S&P500TR
+EWY  # iShares MSCI South Korea ETF
 JEPI  # JPMorgan Equity Premium Income ETF
 IVV  # iShares Core S&P 500 ETF
-381180  # TIGER 미국필라델피아반도체나스닥
-102110  # TIGER 200
-229200  # KODEX 코스닥150
-252670  # KODEX 200선물인버스2X
-091160  # KODEX 반도체
 GLD  # SPDR Gold Shares
 381170  # TIGER 미국테크TOP10 INDXX
 QYLD  # Global X NASDAQ 100 Covered Call ETF
+229200  # KODEX 코스닥150
 VTI  # Vanguard Total Stock Market ETF
 VT  # Vanguard Total World Stock ETF
 DIA  # SPDR Dow Jones Industrial Average ETF
 VIG  # Vanguard Dividend Appreciation ETF
-VGT  # Vanguard Information Technology ETF
 TLT  # iShares 20+ Year Treasury Bond ETF
-EWY  # iShares MSCI South Korea ETF
-XLK  # Technology Select Sector SPDR Fund
 VYM  # Vanguard High Dividend Yield ETF
 IWM  # iShares Russell 2000 ETF
 161510  # PLUS 고배당주

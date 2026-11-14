@@ -2,14 +2,14 @@ name: etf-post
 
 on:
   schedule:
-    # 목표 21:00 KST 월·수·금 · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
-    - cron: "47 11 * * 1,3,5"
-    - cron: "53 11 * * 1,3,5"
-    - cron: "7 12 * * 1,3,5"
-    - cron: "23 12 * * 1,3,5"
-    - cron: "47 12 * * 1,3,5"
-    - cron: "17 13 * * 1,3,5"
-    - cron: "47 13 * * 1,3,5"
+    # 목표 21:00 KST 매일 · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
+    - cron: "47 11 * * *"
+    - cron: "53 11 * * *"
+    - cron: "7 12 * * *"
+    - cron: "23 12 * * *"
+    - cron: "47 12 * * *"
+    - cron: "17 13 * * *"
+    - cron: "47 13 * * *"
   workflow_dispatch:
 
 permissions:
@@ -57,7 +57,7 @@ jobs:
         if: steps.pick.outputs.path != ''
         run: |
           python3 render.py ${{ steps.pick.outputs.path }}
-          python3 reel.py ${{ steps.pick.outputs.path }} || echo "::warning::릴스 영상 생성 실패 (카드뉴스는 그대로 게시)"
+          python3 reel.py ${{ steps.pick.outputs.path }} || echo "::warning::릴스 영상 생성 실패 (카드뉴스로 대신 게시)"
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
           git add etf/episodes out/
@@ -66,29 +66,22 @@ jobs:
           git push
           echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
-      - name: 인스타그램 게시
+      - name: 릴스 게시 (2026-11-15부터 릴스가 본편, 영상이 없을 때만 카드뉴스로 대신 게시)
         if: steps.pick.outputs.path != ''
-        env:
-          IG_TOKEN: ${{ secrets.IG_TOKEN }}
-        run: |
-          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
-          sleep 20
-          python3 publish.py post ${{ steps.pick.outputs.path }} etf_published ${{ steps.pick.outputs.ticker }}
-          git add state.json
-          git commit -m "published ETF ${{ steps.pick.outputs.ticker }}"
-          git pull --rebase
-          git push
-
-      - name: 릴스 게시
-        if: steps.pick.outputs.path != ''
-        continue-on-error: true
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: |
           SLUG=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" ${{ steps.pick.outputs.path }})
-          if [ ! -f "out/$SLUG/reel.mp4" ]; then echo "::warning::릴스 영상이 없어 건너뜀"; exit 0; fi
           export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 20
+          if [ ! -f "out/$SLUG/reel.mp4" ]; then
+            echo "::warning::릴스 영상이 없어 카드뉴스로 게시"
+            python3 publish.py post ${{ steps.pick.outputs.path }} etf_published ${{ steps.pick.outputs.ticker }}
+          else
           python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.ticker }}
+          fi
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
           git add state.json
           git commit -m "published ETF reel ${{ steps.pick.outputs.ticker }}"
           git pull --rebase

@@ -355,13 +355,14 @@ def scenes_brief(ep):
     pre = "$" if h["key"] in ("wti", "gold", "btc") else ""
     suf = "원" if h["key"] in ("usdkrw", "jpykrw", "eurkrw") else ("%" if h["key"] == "us10y" else "")
     base = h["last"] * (1.04 if h["dir"] == "down" else 0.96)
-    subs = "".join(f'<div data-in="{2.4 + 0.45 * i:.2f}">{esc(s)}</div>' for i, s in enumerate(h["sub"]))
-    out.append((f'''<div class="main"><div class="kick" data-in="0.15">{when(ep)} · {esc(ep["series"])}</div>
-<div class="hookname" data-in="0.4">{esc(h["name"])}</div>
-<div class="hookphrase {h["dir"]}" data-pop="0.8">{esc(h["phrase"])}</div>
-<div class="hookval" data-in="1.3"><span data-count="1.3,1.0" data-from="{base}" data-to="{h["last"]}" data-fmt="num" data-dec="{dec}" data-pre="{pre}" data-suf="{suf}">{esc(h["value"])}</span></div>
-<div class="hookchg {h["dir"]}" data-in="1.9">{esc(h["chg"])}</div>
-<div class="hooksub">{subs}</div></div>{duck.format(3.2)}''', 5.6))
+    # 2026-11-15: 평균 시청 2.7초 → 첫 화면에 지표 이름과 '하루 새 6.0% 급락'이 바로 보이게 앞당김
+    subs = "".join(f'<div data-in="{1.6 + 0.45 * i:.2f}">{esc(s)}</div>' for i, s in enumerate(h["sub"]))
+    out.append((f'''<div class="main"><div class="kick" data-in="0">{when(ep)} · {esc(ep["series"])}</div>
+<div class="hookname" data-in="0">{esc(h["name"])}</div>
+<div class="hookphrase {h["dir"]}" data-pop="0.1">{esc(h["phrase"])}</div>
+<div class="hookval" data-in="0.5"><span data-count="0.5,0.8" data-from="{base}" data-to="{h["last"]}" data-fmt="num" data-dec="{dec}" data-pre="{pre}" data-suf="{suf}">{esc(h["value"])}</span></div>
+<div class="hookchg {h["dir"]}" data-in="0.9">{esc(h["chg"])}</div>
+<div class="hooksub">{subs}</div></div>{duck.format(2.4)}''', 5.2))
 
     # 2) 미국 증시
     cards = "".join(mk_card(r, 0.6 + 0.45 * i, small=i >= 2, sp=i < 2) for i, r in enumerate(ep["us"]))

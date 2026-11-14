@@ -153,13 +153,19 @@ def post_reel(path, state_val, repost=False):
     print("릴스 게시 완료 media id:", res["id"])
     st = load_state()
     if not repost:
-        key = ("income_reels" if slug.startswith("inc-") else "brief_published" if slug.startswith("brief-")
+        key = ("basic_reels" if slug.isdigit() else "income_reels" if slug.startswith("inc-") else "brief_published" if slug.startswith("brief-")
                else "toon_reels" if slug.startswith("toon-") else "quiz_published" if slug.startswith("quiz-") else "etf_reels")
         st.setdefault(key, []).append(state_val)
         if slug.startswith("quiz-"):
             st.setdefault("quiz_media", {})[res["id"]] = str(pathlib.Path(path))   # 댓글 DM 봇이 이 게시물의 정답을 찾는 표
         if slug.startswith("toon-") and state_val not in st.get("toon_published", []):
             st.setdefault("toon_published", []).append(state_val)   # 골든튠은 릴스가 본편
+        # 2026-11-15부터 ETF·현금흐름·기초도 릴스가 본편(캐러셀 안 올림) → 대기열 진행 기록도 함께 남김
+        main = ("etf_published" if slug.startswith("etf-") else "income_published" if slug.startswith("inc-")
+                else "published" if slug.isdigit() else None)
+        val = int(slug) if slug.isdigit() else state_val
+        if main and val not in st.get(main, []):
+            st.setdefault(main, []).append(val)
     st.setdefault("log", []).append({"no": ep["no"], "slug": slug, "type": "reel", "repost": repost, "media_id": res["id"], "at": time.strftime("%Y-%m-%d %H:%M:%S")})
     STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1))
 

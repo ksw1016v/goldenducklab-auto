@@ -2,7 +2,7 @@ name: income-post
 
 on:
   schedule:
-    # 목표 21:00 KST 화·목 · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
+    # 목표 21:20 KST 화·목 (ETF 릴스 뒤) · 정각 혼잡을 피해 여러 번 실행, 먼저 조건 맞는 실행만 게시(guard.py)
     - cron: "47 11 * * 2,4"
     - cron: "53 11 * * 2,4"
     - cron: "7 12 * * 2,4"
@@ -57,7 +57,7 @@ jobs:
         if: steps.pick.outputs.path != ''
         run: |
           python3 render.py ${{ steps.pick.outputs.path }}
-          python3 reel.py ${{ steps.pick.outputs.path }} || echo "::warning::릴스 영상 생성 실패 (카드뉴스는 그대로 게시)"
+          python3 reel.py ${{ steps.pick.outputs.path }} || echo "::warning::릴스 영상 생성 실패 (카드뉴스로 대신 게시)"
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
           git add etf/income_episodes out/
@@ -66,29 +66,22 @@ jobs:
           git push
           echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
-      - name: 인스타그램 게시
+      - name: 릴스 게시 (2026-11-15부터 릴스가 본편, 영상이 없을 때만 카드뉴스로 대신 게시)
         if: steps.pick.outputs.path != ''
-        env:
-          IG_TOKEN: ${{ secrets.IG_TOKEN }}
-        run: |
-          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
-          sleep 20
-          python3 publish.py post ${{ steps.pick.outputs.path }} income_published ${{ steps.pick.outputs.ticker }}
-          git add state.json
-          git commit -m "published income ${{ steps.pick.outputs.ticker }}"
-          git pull --rebase
-          git push
-
-      - name: 릴스 게시
-        if: steps.pick.outputs.path != ''
-        continue-on-error: true
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: |
           SLUG=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" ${{ steps.pick.outputs.path }})
-          if [ ! -f "out/$SLUG/reel.mp4" ]; then echo "::warning::릴스 영상이 없어 건너뜀"; exit 0; fi
           export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 20
+          if [ ! -f "out/$SLUG/reel.mp4" ]; then
+            echo "::warning::릴스 영상이 없어 카드뉴스로 게시"
+            python3 publish.py post ${{ steps.pick.outputs.path }} income_published ${{ steps.pick.outputs.ticker }}
+          else
           python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.ticker }}
+          fi
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
           git add state.json
           git commit -m "published income reel ${{ steps.pick.outputs.ticker }}"
           git pull --rebase

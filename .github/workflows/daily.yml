@@ -54,6 +54,7 @@ jobs:
         run: |
           NO=$(printf "%02d" ${{ steps.pick.outputs.no }})
           python3 render.py episodes/$NO.json
+          python3 card_reel.py episodes/$NO.json || echo "::warning::릴스 영상 생성 실패 (카드뉴스로 대신 게시)"
           git config user.name "goldenducklab-bot"
           git config user.email "actions@users.noreply.github.com"
           git add out/$NO
@@ -69,7 +70,12 @@ jobs:
         run: |
           export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
           sleep 20
-          python3 publish.py post ${{ steps.pick.outputs.no }}
+          NO=$(printf "%02d" ${{ steps.pick.outputs.no }})
+          if [ -f "out/$NO/reel.mp4" ]; then
+            python3 publish.py reel episodes/$NO.json ${{ steps.pick.outputs.no }}
+          else
+            python3 publish.py post ${{ steps.pick.outputs.no }}
+          fi
           git add state.json
           git commit -m "published episode ${{ steps.pick.outputs.no }}"
           git pull --rebase
