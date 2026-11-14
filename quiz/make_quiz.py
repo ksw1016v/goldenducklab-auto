@@ -183,7 +183,7 @@ AB_REPLIES = ["정답 DM 보냈어요 📩 안 보이면 '메시지 요청함'�
 
 
 def build_coffee_ab(t, no):
-    """A/B 선택형: 보기 두 개 중 고르면 끝. 댓글에 A 또는 B만 쓰면 돼서 참여 문턱이 낮다."""
+    """A/B 선택형: 보기 두 개 중 고르면 끝. 댓글은 '골든덕 A'처럼 키워드와 함께 (한 글자 댓글은 인스타가 스팸으로 숨겨 API에 안 보임)."""
     right, wrong = t.split("/")
     er, ew = load(right), load(wrong)
     k = 1.5
@@ -202,12 +202,12 @@ def build_coffee_ab(t, no):
     ch = ep["choices"]
     ep["caption"] = (
         f"커피값 10년 모았더니 {won(val[er['ticker']])} ☕ A일까 B일까?\n"
-        f"댓글에 A 또는 B만 남기면 정답 DM 📩\n\n"
+        f"댓글에 '골든덕 A' 또는 '골든덕 B' 남기면 정답 DM 📩\n\n"
         "오늘의 황금알 퀴즈예요.\n\n"
         "✔ 계산법\n하루 5,000원 × 30일 = 매달 15만원을 10년 동안 넣었다면?\n\n"
         f"✔ 보기\nA. {ch[0]['ticker']} ({ch[0]['invests']})\nB. {ch[1]['ticker']} ({ch[1]['invests']})\n\n"
         f"✔ 결과\n넣은 돈 {won(inv)} → 지금 {won(val[er['ticker']])}\n\n"
-        "✔ 참여 방법\n댓글에 A 또는 B\n→ 정답과 '다른 쪽을 골랐다면 얼마였는지'까지 DM으로 보내드려요 📩\n"
+        "✔ 참여 방법\n댓글에 '골든덕 A' 또는 '골든덕 B'\n→ 정답과 '다른 쪽을 골랐다면 얼마였는지'까지 DM으로 보내드려요 📩\n"
         "(DM이 안 보이면 '메시지 요청함'을 확인해 주세요. 팔로우하면 받은 편지함으로 바로 와요)\n\n"
         f"📌 {asof} 기준, 매달 같은 날 15만원씩 사고 배당은 다시 투자했다고 계산했어요. 원달러 환율을 반영했어요. 세금·수수료는 빼지 않았어요.\n"
         "과거 수익률은 미래 수익을 보장하지 않으며, 특정 종목 추천이 아닌 정보 제공이에요.\n\n"
@@ -316,7 +316,7 @@ def answer_dm(ep, e):
 def dm_sheet(ep):
     d = ep["dm"]
     return (f"[황금알 퀴즈 #{ep['no']:02d} · {ep.get('qtype', 'dca')} · 정답 {ep['ticker']}] 자동 대댓글·DM 문구\n\n"
-            f"■ 키워드: {'A 또는 B (보기 티커나 ' + repr(ep['keyword']) + '도 인식)' if ep.get('ab') else ep['keyword']}\n\n"
+            f"■ 키워드: {'골든덕 A / 골든덕 B (A·B만 써도, 보기 티커나 ' + repr(ep['keyword']) + '도 인식)' if ep.get('ab') else ep['keyword']}\n\n"
             "■ 자동 대댓글 (돌려쓰기)\n" + "\n".join(f"- {r}" for r in d["comment_replies"]) + "\n\n"
             + "".join(f"■ '{k}' 고른 사람에게 보내는 DM\n{v}\n\n" for k, v in d.get("answer_by", {}).items())
             + f"■ {'A/B 없이 키워드만 남긴 사람에게 보내는 DM' if d.get('answer_by') else 'DM'}\n{d['answer']}\n")

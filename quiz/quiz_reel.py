@@ -96,12 +96,12 @@ def scenes_quiz(ep):
 <div class="chs"><div class="ch" data-pop="0.5"><div class="k">A</div><div><div class="tk">{esc(c[0]["ticker"])}</div><div class="iv">{esc(c[0]["invests"])}</div></div></div>
 <div class="vs" data-pop="1.1">VS</div>
 <div class="ch" data-pop="1.4"><div class="k">B</div><div><div class="tk">{esc(c[1]["ticker"])}</div><div class="iv">{esc(c[1]["invests"])}</div></div></div></div>
-<div class="h1" style="margin-top:40px" data-in="2.4">댓글에 <mark>A 또는 B</mark>만!</div></div>''', 4.6))
+<div class="h1" style="margin-top:40px" data-in="2.4">댓글에 <mark>골든덕 A</mark> 또는 <mark>골든덕 B</mark></div></div>''', 4.6))
         out.append((Q_CSS + f'''<div class="main" style="text-align:center"><div class="h1" data-in="0.1">정답 공개까지</div>
 <div class="cnt"><span data-win="0.4,1.2">3</span><span data-win="1.2,2.0">2</span><span data-win="2.0,2.8">1</span><span data-win="2.8,9">🔒</span></div>
 <div class="h1" data-in="3.0">정답과 차이는 <mark>DM으로</mark> 공개!</div></div>''', 4.0))
         out.append((Q_CSS + f'''<div class="main"><div class="lock" data-in="0.1">참여 방법 📩</div>
-<div class="step" data-pop="0.4"><div class="n">1</div><div class="t">댓글에 A 또는 B<small>정답 + 두 ETF 차이를 DM으로 보내드려요</small></div></div>
+<div class="step" data-pop="0.4"><div class="n">1</div><div class="t">댓글에 '골든덕 A'<br>또는 '골든덕 B'<small>정답 + 두 ETF 차이를 DM으로 보내드려요</small></div></div>
 <div class="step" data-pop="1.0"><div class="n">2</div><div class="t">DM이 안 보이면<br>'메시지 요청함'<small>@golden_duck_lab 팔로우하면 받은 편지함으로 바로 와요</small></div></div>
 <div class="disc" data-in="1.5">{esc(ep["asof"])} 기준 · 배당 재투자 · 원달러 환율 반영 · 과거 수익률은 미래 수익을 보장하지 않음 · 특정 종목 추천 아님</div></div>
 <img class="duck" data-pop="1.8" src="{uri("duck.png")}">''', 4.6))
@@ -140,7 +140,7 @@ def cover_quiz(ep):
 <div class="qbig" style="margin-top:20px">{won(q["value"])}</div>
 <div class="chs" style="margin-top:36px"><div class="ch"><div class="k">A</div><div class="tk">{esc(c[0]["ticker"])}</div></div>
 <div class="ch"><div class="k">B</div><div class="tk">{esc(c[1]["ticker"])}</div></div></div>
-<div class="h1" style="margin-top:30px">댓글에 <mark>A 또는 B</mark></div></div>'''
+<div class="h1" style="margin-top:30px">댓글에 <mark>골든덕 A·B</mark></div></div>'''
     if qt == "coffee":
         return Q_CSS + f'''<div class="main cov"><div class="warn">⚠️ 황금알 퀴즈</div>
 <div class="h1">매일 커피 한 잔 ☕<br>10년 모았더니</div>
