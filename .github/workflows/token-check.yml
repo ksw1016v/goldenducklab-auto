@@ -28,3 +28,7 @@ jobs:
         run: |
           URL="https://cdn.jsdelivr.net/gh/ksw1016v/goldenducklab-auto@c77ea2a37dafca88e96354263f78c1315ed55e26/gifts/dividend-calendar.jpg"
           curl -s -X POST "https://graph.facebook.com/v23.0/17841465585453824/media" --data-urlencode "image_url=$URL" --data-urlencode "access_token=$IG_TOKEN" -d "is_carousel_item=true" | python3 -c "import json,sys;d=json.load(sys.stdin);print('게시 준비 결과:', '성공' if d.get('id') else '실패', d.get('error',{}).get('message',''))"
+      - name: 퀴즈 댓글 진단
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python3 quiz/dm_debug.py
