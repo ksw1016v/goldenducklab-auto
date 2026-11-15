@@ -1,25 +1,35 @@
-# # 비교할 계정 (없는 아이디·개인 계정은 자동으로 건너뜀)
+# 비교할 계정 (없는 아이디·개인 계정은 자동으로 건너뜀)
+# 국내 재테크툰·크리에이터
+donsil_munji
+instatoon_stock
+tjgmltls
+upplan0413
+jaeju_life
+hibi_toon
+ajinebakery
 bokirichfamily
-uppity.co.kr
-uppity_official
-toss.im
-banksalad
-weolbu_official
-syukaworld
-sampro_tv
-donsilmungi
-tigeretf
-tiger_etf_official
-samsung_kodex
-kodex_etf
-kiwoomam
 moneygraphy
-moneygraphy_official
-hankyung_money
-economy_insight
+uppity.co.kr
+newneek_official
+# 국내 금융 브랜드
+weolbu_official
+toss.im
 kbank_official
 kakaobank
+banksalad
+syukaworld
+# 해외 재테크 크리에이터
 humphreytalks
-investwithqueenie
+yourrichbff
+herfirst100k
 thefinancialdiet
-dividendology
+investwithqueenie
+nischa
+andreirjikh
+minoritymindset
+grahamstephan
+personalfinanceclub
+thebudgetmom
+financialtortoise
+ryanscribner
+calltoleap

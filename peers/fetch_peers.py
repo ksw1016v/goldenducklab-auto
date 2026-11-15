@@ -4,7 +4,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 from publish import api_base, IG_USER_ID
 ROOT = pathlib.Path(__file__).parent
 TOK = os.environ["IG_TOKEN"]
-F = "username,name,biography,followers_count,media_count,media.limit(30){caption,media_product_type,media_type,timestamp,like_count,comments_count,permalink}"
+F = "username,name,biography,followers_count,media_count,media.limit(50){caption,media_product_type,media_type,timestamp,like_count,comments_count,permalink}"
 out = {}
 for u in [l.strip().lstrip("@") for l in (ROOT / "list.txt").read_text().splitlines() if l.strip() and not l.startswith("#")]:
     q = urllib.parse.urlencode({"fields": f"business_discovery.username({u}){{{F}}}", "access_token": TOK})
@@ -13,7 +13,7 @@ for u in [l.strip().lstrip("@") for l in (ROOT / "list.txt").read_text().splitli
             d = json.loads(r.read()).get("business_discovery", {})
         ms = d.pop("media", {}).get("data", [])
         d["media"] = [{**{k: m.get(k) for k in ("media_product_type", "media_type", "timestamp", "like_count", "comments_count", "permalink")},
-                       "title": (m.get("caption") or "").split("\n")[0][:70]} for m in ms]
+                       "title": (m.get("caption") or "").split("\n")[0][:90], "caption": (m.get("caption") or "")[:600]} for m in ms]
         out[u] = d
         print("ok", u, d.get("followers_count"))
     except urllib.error.HTTPError as e:
