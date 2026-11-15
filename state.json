@@ -415,6 +415,12 @@
    "repost": false,
    "media_id": "18642474514003015",
    "at": "2026-11-14 21:59:39"
+  },
+  {
+   "no": 10,
+   "slug": "etf-10",
+   "media_id": "18083688953379659",
+   "at": "2026-11-15 11:59:02"
   }
  ],
  "etf_published": [
@@ -426,7 +432,8 @@
   "133690",
   "SPECIAL-CAL10",
   "SPECIAL-CAL10-2",
-  "SPECIAL-CAL10-3"
+  "SPECIAL-CAL10-3",
+  "SOXL"
  ],
  "etf_reels": [
   "QQQ",
