@@ -5,12 +5,17 @@ GitHub 예약 실행은 늦거나 겹칠 수 있어 목표 시간 앞뒤로 여�
 2026-11-15 일정 (성과 분석 반영): 모든 시리즈 릴스가 본편, ETF는 다시 매일
   매일 07:00 경제 브리핑(일 = 이번 주 정리, 월 = 한 달 정리) · 매일 21:00 ETF
   월·수·금 10:00 골든튠 · 화·목·토 12:10 기초 · 화·목 21:00 현금흐름(ETF 뒤에 이어서)
+
+2026-11-15 오후 개편 (잘되는 계정 비교 분석: 정보 요약은 바닥, 사람 이야기·감정이 터짐 → 양을 줄이고 이야기형으로)
+  매일 21:00 ETF 적립 릴스(유지) · 화·금 12:10 골든에그의 월급일기(새 이야기 시리즈)
+  목 21:20 현금흐름 · 일 19:00 선물형(퀴즈는 중단) · 경제 브리핑은 큰 날·일요일만(econ/bigday.py)
+  기초편·예전 골든튠은 월급일기로 대체해 중단
 """
 import json, os, sys, pathlib, datetime
 
-TARGET = {"quiz": (19, 0), "brief": (7, 0), "basic": (12, 10), "income": (21, 20), "etf": (21, 0), "toon": (10, 0)}
+TARGET = {"quiz": (19, 0), "brief": (7, 0), "basic": (12, 10), "income": (21, 20), "etf": (21, 0), "toon": (10, 0), "story": (12, 10)}
 # 게시 요일 (월=0 … 일=6). 여기에 없는 요일엔 예약 실행이 올리지 않아요(수동 실행은 요일 무시)
-DAYS = {"quiz": {5, 6}, "brief": {0, 1, 2, 3, 4, 5, 6}, "basic": {1, 3, 5}, "income": {1, 3}, "etf": {0, 1, 2, 3, 4, 5, 6}, "toon": {0, 2, 4}}
+DAYS = {"quiz": {6}, "brief": {0, 1, 2, 3, 4, 5, 6}, "basic": set(), "income": {3}, "etf": {0, 1, 2, 3, 4, 5, 6}, "toon": set(), "story": {1, 4}}
 LATE = {"brief": (10, 30)}   # 아침 브리핑은 이 시각이 지나면 그날은 건너뜀(예약 실행만)   # 한국 시간 게시 목표
 EARLY = datetime.timedelta(minutes=15)                             # 목표보다 이만큼까지만 먼저 올려도 됨
 
@@ -25,7 +30,7 @@ skip = 0
 for e in log:
     slug = str(e.get("slug", ""))
     k = ("brief" if slug.startswith("brief-") else "etf" if slug.startswith("etf-") else "income" if slug.startswith("inc-")
-         else "toon" if slug.startswith("toon-") else "quiz" if slug.startswith("quiz-") else "basic")
+         else "toon" if slug.startswith("toon-") else "quiz" if slug.startswith("quiz-") else "story" if slug.startswith("story-") else "basic")
     if e.get("repost"):
         continue  # 재게시 기록은 하루 1편 계산에서 빼요(2026-11-15부터 모든 시리즈 릴스가 본편이라 릴스도 셈)
     if k != kind:

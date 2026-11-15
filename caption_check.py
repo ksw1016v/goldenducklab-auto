@@ -53,6 +53,8 @@ def series_of(ep, path):
         return "income"
     if slug.startswith("brief-") or "econ/" in p:
         return "brief"
+    if slug.startswith("story-") or "story/" in p:
+        return "story"
     if slug.startswith("toon-") or "toon/" in p:
         return "toon"
     return "basic"
@@ -109,11 +111,11 @@ def check(caption, series="basic"):
         add("WARN", "댓글 유도", "댓글 유도 문장이 없어요")
 
     # 투자 정보 시리즈 면책 문구
-    if series in ("etf", "income"):
-        ok = ("과거 수익률" in text or "과거 성과" in text) if series == "etf" else \
+    if series in ("etf", "income", "story"):
+        ok = ("과거 수익률" in text or "과거 성과" in text) if series in ("etf", "story") else \
              ("확정된 금액이 아니" in text or "과거 수익률" in text or "보장하지 않" in text)
         if not ok:
-            need = "'과거 수익률은 미래 수익을 보장하지 않음'" if series == "etf" else "'배당은 확정된 금액이 아님'"
+            need = "'과거 수익률은 미래 수익을 보장하지 않음'" if series in ("etf", "story") else "'배당은 확정된 금액이 아님'"
             add("ERROR", "면책 문구", f"{need} 문구가 없어요")
         if "추천" not in text:
             add("ERROR", "면책 문구", "'특정 종목 추천 아님' 문구가 없어요")

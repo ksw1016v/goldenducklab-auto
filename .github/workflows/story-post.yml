@@ -1,0 +1,78 @@
+name: story-post
+
+# 골든에그의 월급일기: 이야기형 릴스만 게시 (화·금 12:10 KST, Claude 예약 작업이 실행 신호)
+# data_only=1 이면 실제 데이터(story/data.json)만 갱신하고 끝
+on:
+  workflow_dispatch:
+    inputs:
+      data_only: { default: "0" }
+      episode: { default: "next" }
+
+permissions:
+  contents: write
+
+concurrency: instagram-post
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 오늘 이미 올렸는지 확인
+        id: guard
+        run: |
+          git pull -q origin main
+          if [ "${{ inputs.data_only }}" = "1" ]; then echo "skip=0"; else python3 guard.py story; fi >> "$GITHUB_OUTPUT"
+
+      - name: 실제 데이터 갱신 (최대 하락률 등)
+        if: steps.guard.outputs.skip != '1'
+        run: |
+          pip install -q yfinance pandas
+          python3 story/fetch_story.py || echo "::warning::월급일기 데이터 갱신 실패, 이전 데이터 사용"
+          git config user.name "goldenducklab-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add story/data.json && git commit -qm "story data" || true
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin main && break; sleep 5; done
+
+      - name: 다음 편 원고
+        if: steps.guard.outputs.skip != '1' && inputs.data_only != '1'
+        id: pick
+        run: |
+          python3 story/make_story.py ${{ inputs.episode }} >> "$GITHUB_OUTPUT"
+          P=$(grep '^path=' "$GITHUB_OUTPUT" | tail -1 | cut -d= -f2)
+          if [ -z "$P" ]; then echo "::warning::월급일기 대기열이 비었어요(story/queue.txt)"; exit 0; fi
+          python3 caption_check.py $P
+          echo "slug=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" $P)" >> "$GITHUB_OUTPUT"
+
+      - name: 한글 폰트와 브라우저
+        if: steps.pick.outputs.path != ''
+        run: |
+          mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
+          pip install -q playwright==1.48.0 numpy imageio-ffmpeg
+          if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
+
+      - name: 릴스 만들고 저장소에 올리기
+        if: steps.pick.outputs.path != ''
+        run: |
+          python3 reel.py ${{ steps.pick.outputs.path }}
+          git add story/ready out/${{ steps.pick.outputs.slug }}
+          git commit -m "render ${{ steps.pick.outputs.slug }}" || true
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin main && break; sleep 5; done
+          echo "SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: 릴스 게시
+        if: steps.pick.outputs.path != ''
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          export IMAGE_BASE="https://cdn.jsdelivr.net/gh/${{ github.repository }}@${SHA}"
+          sleep 45
+          python3 publish.py reel ${{ steps.pick.outputs.path }} ${{ steps.pick.outputs.no }}
+          git add state.json
+          git commit -m "published story ${{ steps.pick.outputs.no }}"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin main && break; sleep 5; done

@@ -54,6 +54,9 @@ window.setT = (t) => {
   document.querySelectorAll('[data-bar]').forEach(el => {
     const [s, d] = el.dataset.bar.split(',').map(Number);
     el.style.transform = `scaleX(${1 - clamp((t - s) / d)})`; });
+  document.querySelectorAll('[data-grow]').forEach(el => {
+    const [s, d, to] = el.dataset.grow.split(',').map(Number);
+    el.style.transform = `scaleX(${to * ease(clamp((t - s) / d))})`; });
   document.querySelectorAll('[data-blink]').forEach(el => {
     const s = +el.dataset.blink;
     el.style.opacity = t < s ? 0 : (0.35 + 0.65 * Math.abs(Math.sin((t - s) * 4))) * out; });

@@ -154,7 +154,8 @@ def post_reel(path, state_val, repost=False):
     st = load_state()
     if not repost:
         key = ("basic_reels" if slug.isdigit() else "income_reels" if slug.startswith("inc-") else "brief_published" if slug.startswith("brief-")
-               else "toon_reels" if slug.startswith("toon-") else "quiz_published" if slug.startswith("quiz-") else "etf_reels")
+               else "toon_reels" if slug.startswith("toon-") else "quiz_published" if slug.startswith("quiz-")
+               else "story_published" if slug.startswith("story-") else "etf_reels")
         st.setdefault(key, []).append(state_val)
         if slug.startswith("quiz-"):
             st.setdefault("quiz_media", {})[res["id"]] = str(pathlib.Path(path))   # 댓글 DM 봇이 이 게시물의 정답을 찾는 표

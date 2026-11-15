@@ -39,6 +39,7 @@ jobs:
         run: |
           pip install -q yfinance pandas numpy playwright==1.48.0 imageio-ffmpeg
           python econ/fetch.py
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ] && ! python econ/bigday.py; then echo "::notice::큰 움직임이 없는 날이라 브리핑을 건너뜀"; exit 0; fi
           P=$(python econ/brief.py)
           SLUG=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" $P)
           if grep -q "\"$SLUG\"" state.json; then echo "::warning::$SLUG 은 이미 올렸어요(새 거래일 데이터 없음)"; exit 0; fi

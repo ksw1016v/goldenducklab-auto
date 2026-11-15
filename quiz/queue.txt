@@ -1,13 +1,5 @@
-# 황금알 퀴즈 대기열 · 유형:티커 (유형 없으면 dca=월 10만원 10년 / coffee=매일 커피값, "정답/오답"이면 A·B 선택형 / trap=월 100만원 함정 / gift=정리표 선물)
-# 토·일 19:00 게시
+# 댓글 퍼널 대기열 · 2026-11-15부터 퀴즈는 중단, 일 19:00 선물형(gift)만
+# (예전 퀴즈 유형 dca/coffee/trap 은 make_quiz.py 에 남아 있어 다시 쓸 수 있어요)
 SMH
 coffee:QQQ/SCHD
 gift:calendar
-trap:AUTO
-XLK
-SOXX
-VGT
-091160
-EWY
-XLE
-VUG
