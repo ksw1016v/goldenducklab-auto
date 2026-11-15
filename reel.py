@@ -13,6 +13,8 @@ from reel_anim import ANIM_JS, scenes, cover, scenes_income, cover_income
 from econ.brief import scenes_brief, cover_brief, BRIEF_REEL, kday
 from etf.special_reel import scenes_special, cover_special
 from quiz.quiz_reel import scenes_quiz, cover_quiz
+from story.story_reel import scenes_story, cover_story
+from toon_reel import playful_music
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
@@ -85,7 +87,7 @@ INCOME_REEL = """
 def page(ep, inner, dur):
     theme = THEMES.get(ep.get("theme", ""), "")
     extra = {"etf": ETF_REEL, "income": INCOME_REEL, "brief": BRIEF_REEL}.get(ep.get("theme"), "")
-    tag = (f"{ep['series']} · {kday(ep['date_us'])}" if ep.get("kind") == "brief"
+    tag = ("골든튠" if ep.get("kind") == "story" else f"{ep['series']} · {kday(ep['date_us'])}" if ep.get("kind") == "brief"
            else f"{ep['series']} · 특별편" if ep.get("special_id") else f"{ep['series']} #{ep['no']:02d}")
     return f"""<html><head><meta charset="utf-8"><style>{CSS}{theme}{REEL_CSS}{extra}</style>{ANIM_JS}</head><body data-dur="{dur}">
 <div class="frame"><div class="top"><span class="tag">{esc(tag)}</span><span class="page"></span></div>{inner}
@@ -192,12 +194,12 @@ def build(path):
     out_dir.mkdir(parents=True, exist_ok=True)
     kind = ep.get("kind")
     income = kind == "income"
-    sc = {"income": scenes_income, "brief": scenes_brief, "special_calendar": scenes_special, "quiz": scenes_quiz}.get(kind, scenes)(ep)
-    cov = {"income": cover_income, "brief": cover_brief, "special_calendar": cover_special, "quiz": cover_quiz}.get(kind, cover)
+    sc = {"income": scenes_income, "brief": scenes_brief, "special_calendar": scenes_special, "quiz": scenes_quiz, "story": scenes_story}.get(kind, scenes)(ep)
+    cov = {"income": cover_income, "brief": cover_brief, "special_calendar": cover_special, "quiz": cover_quiz, "story": cover_story}.get(kind, cover)
     total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
-        (music_tense if kind == "quiz" and ep.get("qtype") != "gift" else music)(td / "bgm.wav", total + 0.2)
+        (playful_music if kind == "story" else music_tense if kind == "quiz" and ep.get("qtype") != "gift" else music)(td / "bgm.wav", total + 0.2)
         enc = subprocess.Popen([FFMPEG, "-y", "-v", "error", "-f", "image2pipe", "-c:v", "mjpeg", "-framerate", str(FPS), "-i", "-",
                                 "-i", str(td / "bgm.wav"), "-map", "0:v", "-map", "1:a",
                                 "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
