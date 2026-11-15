@@ -7,7 +7,7 @@
   {VOO.mdd} {VOO.peak} {VOO.trough} {VOO.dip_ret} {VOO.dip_months} (story/data.json: Yahoo 수정주가, 달러 기준)
 - 생활비 같은 이야기 숫자는 예시라고 화면 끝에 밝힌다.
 """
-import base64, json, pathlib, re
+import base64, json, math, pathlib, re
 from render import esc
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -23,6 +23,11 @@ def won(v):
         e, m = divmod(v, 100_000_000); m //= 10_000
         return f"{e}억 {m:,}만원" if m else f"{e}억원"
     return f"{v // 10_000:,}만원"
+
+
+def r0(x):
+    """반올림(0.5는 0에서 먼 쪽) — 화면 카운트(JS)와 캡션 숫자를 똑같이 맞춘다."""
+    return int(math.copysign(math.floor(abs(x) + 0.5), x))
 
 
 def ym(d):
@@ -52,8 +57,8 @@ def resolve(text, ep=None):
         e = sd["tickers"].get(t)
         if not e:
             raise SystemExit(f"story/data.json 에 {t} 없음 (fetch_story.py 먼저)")
-        return {"mdd": f"{e['mdd']:.0f}", "peak": ym(e["peak"]), "trough": ym(e["trough"]),
-                "dip_ret": f"{e['dip_ret']:+.0f}", "dip_months": str(e["dip_months"])}[k]
+        return {"mdd": f"{r0(e['mdd'])}", "peak": ym(e["peak"]), "trough": ym(e["trough"]),
+                "dip_ret": f"{r0(e['dip_ret']):+d}", "dip_months": str(e["dip_months"])}[k]
     return re.sub(r"\{([A-Z0-9]+)\.([a-z_]+)\}", one, text)
 
 
@@ -123,7 +128,7 @@ def scene(ep, s):
         wa = "right:90px;top:600px;width:200px" if ca == "egg" else "right:90px;top:560px;width:260px"
         wb = "left:90px;bottom:200px;width:330px" if cb != "egg" else "left:110px;bottom:200px;width:230px"
         return (S_CSS + f'''<div class="main"><div class="sb {"dk" if a["who"] == "duck" else ""}" data-pop="0.2" style="width:780px">{R(a["text"])}</div>
-<div class="sb {"dk" if b["who"] == "duck" else ""}" data-pop="1.6" style="margin-top:300px;margin-left:200px">{R(b["text"])}</div></div>
+<div class="sb {"dk" if b["who"] == "duck" else ""}" data-pop="1.6" style="margin-top:auto;margin-bottom:440px;margin-left:200px">{R(b["text"])}</div></div>
 {img(ca, wa, 'data-in="0.1"')}{img(cb, wb, 'data-pop="1.3"')}''', s.get("dur", 4.4))
     if t == "rule":
         return (S_CSS + f'''<div class="main"><div class="h1" data-in="0.1" style="margin-top:0">{R(s["title"])}</div>
@@ -149,7 +154,7 @@ def scene(ep, s):
             st = 0.6 + 0.9 * i
             rows += f'''<div class="ddrow" data-in="{st:.2f}"><div class="nm">{esc(s.get("labels", {}).get(tk, tk))}</div><div class="pd">{ym(d["peak"])} 고점 → {ym(d["trough"])} 바닥</div>
 <div class="ddbar"><i data-grow="{st + 0.3:.2f},0.9,{-d["mdd"] / 100:.3f}"></i></div>
-<div class="ddv"><span data-count="{st + 0.3:.2f},0.9" data-from="0" data-to="{d["mdd"]}" data-fmt="num" data-suf="%">0%</span></div></div>'''
+<div class="ddv"><span data-count="{st + 0.3:.2f},0.9" data-from="0" data-to="{r0(d["mdd"])}" data-fmt="num" data-suf="%">0%</span></div></div>'''
         te = 0.6 + 0.9 * len(s["tickers"]) + 0.6
         return (S_CSS + f'''<div class="main"><div class="pay" data-in="0.1" style="font-size:58px">{R(s["title"])}</div><div style="margin-top:36px">{rows}</div>
 <div class="subt" data-in="{te:.2f}" style="font-weight:700">{R(s.get("sub", ""))}</div>
@@ -160,7 +165,7 @@ def scene(ep, s):
         d = sd["tickers"][s["ticker"]]
         return (S_CSS + f'''<div class="main"><div class="pay" data-in="0.1" style="font-size:56px;line-height:1.4">{R(s["title"])}</div>
 <div class="vrow" data-in="0.9">{ym(d["peak"])}부터 <b>{d["dip_months"]}개월</b> 동안</div>
-<div class="bal green" style="margin-top:30px" data-in="1.3"><span data-count="1.3,1.6" data-from="0" data-to="{d["dip_ret"]}" data-fmt="num" data-pre="{"+" if d["dip_ret"] >= 0 else ""}" data-suf="%">0%</span></div>
+<div class="bal green" style="margin-top:30px" data-in="1.3"><span data-count="1.3,1.6" data-from="0" data-to="{r0(d["dip_ret"])}" data-fmt="num" data-pre="{"+" if d["dip_ret"] >= 0 else ""}" data-suf="%">0%</span></div>
 <div class="subt" data-in="3.0" style="font-weight:700">{R(s.get("sub", ""))}</div>
 <div class="disc" data-in="3.2">{esc(s["ticker"])} · 고점 달부터 매달 첫 거래일에 같은 금액 · 배당 재투자 · 달러 기준 · {d["last"]} 기준</div></div>
 {img(who, POS[t], 'data-pop="3.0"')}''', s.get("dur", 5.6))

@@ -12,11 +12,11 @@
  "scenes": [
   {
    "type": "hook",
-   "kicker": "월급일기 #03 · 뉴스 속보 📉",
+   "kicker": "뉴스 속보 📉",
    "big": "{VOO.mdd}%",
    "color": "red",
    "say": "선배…<br>S&P500도 이렇게<br>떨어진 적 있대요…",
-   "w": 700
+   "w": 600
   },
   {
    "type": "mdd",
