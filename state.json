@@ -433,6 +433,14 @@
    "slug": "etf-12",
    "media_id": "17955730227298886",
    "at": "2026-11-17 11:58:36"
+  },
+  {
+   "no": 12,
+   "slug": "etf-12",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18136764608494587",
+   "at": "2026-11-17 12:13:41"
   }
  ],
  "etf_published": [
@@ -457,7 +465,8 @@
   "133690",
   "SPECIAL-CAL10",
   "SPECIAL-CAL10-2",
-  "SPECIAL-CAL10-3"
+  "SPECIAL-CAL10-3",
+  "SMH"
  ],
  "income_published": [
   "PG",
