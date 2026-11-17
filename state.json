@@ -427,6 +427,12 @@
    "slug": "etf-11",
    "media_id": "18078747476600115",
    "at": "2026-11-16 11:58:16"
+  },
+  {
+   "no": 12,
+   "slug": "etf-12",
+   "media_id": "17955730227298886",
+   "at": "2026-11-17 11:58:36"
   }
  ],
  "etf_published": [
@@ -440,7 +446,8 @@
   "SPECIAL-CAL10-2",
   "SPECIAL-CAL10-3",
   "SOXL",
-  "TQQQ"
+  "TQQQ",
+  "SMH"
  ],
  "etf_reels": [
   "QQQ",
