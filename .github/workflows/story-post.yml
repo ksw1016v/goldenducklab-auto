@@ -53,7 +53,7 @@ jobs:
         if: steps.pick.outputs.path != ''
         run: |
           mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
-          pip install -q playwright==1.48.0 numpy imageio-ffmpeg
+          pip install -q playwright==1.48.0 numpy imageio-ffmpeg pillow
           if [ -x /usr/bin/google-chrome ]; then echo "CHROME_PATH=/usr/bin/google-chrome" >> "$GITHUB_ENV"; else python -m playwright install chromium; fi
 
       - name: 릴스 만들고 저장소에 올리기

@@ -8,7 +8,7 @@
 - 생활비 같은 이야기 숫자는 예시라고 화면 끝에 밝힌다.
 """
 import base64, json, math, pathlib, re
-from render import esc
+from html import escape as esc  # render.py 를 불러오면 playwright 가 필요해서 직접 씀
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 

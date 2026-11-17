@@ -14,7 +14,6 @@ from econ.brief import scenes_brief, cover_brief, BRIEF_REEL, kday
 from etf.special_reel import scenes_special, cover_special
 from quiz.quiz_reel import scenes_quiz, cover_quiz
 from story.story_reel import scenes_story, cover_story
-from toon_reel import playful_music
 
 ROOT = pathlib.Path(__file__).parent
 W, H, FPS = 1080, 1920, 30
@@ -199,7 +198,7 @@ def build(path):
     total = sum(d for _, d in sc)
     with tempfile.TemporaryDirectory() as td:
         td = pathlib.Path(td)
-        (playful_music if kind == "story" else music_tense if kind == "quiz" and ep.get("qtype") != "gift" else music)(td / "bgm.wav", total + 0.2)
+        (__import__("toon_reel").playful_music if kind == "story" else music_tense if kind == "quiz" and ep.get("qtype") != "gift" else music)(td / "bgm.wav", total + 0.2)
         enc = subprocess.Popen([FFMPEG, "-y", "-v", "error", "-f", "image2pipe", "-c:v", "mjpeg", "-framerate", str(FPS), "-i", "-",
                                 "-i", str(td / "bgm.wav"), "-map", "0:v", "-map", "1:a",
                                 "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
