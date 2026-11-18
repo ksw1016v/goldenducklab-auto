@@ -457,6 +457,14 @@
    "repost": false,
    "media_id": "17947288725385708",
    "at": "2026-11-17 22:00:00"
+  },
+  {
+   "no": 13,
+   "slug": "etf-13",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18468753793187222",
+   "at": "2026-11-18 11:59:49"
   }
  ],
  "etf_published": [
@@ -471,7 +479,8 @@
   "SPECIAL-CAL10-3",
   "SOXL",
   "TQQQ",
-  "SMH"
+  "SMH",
+  "122630"
  ],
  "etf_reels": [
   "QQQ",
@@ -482,7 +491,8 @@
   "SPECIAL-CAL10",
   "SPECIAL-CAL10-2",
   "SPECIAL-CAL10-3",
-  "SMH"
+  "SMH",
+  "122630"
  ],
  "income_published": [
   "PG",
