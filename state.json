@@ -505,6 +505,14 @@
    "repost": false,
    "media_id": "17951949459362393",
    "at": "2026-11-19 21:59:42"
+  },
+  {
+   "no": 2,
+   "slug": "story-02",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18105176894185677",
+   "at": "2026-11-20 03:10:57"
   }
  ],
  "etf_published": [
@@ -628,7 +636,8 @@
   "18108084476459015": "quiz/episodes/02.json"
  },
  "story_published": [
-  "01"
+  "01",
+  "02"
  ],
  "grid_published": [
   "2026-11"
