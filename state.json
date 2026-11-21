@@ -529,6 +529,14 @@
    "repost": false,
    "media_id": "17969017263214960",
    "at": "2026-11-20 21:59:27"
+  },
+  {
+   "no": 16,
+   "slug": "etf-16",
+   "type": "reel",
+   "repost": false,
+   "media_id": "17963858796214612",
+   "at": "2026-11-21 12:00:06"
   }
  ],
  "etf_published": [
@@ -546,7 +554,8 @@
   "SMH",
   "122630",
   "069500",
-  "QLD"
+  "QLD",
+  "SOXX"
  ],
  "etf_reels": [
   "QQQ",
@@ -560,7 +569,8 @@
   "SMH",
   "122630",
   "069500",
-  "QLD"
+  "QLD",
+  "SOXX"
  ],
  "income_published": [
   "PG",
