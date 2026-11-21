@@ -1,10 +1,10 @@
 {
- "fetched_at": "2026-11-20 22:17:13 UTC",
+ "fetched_at": "2026-11-21 20:57:11 UTC",
  "account": {
   "id": "17841465585453824",
-  "followers_count": 352,
-  "follows_count": 261,
-  "media_count": 69,
+  "followers_count": 356,
+  "follows_count": 262,
+  "media_count": 70,
   "username": "golden_duck_lab"
  },
  "account_daily": {
@@ -15,12 +15,12 @@
     "period": "day",
     "values": [
      {
-      "value": 875,
-      "end_time": "2026-11-19T08:00:00+0000"
+      "value": 782,
+      "end_time": "2026-11-20T08:00:00+0000"
      },
      {
-      "value": 264,
-      "end_time": "2026-11-20T08:00:00+0000"
+      "value": 1560,
+      "end_time": "2026-11-21T08:00:00+0000"
      }
     ],
     "title": "도달",
@@ -32,12 +32,12 @@
     "period": "day",
     "values": [
      {
-      "value": 7,
-      "end_time": "2026-11-19T08:00:00+0000"
+      "value": 2,
+      "end_time": "2026-11-20T08:00:00+0000"
      },
      {
       "value": 0,
-      "end_time": "2026-11-20T08:00:00+0000"
+      "end_time": "2026-11-21T08:00:00+0000"
      }
     ],
     "title": "팔로워 수",
@@ -54,7 +54,7 @@
     "title": "프로필 방문",
     "description": "사람들이 회원님의 프로필을 방문한 횟수.",
     "total_value": {
-     "value": 6
+     "value": 5
     }
    },
    {
@@ -74,7 +74,7 @@
     "title": "참여한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠에 반응을 보인 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함되며, 반응에는 좋아요, 저장, 댓글, 공유 또는 답장 등의 활동이 포함됩니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 11
+     "value": 14
     }
    },
    {
@@ -84,7 +84,7 @@
     "title": "콘텐츠 상호 작용",
     "description": "홍보 콘텐츠의 모든 반응을 포함하여 게시물 반응, 스토리 반응, 릴스 반응, 동영상 반응 및 라이브 방송 반응의 총 수.",
     "total_value": {
-     "value": 21
+     "value": 30
     }
    },
    {
@@ -94,7 +94,7 @@
     "title": "조회수",
     "description": "콘텐츠가 재생되거나 표시된 횟수. 콘텐츠에는 릴스, 게시물, 스토리가 포함됩니다.",
     "total_value": {
-     "value": 1401
+     "value": 2729
     }
    },
    {
@@ -104,12 +104,28 @@
     "title": "도달한 계정",
     "description": "광고를 포함하여 회원님의 콘텐츠를 1회 이상 조회한 고유 계정 수. 콘텐츠에는 게시물, 스토리, 릴스, 동영상 및 라이브 방송이 포함됩니다. 도달은 같은 계정에서 콘텐츠를 여러 번 본 횟수까지 집계하는 노출과는 다른 개념입니다. 이 지표는 추산치이며 개발 중입니다.",
     "total_value": {
-     "value": 1115
+     "value": 2288
     }
    }
   ]
  },
  "media": [
+  {
+   "id": "17963858796214612",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "timestamp": "2026-11-21T11:59:59+0000",
+   "like_count": 4,
+   "comments_count": 0,
+   "permalink": "https://www.instagram.com/reel/DgALeTXI6zw/",
+   "title": "SOXX, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
+   "reach": 1134,
+   "saved": 2,
+   "shares": 1,
+   "total_interactions": 7,
+   "views": 1260,
+   "ig_reels_avg_watch_time": 4992
+  },
   {
    "id": "17969017263214960",
    "media_type": "VIDEO",
@@ -119,28 +135,28 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df-rQZ0Avn0/",
    "title": "나스닥 하루 새 5.3% 급락 📉",
-   "reach": 0,
+   "reach": 124,
    "saved": 0,
    "shares": 0,
    "total_interactions": 0,
-   "views": 0,
-   "ig_reels_avg_watch_time": 0
+   "views": 141,
+   "ig_reels_avg_watch_time": 5104
   },
   {
    "id": "18079732595754104",
    "media_type": "VIDEO",
    "media_product_type": "REELS",
    "timestamp": "2026-11-20T11:59:52+0000",
-   "like_count": 1,
+   "like_count": 2,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df9mqAbE9Ul/",
    "title": "QLD, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 228,
-   "saved": 2,
-   "shares": 0,
-   "total_interactions": 3,
-   "views": 271,
-   "ig_reels_avg_watch_time": 7635
+   "reach": 1074,
+   "saved": 3,
+   "shares": 5,
+   "total_interactions": 10,
+   "views": 1193,
+   "ig_reels_avg_watch_time": 6626
   },
   {
    "id": "18105176894185677",
@@ -151,12 +167,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df8qHeaCl0P/",
    "title": "월 10만원이 10년에 6,749만원? 🫣",
-   "reach": 114,
+   "reach": 119,
    "saved": 0,
    "shares": 0,
    "total_interactions": 1,
-   "views": 123,
-   "ig_reels_avg_watch_time": 4524
+   "views": 129,
+   "ig_reels_avg_watch_time": 4408
   },
   {
    "id": "17951949459362393",
@@ -167,12 +183,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df8GfnKDFbv/",
    "title": "VIX 공포지수 한 달 새 +64% 📈",
-   "reach": 117,
+   "reach": 118,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 134,
-   "ig_reels_avg_watch_time": 4333
+   "views": 135,
+   "ig_reels_avg_watch_time": 4317
   },
   {
    "id": "17927905323442103",
@@ -199,12 +215,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df7B4vNEk2S/",
    "title": "KODEX 200, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 121,
+   "reach": 124,
    "saved": 1,
    "shares": 0,
    "total_interactions": 1,
-   "views": 128,
-   "ig_reels_avg_watch_time": 3540
+   "views": 131,
+   "ig_reels_avg_watch_time": 3498
   },
   {
    "id": "17968464530981533",
@@ -215,12 +231,12 @@
    "comments_count": 1,
    "permalink": "https://www.instagram.com/reel/Df6uXg5nIA0/",
    "title": "지난 20년, 11월에 미국 주식은 15번 올랐어요 📈",
-   "reach": 494,
+   "reach": 495,
    "saved": 0,
    "shares": 2,
    "total_interactions": 8,
-   "views": 546,
-   "ig_reels_avg_watch_time": 4542
+   "views": 548,
+   "ig_reels_avg_watch_time": 4549
   },
   {
    "id": "18171149362505963",
@@ -231,12 +247,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df5hsxNlN6G/",
    "title": "코스피 4일 연속 하락 📉",
-   "reach": 108,
+   "reach": 110,
    "saved": 0,
    "shares": 0,
    "total_interactions": 1,
-   "views": 118,
-   "ig_reels_avg_watch_time": 2605
+   "views": 120,
+   "ig_reels_avg_watch_time": 2574
   },
   {
    "id": "18468753793187222",
@@ -247,12 +263,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df4dA8Tl-vQ/",
    "title": "KODEX 레버리지, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 151,
+   "reach": 152,
    "saved": 1,
    "shares": 0,
    "total_interactions": 3,
-   "views": 159,
-   "ig_reels_avg_watch_time": 3720
+   "views": 160,
+   "ig_reels_avg_watch_time": 3701
   },
   {
    "id": "17947288725385708",
@@ -279,12 +295,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df17CS2ChMd/",
    "title": "월급 290만원, 3일 뒤 남은 돈 21만원 🫠",
-   "reach": 107,
+   "reach": 109,
    "saved": 0,
    "shares": 0,
    "total_interactions": 2,
-   "views": 119,
-   "ig_reels_avg_watch_time": 3612
+   "views": 121,
+   "ig_reels_avg_watch_time": 3580
   },
   {
    "id": "18136764608494587",
@@ -295,12 +311,12 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/Df15z03AdcX/",
    "title": "SMH, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 192,
+   "reach": 193,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 217,
-   "ig_reels_avg_watch_time": 3087
+   "views": 218,
+   "ig_reels_avg_watch_time": 3075
   },
   {
    "id": "17955730227298886",
@@ -341,11 +357,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfwuni4mKqd/",
    "title": "SOXL, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 16,
+   "reach": 17,
    "saved": 0,
    "shares": 0,
    "total_interactions": 6,
-   "views": 36
+   "views": 38
   },
   {
    "id": "18642474514003015",
@@ -392,7 +408,7 @@
    "saved": 0,
    "shares": 0,
    "total_interactions": 4,
-   "views": 24
+   "views": 25
   },
   {
    "id": "17866478655694218",
@@ -626,8 +642,8 @@
    "saved": 1,
    "shares": 0,
    "total_interactions": 5,
-   "views": 152,
-   "ig_reels_avg_watch_time": 2965
+   "views": 153,
+   "ig_reels_avg_watch_time": 2954
   },
   {
    "id": "17932041003422699",
@@ -653,11 +669,11 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DflJBAulGkC/",
    "title": "연말정산, 누구는 돌려받고 누구는 더 낼까요? 🥚",
-   "reach": 14,
+   "reach": 15,
    "saved": 0,
    "shares": 0,
    "total_interactions": 3,
-   "views": 21
+   "views": 25
   },
   {
    "id": "17977120638173519",
@@ -901,7 +917,7 @@
    "comments_count": 0,
    "permalink": "https://www.instagram.com/reel/DfetPoGnNRt/",
    "title": "VOO, 매달 꾸준히 모았다면 지금 얼마일까요? 🥚",
-   "reach": 1357,
+   "reach": 1358,
    "saved": 7,
    "shares": 0,
    "total_interactions": 13,
@@ -944,30 +960,30 @@
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-08T03:09:33+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/Dfdwd1PFFes/",
    "title": "P&G로 매달 100만원 받으려면 얼마가 필요할까요? 🥚",
-   "reach": 9,
+   "reach": 10,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 26
+   "total_interactions": 4,
+   "views": 31
   },
   {
    "id": "18146573002590339",
    "media_type": "CAROUSEL_ALBUM",
    "media_product_type": "FEED",
    "timestamp": "2026-11-07T23:58:21+0000",
-   "like_count": 3,
+   "like_count": 4,
    "comments_count": 0,
    "permalink": "https://www.instagram.com/p/DfdalPrmFay/",
    "title": "연봉 계약서 금액과 통장에 찍히는 금액, 왜 다를까요? 🥚",
    "reach": 6,
    "saved": 0,
    "shares": 0,
-   "total_interactions": 3,
-   "views": 12
+   "total_interactions": 4,
+   "views": 14
   },
   {
    "id": "18021369899956646",
