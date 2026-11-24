@@ -601,6 +601,14 @@
    "repost": false,
    "media_id": "18009176750792960",
    "at": "2026-11-24 12:00:09"
+  },
+  {
+   "no": 0,
+   "slug": "brief-20261124",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18009257297794273",
+   "at": "2026-11-24 22:00:00"
   }
  ],
  "etf_published": [
@@ -683,7 +691,8 @@
   "brief-20261120",
   "brief-week-20261122",
   "brief-month-20261123",
-  "brief-20261123"
+  "brief-20261123",
+  "brief-20261124"
  ],
  "quiz_dm_log": [
   {
