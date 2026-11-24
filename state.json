@@ -593,6 +593,14 @@
    "repost": false,
    "media_id": "17920387782469869",
    "at": "2026-11-24 03:10:24"
+  },
+  {
+   "no": 19,
+   "slug": "etf-19",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18009176750792960",
+   "at": "2026-11-24 12:00:09"
   }
  ],
  "etf_published": [
@@ -613,7 +621,8 @@
   "QLD",
   "SOXX",
   "091160",
-  "UPRO"
+  "UPRO",
+  "381180"
  ],
  "etf_reels": [
   "QQQ",
@@ -630,7 +639,8 @@
   "QLD",
   "SOXX",
   "091160",
-  "UPRO"
+  "UPRO",
+  "381180"
  ],
  "income_published": [
   "PG",
