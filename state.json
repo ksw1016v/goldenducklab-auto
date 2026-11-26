@@ -633,6 +633,14 @@
    "repost": false,
    "media_id": "18124516309984518",
    "at": "2026-11-26 12:00:50"
+  },
+  {
+   "no": 7,
+   "slug": "inc-07",
+   "type": "reel",
+   "repost": false,
+   "media_id": "18103501022394683",
+   "at": "2026-11-26 12:20:55"
   }
  ],
  "etf_published": [
@@ -684,7 +692,8 @@
   "KO",
   "VYM",
   "JEPQ",
-  "O"
+  "O",
+  "JEPI"
  ],
  "income_reels": [
   "PG",
@@ -692,7 +701,8 @@
   "KO",
   "VYM",
   "JEPQ",
-  "O"
+  "O",
+  "JEPI"
  ],
  "toon_published": [
   "toon-00",
